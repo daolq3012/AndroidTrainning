@@ -4,4 +4,7 @@
     <string name="number2">Number 2</string>
     <string name="calculate_button">Calculate</string>
     <string name="result_textview">Result:</string>
+    <string name="enter_number1">Enter number 1</string>
+    <string name="enter_number2">Enter number 2</string>
+    <string name="default_result">0</string>
 </resources>
