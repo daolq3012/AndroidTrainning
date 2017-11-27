@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">AndroidTrainning</string>
+    <string name="so1">Số 1</string>
+    <string name="so2">Số 2</string>
+    <string name="kq">Kết quả</string>
 </resources>
