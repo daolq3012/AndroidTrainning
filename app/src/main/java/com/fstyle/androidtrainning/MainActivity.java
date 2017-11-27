@@ -22,10 +22,11 @@ public class MainActivity extends AppCompatActivity {
         mBtnMulti.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                float numb1 = Float.parseFloat(mEdtNumber1.getText().toString());
-                float numb2 = Float.parseFloat(mEdtNumber2.getText().toString());
+                float numb1 = Float.parseFloat(String.valueOf(mEdtNumber1.getText()));
+                float numb2 = Float.parseFloat(String.valueOf(mEdtNumber2.getText()));
                 float result = numb1 * numb2;
-                mTxtResult.setText("Result:   " + result);
+                String strResult = String.valueOf(result);
+                mTxtResult.setText(getResources().getText(R.string.result) + strResult);
             }
         });
     }
