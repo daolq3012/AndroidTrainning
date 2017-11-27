@@ -25,8 +25,8 @@ public class MainActivity extends AppCompatActivity {
                 float numb1 = Float.parseFloat(String.valueOf(mEdtNumber1.getText()));
                 float numb2 = Float.parseFloat(String.valueOf(mEdtNumber2.getText()));
                 float result = numb1 * numb2;
-                String strResult = String.valueOf(result);
-                mTxtResult.setText(getResources().getText(R.string.result) + strResult);
+                String strResult = getResources().getText(R.string.result) + String.valueOf(result);
+                mTxtResult.setText(strResult);
             }
         });
     }
