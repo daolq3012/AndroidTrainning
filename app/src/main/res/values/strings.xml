@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">AndroidTrainning</string>
+    <string name="first_number">so 1</string>
+    <string name="second_number">so 2</string>
+    <string name="cong">cong</string>
+    <string name="so1">so 1</string>
+    <string name="so2">so 2</string>
+    <string name="ket_qua">ket qua</string>
 </resources>
