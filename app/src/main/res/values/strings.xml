@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">AndroidTrainning</string>
+    <string name="so_1">Số 1</string>
+    <string name="nhapso_1">Nhập số thứ nhất</string>
+    <string name="so_2">Số 2</string>
+    <string name="nhapso_2">Nhập số thứ 2</string>
+    <string name="phep_tru">Trừ</string>
+    <string name="view_phepTru">Kết quả:</string>
 </resources>
