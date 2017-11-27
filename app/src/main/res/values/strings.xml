@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">AndroidTrainning</string>
+    <string name="number1">Number 1</string>
+    <string name="number2">Number 2</string>
+    <string name="calculate_button">Calculate</string>
+    <string name="result_textview">Result:</string>
 </resources>
