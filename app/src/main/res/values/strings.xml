@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">AndroidTrainning</string>
+    <string name="number1">Number 1</string>
+    <string name="number2">Number 2</string>
+    <string name="multi">Multi</string>
+    <string name="result">Result:   </string>
 </resources>
