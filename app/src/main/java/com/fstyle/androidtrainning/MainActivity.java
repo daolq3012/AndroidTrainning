@@ -11,8 +11,5 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Log.d("Thang", "AAA");
-        Toast.makeText(this,"Test Conflict",Toast.LENGTH_LONG).show();
-        Toast.makeText(this, "Home fragment !", Toast.LENGTH_LONG).show();
     }
 }
