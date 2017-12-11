@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs>
+    <tab
+        inActiveColor="@color/colorWhite"
+        id="@+id/tab_mysongs"
+        activeColor="@color/colorYellow"
+        barColorWhenSelected="@color/colorTransparent"
+        title="MY SONG" />
+    <tab
+        inActiveColor="@color/colorWhite"
+        id="@+id/tab_online"
+        activeColor="@color/colorYellow"
+        barColorWhenSelected="@color/colorTransparent"
+        title="ONLINE" />
+    <tab
+        inActiveColor="@color/colorWhite"
+        id="@+id/tab_another"
+        barColorWhenSelected="@color/colorTransparent"
+        activeColor="@color/colorYellow"
+        title="ANOTHER" />
+</tabs>
