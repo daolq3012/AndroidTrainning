@@ -1,19 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/colorLittleGray"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
-    tools:context="com.fstyle.androidtrainning.MainActivity"
+    tools:context="com.fstyle.androidtrainning.screen.main.MainActivity"
     >
+    <RelativeLayout
+        android:background="@color/colorTransparent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title="@string/pcm_music"
+            app:titleTextColor="@color/colorWhite"
+            tools:targetApi="lollipop"
+            />
+        <com.fstyle.androidtrainning.widget.UnSwipeViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/toolBar"
+            android:layout_marginBottom="@dimen/dp_75"
+            />
 
-   <EditText
-       android:layout_width="wrap_content"
-       android:hint="@string/app_name"
-       android:layout_height="wrap_content"
-       tools:ignore="HardcodedText" />
+        <com.roughike.bottombar.BottomBar
+            android:id="@+id/bottomBar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_75"
+            android:layout_alignParentBottom="true"
+            android:paddingTop="@dimen/dp_10"
+            android:textAlignment="center"
+            app:bb_badgeBackgroundColor="@color/colorTransparent"
+            app:bb_tabXmlResource="@xml/bottombar_tabs"
+            />
 
-</LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>
