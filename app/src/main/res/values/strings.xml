@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">AndroidTrainning</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="my_song">My Songs</string>
+    <string name="another">Another</string>
+    <string name="online">Online</string>
+    <string name="list_song">Songs</string>
+    <string name="favorite_song">Favorite</string>
+    <string name="artist">Artist</string>
+    <string name="album">Album</string>
+    <string name="recent">Recent</string>
+    <string name="top_album">Top Album</string>
+    <string name="top_track">Top Track</string>
+    <string name="search">Search</string>
+    <string name="pcm_music">PCM Music</string>
 </resources>
