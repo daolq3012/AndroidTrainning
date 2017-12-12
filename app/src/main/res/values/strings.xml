@@ -15,4 +15,9 @@
     <string name="top_track">Top Track</string>
     <string name="search">Search</string>
     <string name="pcm_music">PCM Music</string>
+    <string name="artist_name_demo">Join Harry</string>
+    <string name="song_name_demo">Love You Like Love Song</string>
+    <string name="id_demo">1</string>
+    <string name="songs_count">5 bài hát</string>
+    <string name="album_name_demo">Narc Mp3</string>
 </resources>
