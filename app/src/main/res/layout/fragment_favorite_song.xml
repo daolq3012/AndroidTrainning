@@ -2,15 +2,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.fstyle.androidtrainning.screen.main.fragments.mysong.subfragment.favoritesong.FavoriteSongFragment"
-    >
+    android:padding="@dimen/dp_10"
+    tools:context="com.fstyle.androidtrainning.screen.main.fragments.mysong.subfragment.favoritesong.FavoriteSongFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/favorite_song"
-        android:textSize="@dimen/sp_30"
-        android:textColor="@color/colorBlack"
-        android:layout_centerInParent="true"/>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/favorite_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </RelativeLayout>
