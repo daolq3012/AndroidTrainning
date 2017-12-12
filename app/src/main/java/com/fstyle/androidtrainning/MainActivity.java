@@ -19,17 +19,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         MoviesApi api = MainApplication.getMoviesApi();
-        api.getListUpcomingMovies(Constant.API_KEY,Constant.LANGUAGE,1).enqueue(new Callback<GetListUpcomingResponse>() {
-            @Override
-            public void onResponse(Call<GetListUpcomingResponse> call,
-                    Response<GetListUpcomingResponse> response) {
-                List<Movie> movieList = response.body().getResults();
-            }
+        api.getListUpcomingMovies(Constant.API_KEY, Constant.LANGUAGE, 1)
+                .enqueue(new Callback<GetListUpcomingResponse>() {
+                    @Override
+                    public void onResponse(Call<GetListUpcomingResponse> call,
+                            Response<GetListUpcomingResponse> response) {
+                        List<Movie> movieList = response.body().getResults();
+                    }
 
-            @Override
-            public void onFailure(Call<GetListUpcomingResponse> call, Throwable t) {
+                    @Override
+                    public void onFailure(Call<GetListUpcomingResponse> call, Throwable t) {
 
-            }
-        });
+                    }
+                });
     }
 }

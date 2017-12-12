@@ -31,7 +31,7 @@ public interface MoviesApi {
     Call<GetListNowPlayingResponse> getListNowPlayingMovies(@Query("api_key") String apiKey,
             @Query("language") String language, @Query("page") int page);
 
-    @GET("/3/movie/{movie_id}")
-    Call<Movie> getDetailsMovie(@Path("movie_id") long movie_id, @Query("api_key") String apiKey,
+    @GET("/3/movie/{movieid}")
+    Call<Movie> getDetailsMovie(@Path("movieid") long movie_id, @Query("api_key") String apiKey,
             @Query("language") String language);
 }
