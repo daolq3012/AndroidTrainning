@@ -4,14 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/dp_10"
-    tools:context="com.fstyle.androidtrainning.screen.main.fragments.mysong.subfragment.artist.ArtistFragment">
+    tools:context="com.fstyle.androidtrainning.screen.main.mainfragments.mysong.subfragment.artist.ArtistFragment"
+    >
 
     <android.support.v7.widget.CardView
-        android:id="@+id/artist_card_view"
+        android:id="@+id/card_artist"
         android:layout_width="@dimen/dp_350"
-        app:cardBackgroundColor="@color/cardview_dark_background"
         android:layout_height="@dimen/dp_100"
         android:padding="@dimen/dp_10"
-        app:cardCornerRadius="@dimen/dp_8" />
+        app:cardBackgroundColor="@color/cardview_dark_background"
+        app:cardCornerRadius="@dimen/dp_8"
+        />
 
 </RelativeLayout>
