@@ -19,7 +19,7 @@ public class MainApplication extends Application {
         }
     }
 
-    public static MoviesApi getGitHubApi() {
+    public static MoviesApi getMoviesApi() {
         return mMoviesApi;
     }
 }

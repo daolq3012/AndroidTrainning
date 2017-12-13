@@ -49,7 +49,7 @@ public final class ServiceGenerators  {
 
         OkHttpClient okHttpClient = httpClientBuilder.build();
 
-        return new Retrofit.Builder().baseUrl("https://api.github.com")
+        return new Retrofit.Builder().baseUrl("https://api.themoviedb.org/")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(okHttpClient)
                 .build();
