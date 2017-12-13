@@ -3,6 +3,7 @@ package com.fstyle.androidtrainning.data.service.config;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import com.fstyle.androidtrainning.BuildConfig;
+import com.fstyle.androidtrainning.utils.Constant;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.util.concurrent.TimeUnit;
@@ -13,10 +14,11 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * Created by Admin on 12/08/17.
+ * Init Retrofit and created API
  */
 
 public final class ServiceGenerators  {
+
     private static final long TIMEOUT_CONNECTION = TimeUnit.MINUTES.toMillis(1);
 
     private ServiceGenerators() {
@@ -49,7 +51,7 @@ public final class ServiceGenerators  {
 
         OkHttpClient okHttpClient = httpClientBuilder.build();
 
-        return new Retrofit.Builder().baseUrl("https://api.github.com")
+        return new Retrofit.Builder().baseUrl(Constant.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(okHttpClient)
                 .build();
