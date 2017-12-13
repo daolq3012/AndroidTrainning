@@ -9,6 +9,7 @@ import com.fstyle.androidtrainning.data.service.config.ServiceGenerators;
  */
 
 public class MainApplication extends Application {
+
     private static MoviesApi mMoviesApi;
 
     @Override
@@ -19,7 +20,7 @@ public class MainApplication extends Application {
         }
     }
 
-    public static MoviesApi getGitHubApi() {
+    public static MoviesApi getMoviesApi() {
         return mMoviesApi;
     }
 }
