@@ -1,17 +1,17 @@
 package com.fstyle.androidtrainning.screen.splash;
 
 import android.content.Intent;
-import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import com.fstyle.androidtrainning.R;
+import com.fstyle.androidtrainning.screen.BaseActivity;
 import com.fstyle.androidtrainning.screen.main.MainActivity;
 
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends BaseActivity {
 
     private RelativeLayout mRelativeLayout;
     private ImageView mImageView;
@@ -24,19 +24,18 @@ public class SplashActivity extends AppCompatActivity {
         initViews();
         doAnimation();
         doGoToMainActivity();
-
     }
 
     private void initViews() {
-        mImageView = findViewById(R.id.logoImageView);
+        mImageView = findViewById(R.id.image_logo);
         mRelativeLayout = findViewById(R.id.parentLayout);
     }
 
     private void doAnimation() {
-        Animation animfadein = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fadein);
-        Animation animmove = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.move);
-        mRelativeLayout.setAnimation(animfadein);
-        mImageView.setAnimation(animmove);
+        Animation animFadeIn = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fadein);
+        Animation animMove = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.move);
+        mRelativeLayout.setAnimation(animFadeIn);
+        mImageView.setAnimation(animMove);
     }
 
     private void doGoToMainActivity() {

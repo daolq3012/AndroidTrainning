@@ -3,11 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/dp_10"
-    tools:context="com.fstyle.androidtrainning.screen.main.fragments.mysong.subfragment.listsong.ListSongFragment">
+    tools:context="com.fstyle.androidtrainning.screen.main.mainfragments.mysong.subfragment.listsong.ListSongFragment"
+    >
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/list_offline_song_recycler_view"
+        android:id="@+id/recycler_song"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        />
 
 </RelativeLayout>
