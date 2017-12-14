@@ -1,0 +1,37 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_50"
+    tools:context="com.fstyle.androidtrainning.screen.main.fragments.online.subfragment.toptrack.TopTrackFragment"
+    >
+
+    <ImageView
+        android:id="@+id/imageViewTopTrack"
+        android:layout_marginLeft="@dimen/dp_30"
+        android:layout_marginStart="@dimen/dp_30"
+        android:layout_width="@dimen/dp_50"
+        android:layout_height="@dimen/dp_50"
+        android:src="@drawable/img_demo_50x50"
+        tools:ignore="ContentDescription"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginStart="@dimen/dp_10"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/itemTopTrack"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_30"
+            android:text="@string/song_name_demo"
+            android:textSize="@dimen/sp_20"/>
+        <TextView
+            android:id="@+id/nameSingerTopTrack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/name"/>
+    </LinearLayout>
+
+
+</LinearLayout>
