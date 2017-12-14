@@ -35,7 +35,7 @@ public class MySongFragment extends Fragment {
 
     private void initViews(View v) {
         mViewPager = v.findViewById(R.id.viewPager);
-        mTabLayout = v.findViewById(R.id.tablayout);
+        mTabLayout = v.findViewById(R.id.tabLayout);
         mPagerAdapter = new MySongViewPagerAdapter(getChildFragmentManager(), getContext());
         mViewPager.setAdapter(mPagerAdapter);
         mTabLayout.setupWithViewPager(mViewPager);

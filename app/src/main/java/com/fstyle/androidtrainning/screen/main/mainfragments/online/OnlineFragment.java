@@ -35,7 +35,7 @@ public class OnlineFragment extends Fragment {
 
     private void initViews(View v) {
         mViewPager = v.findViewById(R.id.viewPager);
-        mTabLayout = v.findViewById(R.id.tablayout);
+        mTabLayout = v.findViewById(R.id.tabLayout);
         mPagerAdapter = new OnlineViewPagerAdapter(getChildFragmentManager(), getActivity());
         mViewPager.setAdapter(mPagerAdapter);
         mViewPager.setOffscreenPageLimit(PAGE_LIMIT);
