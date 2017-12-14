@@ -1,6 +1,7 @@
 package com.fstyle.androidtrainning;
 
 import android.app.Application;
+
 import com.fstyle.androidtrainning.data.service.config.MoviesApi;
 import com.fstyle.androidtrainning.data.service.config.ServiceGenerators;
 

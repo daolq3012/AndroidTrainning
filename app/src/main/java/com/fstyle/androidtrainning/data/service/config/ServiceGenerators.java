@@ -2,6 +2,7 @@ package com.fstyle.androidtrainning.data.service.config;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+
 import com.fstyle.androidtrainning.BuildConfig;
 import com.fstyle.androidtrainning.utils.Constant;
 import com.google.gson.Gson;
