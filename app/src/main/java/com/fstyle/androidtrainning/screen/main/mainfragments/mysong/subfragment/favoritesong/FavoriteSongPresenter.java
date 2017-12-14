@@ -9,7 +9,17 @@ public class FavoriteSongPresenter implements FavoriteSongContract.Presenter {
     private FavoriteSongContract.Viewer mViewer;
 
     @Override
-    public void setViewer(FavoriteSongContract.Viewer viewer) {
-        mViewer = viewer;
+    public void setView(FavoriteSongContract.Viewer view) {
+        mViewer = view;
+    }
+
+    @Override
+    public void onStart() {
+
+    }
+
+    @Override
+    public void onStop() {
+
     }
 }

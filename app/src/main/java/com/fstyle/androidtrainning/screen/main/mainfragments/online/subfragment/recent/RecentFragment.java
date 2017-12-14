@@ -8,13 +8,14 @@ import android.view.ViewGroup;
 import com.fstyle.androidtrainning.R;
 import com.fstyle.androidtrainning.application.MainApplication;
 import com.fstyle.androidtrainning.data.remote.service.config.LastFmApi;
-import com.fstyle.androidtrainning.model.RecentTracks;
-import com.fstyle.androidtrainning.screen.BasePresenter;
+import com.fstyle.androidtrainning.model.RecentTrack;
+import com.fstyle.androidtrainning.screen.BaseFragment;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RecentFragment extends Fragment implements RecentContract.Viewer {
+public class RecentFragment extends BaseFragment implements RecentContract.Viewer {
 
     private RecentPresenter mPresenter;
     private static final String TAG = "RecentFragment";
@@ -36,9 +37,9 @@ public class RecentFragment extends Fragment implements RecentContract.Viewer {
 
     private void initViews(View v) {
         mPresenter = new RecentPresenter();
-        mPresenter.setViewer(this);
         LastFmApi mApi = MainApplication.getLastFmApi();
         mPresenter.setApi(mApi);
+        mPresenter.setView(this);
     }
 
     @Override
@@ -47,8 +48,11 @@ public class RecentFragment extends Fragment implements RecentContract.Viewer {
     }
 
     @Override
-    public void onGetRecentTracksSuccess(RecentTracks tracks) {
-        //TODO do something with data albums
+    public void onListRecentTrackSuccess(List<RecentTrack> tracks) {
+        if (tracks.isEmpty()) {
+            return;
+        }
+        //TODO do something with data
     }
 
     @Override
@@ -61,10 +65,5 @@ public class RecentFragment extends Fragment implements RecentContract.Viewer {
     public void onStop() {
         mPresenter.onStop();
         super.onStop();
-    }
-
-    @Override
-    public void setPresenter(BasePresenter Presenter) {
-
     }
 }

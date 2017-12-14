@@ -9,7 +9,17 @@ public class ArtistPresenter implements ArtistContract.Presenter {
     private ArtistContract.Viewer mViewer;
 
     @Override
-    public void setViewer(ArtistContract.Viewer viewer) {
-        mViewer = viewer;
+    public void setView(ArtistContract.Viewer view) {
+        mViewer = view;
+    }
+
+    @Override
+    public void onStart() {
+
+    }
+
+    @Override
+    public void onStop() {
+
     }
 }

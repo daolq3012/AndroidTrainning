@@ -8,9 +8,9 @@ import android.view.ViewGroup;
 import com.fstyle.androidtrainning.R;
 import com.fstyle.androidtrainning.application.MainApplication;
 import com.fstyle.androidtrainning.data.remote.service.config.LastFmApi;
-import com.fstyle.androidtrainning.model.TopAlbums;
+import com.fstyle.androidtrainning.model.Album;
 import com.fstyle.androidtrainning.screen.BaseFragment;
-import com.fstyle.androidtrainning.screen.BasePresenter;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -38,9 +38,9 @@ public class TopAlbumFragment extends BaseFragment implements TopAlbumContract.V
 
     private void initViews(View v) {
         mPresenter = new TopAlbumPresenter();
-        mPresenter.setViewer(this);
         LastFmApi mApi = MainApplication.getLastFmApi();
         mPresenter.setApi(mApi);
+        mPresenter.setView(this);
     }
 
     @Override
@@ -49,13 +49,11 @@ public class TopAlbumFragment extends BaseFragment implements TopAlbumContract.V
     }
 
     @Override
-    public void onGetTopAlbumsSuccess(TopAlbums albums) {
-        //TODO do something with data albums
-    }
-
-    @Override
-    public void setPresenter(BasePresenter Presenter) {
-
+    public void onListAlbumSuccess(List<Album> albums) {
+        if (albums.isEmpty()) {
+            return;
+        }
+        //TODO do something with data
     }
 
     @Override

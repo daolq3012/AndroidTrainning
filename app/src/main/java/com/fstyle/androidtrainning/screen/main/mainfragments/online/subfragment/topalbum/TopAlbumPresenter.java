@@ -20,11 +20,6 @@ public class TopAlbumPresenter implements TopAlbumContract.Presenter {
     private static final String TAG = "TopAlbumPresenter";
 
     @Override
-    public void setViewer(TopAlbumContract.Viewer viewer) {
-        mViewer = viewer;
-    }
-
-    @Override
     public void setApi(LastFmApi api) {
         mApi = api;
     }
@@ -36,8 +31,9 @@ public class TopAlbumPresenter implements TopAlbumContract.Presenter {
             @Override
             public void onResponse(@NonNull Call<TopAlbumResponse> call,
                     @NonNull Response<TopAlbumResponse> response) {
-                if (response.body().getTopAlbums() != null) {
-                    mViewer.onGetTopAlbumsSuccess(response.body().getTopAlbums());
+                if (response.body().getTopAlbums() != null
+                        && response.body().getTopAlbums().getAlbum() != null) {
+                    mViewer.onListAlbumSuccess(response.body().getTopAlbums().getAlbum());
                 }
             }
 
@@ -46,6 +42,11 @@ public class TopAlbumPresenter implements TopAlbumContract.Presenter {
                 Log.e(TAG, "onFailure: ", t);
             }
         });
+    }
+
+    @Override
+    public void setView(TopAlbumContract.Viewer view) {
+        mViewer = view;
     }
 
     @Override

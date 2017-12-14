@@ -9,7 +9,17 @@ public class AlbumPresenter implements AlbumContract.Presenter {
     private AlbumContract.Viewer mViewer;
 
     @Override
-    public void setViewer(AlbumContract.Viewer viewer) {
-        mViewer = viewer;
+    public void setView(AlbumContract.Viewer view) {
+        mViewer = view;
+    }
+
+    @Override
+    public void onStart() {
+
+    }
+
+    @Override
+    public void onStop() {
+
     }
 }

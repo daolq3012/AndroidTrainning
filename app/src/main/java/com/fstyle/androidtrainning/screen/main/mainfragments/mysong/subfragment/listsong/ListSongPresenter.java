@@ -9,7 +9,17 @@ public class ListSongPresenter implements ListSongContract.Presenter {
     private ListSongContract.Viewer mViewer;
 
     @Override
-    public void setViewer(ListSongContract.Viewer viewer) {
-        mViewer = viewer;
+    public void setView(ListSongContract.Viewer view) {
+        mViewer = view;
+    }
+
+    @Override
+    public void onStart() {
+
+    }
+
+    @Override
+    public void onStop() {
+
     }
 }

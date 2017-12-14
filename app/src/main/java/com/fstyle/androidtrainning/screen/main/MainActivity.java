@@ -43,8 +43,7 @@ public class MainActivity extends BaseActivity implements MainContract.Viewer, O
         mPresenter = new MainPresenter();
         mMainPagerAdapter = new MainViewPagerAdapter(getSupportFragmentManager());
         mPlayingPagerAdapter = new PlayingViewPagerAdapter(getSupportFragmentManager());
-
-        mPresenter.setViewer(this);
+        mPresenter.setView(this);
         mMainViewPager.setAdapter(mMainPagerAdapter);
         mPlayingViewPager.setAdapter(mPlayingPagerAdapter);
         mIndicator.setViewPager(mPlayingViewPager);
@@ -72,6 +71,18 @@ public class MainActivity extends BaseActivity implements MainContract.Viewer, O
         MenuItem item = menu.findItem(R.id.search_view);
         mSearchView = (SearchView) item.getActionView();
         return true;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mPresenter.onStart();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mPresenter.onStop();
     }
 
     @IntDef({ Tab.MY_SONG, Tab.ONLINE, Tab.ANOTHER })

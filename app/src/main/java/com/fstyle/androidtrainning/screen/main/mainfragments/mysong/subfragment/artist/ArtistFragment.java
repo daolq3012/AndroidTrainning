@@ -7,11 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.fstyle.androidtrainning.R;
+import com.fstyle.androidtrainning.screen.BaseFragment;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ArtistFragment extends Fragment implements ArtistContract.Viewer {
+public class ArtistFragment extends BaseFragment implements ArtistContract.Viewer {
 
     private ArtistPresenter mPresenter;
 
@@ -31,6 +32,18 @@ public class ArtistFragment extends Fragment implements ArtistContract.Viewer {
 
     private void initViews(View v) {
         mPresenter = new ArtistPresenter();
-        mPresenter.setViewer(this);
+        mPresenter.setView(this);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mPresenter.onStart();
+    }
+
+    @Override
+    public void onStop() {
+        mPresenter.onStop();
+        super.onStop();
     }
 }
