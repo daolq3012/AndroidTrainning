@@ -26,4 +26,5 @@
     <string name="lyrics">Lyrics</string>
     <string name="no_data">No Data</string>
     <string name="no_internet">No Internet</string>
+    <string name="name">name</string>
 </resources>
