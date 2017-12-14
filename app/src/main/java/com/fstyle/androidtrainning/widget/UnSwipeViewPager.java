@@ -1,4 +1,4 @@
-package com.fstyle.androidtrainning;
+package com.fstyle.androidtrainning.widget;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;

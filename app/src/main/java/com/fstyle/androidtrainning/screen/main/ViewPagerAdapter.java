@@ -1,10 +1,8 @@
-package com.fstyle.androidtrainning.screen;
+package com.fstyle.androidtrainning.screen.main;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-
-import com.fstyle.androidtrainning.MainActivity;
 import com.fstyle.androidtrainning.screen.tabfavorite.TabFavoriteFragment;
 import com.fstyle.androidtrainning.screen.tabhome.TabHomeFragment;
 import com.fstyle.androidtrainning.screen.tabprofile.TabProfileFragment;
