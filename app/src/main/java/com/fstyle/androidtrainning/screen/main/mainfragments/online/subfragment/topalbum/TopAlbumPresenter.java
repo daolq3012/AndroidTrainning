@@ -2,9 +2,11 @@ package com.fstyle.androidtrainning.screen.main.mainfragments.online.subfragment
 
 import android.support.annotation.NonNull;
 import android.util.Log;
+
 import com.fstyle.androidtrainning.data.remote.service.config.LastFmApi;
 import com.fstyle.androidtrainning.data.remote.service.response.TopAlbumResponse;
 import com.fstyle.androidtrainning.utils.Constant;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -30,7 +32,7 @@ public class TopAlbumPresenter implements TopAlbumContract.Presenter {
                 Constant.FORMAT_TYPE_API).enqueue(new Callback<TopAlbumResponse>() {
             @Override
             public void onResponse(@NonNull Call<TopAlbumResponse> call,
-                    @NonNull Response<TopAlbumResponse> response) {
+                                   @NonNull Response<TopAlbumResponse> response) {
                 if (response.body().getTopAlbums() != null
                         && response.body().getTopAlbums().getAlbum() != null) {
                     mViewer.onListAlbumSuccess(response.body().getTopAlbums().getAlbum());
