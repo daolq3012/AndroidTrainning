@@ -4,6 +4,7 @@ import com.fstyle.androidtrainning.data.remote.service.config.LastFmApi;
 import com.fstyle.androidtrainning.model.Album;
 import com.fstyle.androidtrainning.screen.BasePresenter;
 import com.fstyle.androidtrainning.screen.BaseView;
+
 import java.util.List;
 
 /**
