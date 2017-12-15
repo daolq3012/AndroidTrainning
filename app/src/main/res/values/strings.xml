@@ -1,3 +1,32 @@
 <resources>
     <string name="app_name">AndroidTrainning</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="my_song">My Songs</string>
+    <string name="another">Another</string>
+    <string name="online">Online</string>
+    <string name="list_song">Songs</string>
+    <string name="favorite_song">Favorite</string>
+    <string name="artist">Artist</string>
+    <string name="album">Album</string>
+    <string name="recent">Recent</string>
+    <string name="top_album">Top Album</string>
+    <string name="top_track">Top Track</string>
+    <string name="search">Search</string>
+    <string name="pcm_music">PCM Music</string>
+    <string name="artist_name_demo">Unknown Artist</string>
+    <string name="song_name_demo">Unknown Song</string>
+    <string name="id_demo">id</string>
+    <string name="songs_count">5 bài hát</string>
+    <string name="album_name_demo">Narc Mp3</string>
+    <string name="name_of_song">Name of song</string>
+    <string name="default_time">0:00</string>
+    <string name="photo">Photo</string>
+    <string name="lyrics">Lyrics</string>
+    <string name="no_data">No Data</string>
+    <string name="no_internet">No Internet</string>
+    <string name="description">Photo</string>
+    <string name="name_singer">Singer</string>
+    <string name="avatar">Avatar</string>
 </resources>
