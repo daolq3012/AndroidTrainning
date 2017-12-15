@@ -3,19 +3,19 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parentLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/wallpaper"
-    android:id="@+id/parentLayout"
     tools:context="com.fstyle.androidtrainning.screen.splash.SplashActivity"
     >
 
     <ImageView
-        android:id="@+id/logoImageView"
-        android:src="@drawable/logo"
+        android:id="@+id/image_logo"
+        android:layout_width="@dimen/dp_400"
+        android:layout_height="@dimen/dp_400"
         android:layout_centerHorizontal="true"
-        android:layout_width="400dp"
-        android:layout_height="400dp"
+        android:src="@drawable/logo"
         />
 
 </RelativeLayout>

@@ -1,25 +1,26 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.fstyle.androidtrainning.screen.main.fragments.online.OnlineFragment"
+    tools:context="com.fstyle.androidtrainning.screen.main.mainfragments.online.OnlineFragment"
     >
 
     <android.support.design.widget.TabLayout
-        android:id="@+id/tablayout"
+        android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabTextColor="@color/colorWhite"
-        app:tabSelectedTextColor="@color/colorYellow"
-        app:tabIndicatorColor="@color/colorYellow"
-        app:tabMode="fixed"/>
+        app:tabIndicatorColor="@color/color_yellow"
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="@color/color_yellow"
+        app:tabTextColor="@color/color_white"
+        />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"
-        android:layout_below="@+id/tablayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/tabLayout"
         />
 
 

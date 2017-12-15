@@ -4,19 +4,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/dp_10"
-    tools:context="com.fstyle.androidtrainning.screen.main.fragments.online.subfragment.recent.RecentFragment">
+    tools:context="com.fstyle.androidtrainning.screen.main.mainfragments.online.subfragment.recent.RecentFragment"
+    >
 
     <ImageView
-        android:id="@+id/img_recent"
+        android:id="@+id/image_recent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:src="@drawable/img_demo_800x300"
-        tools:ignore="ContentDescription" />
+        tools:ignore="ContentDescription"
+        />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recent_recycler_view"
+        android:id="@+id/recycler_recent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/dp_100" />
+        android:layout_marginTop="@dimen/dp_100"
+        />
 
 </RelativeLayout>

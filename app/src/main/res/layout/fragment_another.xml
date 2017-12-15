@@ -2,16 +2,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.fstyle.androidtrainning.screen.main.fragments.another.AnotherFragment"
+    tools:context="com.fstyle.androidtrainning.screen.main.mainfragments.another.AnotherFragment"
     >
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:text="@string/another"
+        android:textColor="@color/color_black"
         android:textSize="@dimen/sp_30"
-        android:textColor="@color/colorBlack"
-        android:layout_centerInParent="true"/>
-
+        />
 
 </RelativeLayout>
