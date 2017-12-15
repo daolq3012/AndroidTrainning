@@ -11,7 +11,7 @@ import java.util.List;
 public class RecentTrack {
     @SerializedName("artist")
     @Expose
-    private Artist artist;
+    private RecentTrackArtist artist;
     @SerializedName("name")
     @Expose
     private String name;
@@ -34,11 +34,11 @@ public class RecentTrack {
     @Expose
     private Date date;
 
-    public Artist getArtist() {
+    public RecentTrackArtist getArtist() {
         return artist;
     }
 
-    public void setArtist(Artist artist) {
+    public void setArtist(RecentTrackArtist artist) {
         this.artist = artist;
     }
 

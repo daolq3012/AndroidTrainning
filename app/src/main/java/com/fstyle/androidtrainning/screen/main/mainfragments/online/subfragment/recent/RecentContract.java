@@ -1,10 +1,9 @@
 package com.fstyle.androidtrainning.screen.main.mainfragments.online.subfragment.recent;
 
 import com.fstyle.androidtrainning.data.remote.service.config.LastFmApi;
-import com.fstyle.androidtrainning.model.RecentTrack;
+import com.fstyle.androidtrainning.model.RecentTracks;
 import com.fstyle.androidtrainning.screen.BasePresenter;
 import com.fstyle.androidtrainning.screen.BaseView;
-import java.util.List;
 
 /**
  * Created by Administrator on 12/10/17.
@@ -16,10 +15,13 @@ public interface RecentContract {
 
         void showToastFail(String message);
 
-        void onListRecentTrackSuccess(List<RecentTrack> tracks);
+        void onGetRecentTracksSuccess(RecentTracks tracks);
+
     }
 
     interface Presenter extends BasePresenter<Viewer> {
+
+        void setViewer(Viewer viewer);
 
         void setApi(LastFmApi api);
 

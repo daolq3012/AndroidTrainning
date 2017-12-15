@@ -15,9 +15,9 @@
     <string name="top_track">Top Track</string>
     <string name="search">Search</string>
     <string name="pcm_music">PCM Music</string>
-    <string name="artist_name_demo">Join Harry</string>
-    <string name="song_name_demo">Love You Like Love Song</string>
-    <string name="id_demo">1</string>
+    <string name="artist_name_demo">Unknown Artist</string>
+    <string name="song_name_demo">Unknown Song</string>
+    <string name="id_demo">id</string>
     <string name="songs_count">5 bài hát</string>
     <string name="album_name_demo">Narc Mp3</string>
     <string name="name_of_song">Name of song</string>
@@ -26,6 +26,7 @@
     <string name="lyrics">Lyrics</string>
     <string name="no_data">No Data</string>
     <string name="no_internet">No Internet</string>
+    <string name="description">Photo</string>
     <string name="name_singer">Singer</string>
     <string name="avatar">Avatar</string>
 </resources>

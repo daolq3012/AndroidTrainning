@@ -2,9 +2,11 @@ package com.fstyle.androidtrainning.screen.main.mainfragments.online.subfragment
 
 import android.support.annotation.NonNull;
 import android.util.Log;
+
 import com.fstyle.androidtrainning.data.remote.service.config.LastFmApi;
 import com.fstyle.androidtrainning.data.remote.service.response.RecentTrackResponse;
 import com.fstyle.androidtrainning.utils.Constant;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -21,6 +23,11 @@ public class RecentPresenter implements RecentContract.Presenter {
     private static final String TAG = "RecentPresenter";
 
     @Override
+    public void setViewer(RecentContract.Viewer viewer) {
+        mViewer = viewer;
+    }
+
+    @Override
     public void setApi(LastFmApi api) {
         mApi = api;
     }
@@ -32,17 +39,15 @@ public class RecentPresenter implements RecentContract.Presenter {
                 .enqueue(new Callback<RecentTrackResponse>() {
                     @Override
                     public void onResponse(@NonNull Call<RecentTrackResponse> call,
-                            @NonNull Response<RecentTrackResponse> response) {
-                        if (response.body().getRecentTracks() != null
-                                && response.body().getRecentTracks().getTrack() != null) {
-                            mViewer.onListRecentTrackSuccess(
-                                    response.body().getRecentTracks().getTrack());
+                                           @NonNull Response<RecentTrackResponse> response) {
+                        if (response.body().getRecentTracks() != null) {
+                            mViewer.onGetRecentTracksSuccess(response.body().getRecentTracks());
                         }
                     }
 
                     @Override
                     public void onFailure(@NonNull Call<RecentTrackResponse> call,
-                            @NonNull Throwable t) {
+                                          @NonNull Throwable t) {
                         Log.e(TAG, "onFailure: ", t);
                     }
                 });
@@ -50,7 +55,7 @@ public class RecentPresenter implements RecentContract.Presenter {
 
     @Override
     public void setView(RecentContract.Viewer view) {
-        mViewer = view;
+
     }
 
     @Override
