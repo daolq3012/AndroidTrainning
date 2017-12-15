@@ -8,7 +8,18 @@ public class MainPresenter implements MainContract.Presenter {
 
     private MainContract.Viewer mViewer;
 
-    public void setViewer(MainContract.Viewer viewer) {
-        mViewer = viewer;
+    @Override
+    public void setView(MainContract.Viewer view) {
+        mViewer = view;
+    }
+
+    @Override
+    public void onStart() {
+
+    }
+
+    @Override
+    public void onStop() {
+
     }
 }

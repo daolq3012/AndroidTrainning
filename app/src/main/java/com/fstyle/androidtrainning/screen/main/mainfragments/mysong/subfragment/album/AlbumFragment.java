@@ -7,11 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.fstyle.androidtrainning.R;
+import com.fstyle.androidtrainning.screen.BaseFragment;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AlbumFragment extends Fragment implements AlbumContract.Viewer {
+public class AlbumFragment extends BaseFragment implements AlbumContract.Viewer {
     private AlbumPresenter mPresenter;
 
     public AlbumFragment() {
@@ -29,6 +30,18 @@ public class AlbumFragment extends Fragment implements AlbumContract.Viewer {
 
     private void initViews(View v) {
         mPresenter = new AlbumPresenter();
-        mPresenter.setViewer(this);
+        mPresenter.setView(this);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mPresenter.onStart();
+    }
+
+    @Override
+    public void onStop() {
+        mPresenter.onStop();
+        super.onStop();
     }
 }

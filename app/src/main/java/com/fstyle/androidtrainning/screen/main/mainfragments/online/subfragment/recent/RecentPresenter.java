@@ -21,11 +21,6 @@ public class RecentPresenter implements RecentContract.Presenter {
     private static final String TAG = "RecentPresenter";
 
     @Override
-    public void setViewer(RecentContract.Viewer viewer) {
-        mViewer = viewer;
-    }
-
-    @Override
     public void setApi(LastFmApi api) {
         mApi = api;
     }
@@ -38,8 +33,10 @@ public class RecentPresenter implements RecentContract.Presenter {
                     @Override
                     public void onResponse(@NonNull Call<RecentTrackResponse> call,
                             @NonNull Response<RecentTrackResponse> response) {
-                        if (response.body().getRecentTracks() != null) {
-                            mViewer.onGetRecentTracksSuccess(response.body().getRecentTracks());
+                        if (response.body().getRecentTracks() != null
+                                && response.body().getRecentTracks().getTrack() != null) {
+                            mViewer.onListRecentTrackSuccess(
+                                    response.body().getRecentTracks().getTrack());
                         }
                     }
 
@@ -49,6 +46,11 @@ public class RecentPresenter implements RecentContract.Presenter {
                         Log.e(TAG, "onFailure: ", t);
                     }
                 });
+    }
+
+    @Override
+    public void setView(RecentContract.Viewer view) {
+        mViewer = view;
     }
 
     @Override

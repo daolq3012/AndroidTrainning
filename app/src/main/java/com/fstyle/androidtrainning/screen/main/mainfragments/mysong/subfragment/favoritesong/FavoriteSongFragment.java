@@ -7,11 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.fstyle.androidtrainning.R;
+import com.fstyle.androidtrainning.screen.BaseFragment;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FavoriteSongFragment extends Fragment implements FavoriteSongContract.Viewer {
+public class FavoriteSongFragment extends BaseFragment implements FavoriteSongContract.Viewer {
 
     private FavoriteSongPresenter mPresenter;
 
@@ -31,6 +32,6 @@ public class FavoriteSongFragment extends Fragment implements FavoriteSongContra
 
     private void initViews(View v) {
         mPresenter = new FavoriteSongPresenter();
-        mPresenter.setViewer(this);
+        mPresenter.setView(this);
     }
 }

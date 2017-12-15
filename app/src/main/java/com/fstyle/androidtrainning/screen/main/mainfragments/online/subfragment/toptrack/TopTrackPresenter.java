@@ -20,16 +20,10 @@ public class TopTrackPresenter implements TopTrackContract.Presenter {
     private static final String TAG = "TopTrackPresenter";
 
     @Override
-    public void setViewer(TopTrackContract.Viewer viewer) {
-        mViewer = viewer;
-    }
-
-    @Override
     public void setApi(LastFmApi api) {
         mApi = api;
     }
 
-    //TODO chua hieu user lay tu dau @@
     @Override
     public void getTopTrack() {
         mApi.getTopTrack(Constant.METHOD_GET_TOP_TRACK, Constant.USER_LAST_FM, Constant.API_KEY,
@@ -37,8 +31,9 @@ public class TopTrackPresenter implements TopTrackContract.Presenter {
             @Override
             public void onResponse(@NonNull Call<TopTrackResponse> call,
                     @NonNull Response<TopTrackResponse> response) {
-                if (response.body().getTopTracks() != null) {
-                    mViewer.onGetTopTracksSuccess(response.body().getTopTracks());
+                if (response.body().getTopTracks() != null
+                        && response.body().getTopTracks().getTrack() != null) {
+                    mViewer.onListTrackSuccess(response.body().getTopTracks().getTrack());
                 }
             }
 
@@ -47,6 +42,11 @@ public class TopTrackPresenter implements TopTrackContract.Presenter {
                 Log.e(TAG, "onFailure: ", t);
             }
         });
+    }
+
+    @Override
+    public void setView(TopTrackContract.Viewer view) {
+        mViewer = view;
     }
 
     @Override
