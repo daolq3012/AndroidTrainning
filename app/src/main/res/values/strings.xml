@@ -10,6 +10,8 @@
     <string name="upcoming">Upcoming</string>
     <string name="banner">This is movie banner</string>
     <string name="popular">Popular</string>
+    <string name="name_line">This is name movie</string>
+    <string name="poster_item_description">Poster item description</string>
     <string name="namemovie">Movie Name</string>
     <string name="movielong">44min</string>
     <string name="timeMovie">8 December 2017</string>

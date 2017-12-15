@@ -16,6 +16,6 @@ interface MainContract {
     /**
      * Presenter.
      */
-    interface Presenter extends BasePresenter {
+    interface Presenter extends BasePresenter<MainView> {
     }
 }

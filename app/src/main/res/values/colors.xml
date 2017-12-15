@@ -7,4 +7,5 @@
     <color name="colorOrange">#FF6624</color>
     <color name="colorView">#101418</color>
     <color name="colorWhite">#FFFFFF</color>
+    <color name="colorTitle">#EBEBEB</color>
 </resources>

@@ -7,14 +7,14 @@ package com.fstyle.androidtrainning.screen.detailsmovie;
 final class DetailsMoviePresenter implements DetailsMovieContract.Presenter {
     private static final String TAG = DetailsMoviePresenter.class.getName();
 
-    private DetailsMovieContract.ViewDetail mViewDetail;
+    private DetailsMovieContract.DetailsMovieView mDetailsMovieView;
 
     DetailsMoviePresenter() {
     }
 
     @Override
-    public void setView(DetailsMovieContract.ViewDetail viewDetail) {
-        mViewDetail = viewDetail;
+    public void setView(DetailsMovieContract.DetailsMovieView detailsMovieView) {
+        mDetailsMovieView = detailsMovieView;
     }
 
     @Override

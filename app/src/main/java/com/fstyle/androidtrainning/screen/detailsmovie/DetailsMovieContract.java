@@ -10,13 +10,13 @@ interface DetailsMovieContract {
     /**
      * View.
      */
-    interface ViewDetail extends BaseView {
+    interface DetailsMovieView extends BaseView {
     }
 
     /**
      * Presenter.
      */
-    interface Presenter extends BasePresenter {
-        void setView(DetailsMovieContract.ViewDetail viewDetail);
+    interface Presenter extends BasePresenter<DetailsMovieView> {
+        void setView(DetailsMovieContract.DetailsMovieView detailsMovieView);
     }
 }

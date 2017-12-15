@@ -16,6 +16,6 @@ interface TabFavoriteContract {
     /**
      * Presenter.
      */
-    interface Presenter extends BasePresenter {
+    interface Presenter extends BasePresenter<FavoriteView> {
     }
 }

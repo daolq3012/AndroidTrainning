@@ -24,7 +24,8 @@ public class TabProfileFragment extends BaseFragment implements TabProfileContra
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mPresenter = new TabProfilePresenter(this);
+        mPresenter = new TabProfilePresenter();
+        mPresenter.setView(this);
     }
 
     @Nullable

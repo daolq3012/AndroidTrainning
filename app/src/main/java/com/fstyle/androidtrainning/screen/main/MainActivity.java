@@ -24,10 +24,12 @@ public class MainActivity extends BaseActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mPresenter = new MainPresenter(this);
+        mPresenter = new MainPresenter();
+        mPresenter.setView(this);
 
         initViews();
         mViewPager.setAdapter(mAdapter);
+        mViewPager.setOffscreenPageLimit(Page.LIMIT);
     }
 
     @Override
@@ -78,5 +80,13 @@ public class MainActivity extends BaseActivity
         int SEARCH = 1;
         int FAVORITE = 2;
         int PROFILE = 3;
+    }
+
+    /**
+     * IntDef Page Limit.
+     */
+    @IntDef({Page.LIMIT})
+    public @interface Page {
+        int LIMIT = 3;
     }
 }

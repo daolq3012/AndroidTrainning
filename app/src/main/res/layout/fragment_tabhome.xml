@@ -15,8 +15,8 @@
             android:id="@+id/image_banner"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_145"
-            android:scaleType="fitXY"
             android:contentDescription="@string/banner"
+            android:scaleType="fitXY"
             android:src="@drawable/gift_banner"
             />
         <View
@@ -42,17 +42,17 @@
                 android:id="@+id/text_now_playing"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="@string/now_playing"
+                android:textColor="@color/colorWhite"
                 android:textSize="@dimen/sp_20"
                 android:textStyle="bold"
-                android:textColor="@color/colorWhite"
-                android:layout_weight="1"
                 />
             <Button
                 android:id="@+id/button_more_now_playing"
                 android:layout_width="@dimen/dp_60"
                 android:layout_height="@dimen/dp_30"
-                android:background="@color/colorOrange"
+                android:background="@drawable/more_button"
                 android:text="@string/more"
                 android:textColor="@color/colorWhite"
                 android:textStyle="bold"
@@ -61,7 +61,7 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_now_playing"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/dp_249"
             android:layout_below="@+id/linear_now_playing"
             />
 
@@ -70,27 +70,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/recycler_now_playing"
+            android:layout_marginTop="@dimen/dp_10"
             android:gravity="center_vertical"
+            android:orientation="horizontal"
             android:paddingLeft="@dimen/dp_15"
             android:paddingRight="@dimen/dp_15"
-            android:orientation="horizontal"
-            android:layout_marginTop="@dimen/dp_10"
             >
             <TextView
                 android:id="@+id/text_up_coming"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="@string/upcoming"
+                android:textColor="@color/colorWhite"
                 android:textSize="@dimen/sp_20"
                 android:textStyle="bold"
-                android:textColor="@color/colorWhite"
-                android:layout_weight="1"
                 />
             <Button
                 android:id="@+id/button_more_up_coming"
                 android:layout_width="@dimen/dp_60"
                 android:layout_height="@dimen/dp_30"
-                android:background="@color/colorOrange"
+                android:background="@drawable/more_button"
                 android:text="@string/more"
                 android:textColor="@color/colorWhite"
                 android:textStyle="bold"
@@ -99,7 +99,7 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_up_coming"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/dp_249"
             android:layout_below="@+id/linear_up_coming"
             />
 
@@ -108,27 +108,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/recycler_up_coming"
+            android:layout_marginTop="@dimen/dp_10"
             android:gravity="center_vertical"
+            android:orientation="horizontal"
             android:paddingLeft="@dimen/dp_15"
             android:paddingRight="@dimen/dp_15"
-            android:orientation="horizontal"
-            android:layout_marginTop="@dimen/dp_10"
             >
             <TextView
                 android:id="@+id/text_top_rated"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="@string/top_rated"
+                android:textColor="@color/colorWhite"
                 android:textSize="@dimen/sp_20"
                 android:textStyle="bold"
-                android:textColor="@color/colorWhite"
-                android:layout_weight="1"
                 />
             <Button
                 android:id="@+id/button_more_top_rated"
                 android:layout_width="@dimen/dp_60"
                 android:layout_height="@dimen/dp_30"
-                android:background="@color/colorOrange"
+                android:background="@drawable/more_button"
                 android:text="@string/more"
                 android:textColor="@color/colorWhite"
                 android:textStyle="bold"
@@ -137,7 +137,7 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_top_rated"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/dp_249"
             android:layout_below="@+id/linear_top_rated"
             />
 
@@ -146,27 +146,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/recycler_top_rated"
+            android:layout_marginTop="@dimen/dp_10"
             android:gravity="center_vertical"
+            android:orientation="horizontal"
             android:paddingLeft="@dimen/dp_15"
             android:paddingRight="@dimen/dp_15"
-            android:orientation="horizontal"
-            android:layout_marginTop="@dimen/dp_10"
             >
             <TextView
                 android:id="@+id/text_popular"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="@string/popular"
+                android:textColor="@color/colorWhite"
                 android:textSize="@dimen/sp_20"
                 android:textStyle="bold"
-                android:textColor="@color/colorWhite"
-                android:layout_weight="1"
                 />
             <Button
                 android:id="@+id/button_more_popular"
                 android:layout_width="@dimen/dp_60"
                 android:layout_height="@dimen/dp_30"
-                android:background="@color/colorOrange"
+                android:background="@drawable/more_button"
                 android:text="@string/more"
                 android:textColor="@color/colorWhite"
                 android:textStyle="bold"
@@ -175,7 +175,7 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_popuplar"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/dp_249"
             android:layout_below="@+id/linear_popular"
             />
     </RelativeLayout>
