@@ -5,15 +5,6 @@
     android:padding="@dimen/dp_10"
     >
 
-    <TextView
-        android:id="@+id/text_album_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/sp_15"
-        android:text="@string/id_demo"
-        android:textSize="@dimen/sp_30"
-        />
-
     <ImageView
         android:id="@+id/image_album"
         android:layout_width="wrap_content"

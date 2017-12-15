@@ -5,34 +5,28 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 /**
- * Created by Administrator on 12/12/17.
+ * Created by Administrator on 12/15/17.
  */
 
-public class Artist {
-
+public class SearchAlbum {
     @SerializedName("name")
     @Expose
     private String name;
-    @SerializedName("mbid")
+    @SerializedName("artist")
     @Expose
-    private String mbid;
+    private String artist;
     @SerializedName("url")
     @Expose
     private String url;
     @SerializedName("image")
     @Expose
     private List<Image> image = null;
-    @SerializedName("listeners")
+    @SerializedName("streamable")
     @Expose
-    private String listeners;
-
-    public String getListeners() {
-        return listeners;
-    }
-
-    public void setListeners(String listeners) {
-        this.listeners = listeners;
-    }
+    private String streamable;
+    @SerializedName("mbid")
+    @Expose
+    private String mbid;
 
     public String getName() {
         return name;
@@ -42,12 +36,12 @@ public class Artist {
         this.name = name;
     }
 
-    public String getMbid() {
-        return mbid;
+    public String getArtist() {
+        return artist;
     }
 
-    public void setMbid(String mbid) {
-        this.mbid = mbid;
+    public void setArtist(String artist) {
+        this.artist = artist;
     }
 
     public String getUrl() {
@@ -64,5 +58,21 @@ public class Artist {
 
     public void setImage(List<Image> image) {
         this.image = image;
+    }
+
+    public String getStreamable() {
+        return streamable;
+    }
+
+    public void setStreamable(String streamable) {
+        this.streamable = streamable;
+    }
+
+    public String getMbid() {
+        return mbid;
+    }
+
+    public void setMbid(String mbid) {
+        this.mbid = mbid;
     }
 }

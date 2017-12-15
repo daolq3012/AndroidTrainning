@@ -18,5 +18,6 @@
     <dimen name="dp_25">25dp</dimen>
     <dimen name="dp_400">400dp</dimen>
     <dimen name="weight_1">1</dimen>
+    <dimen name="sp_50">50sp</dimen>
     <dimen name="dp_20">20dp</dimen>
 </resources>

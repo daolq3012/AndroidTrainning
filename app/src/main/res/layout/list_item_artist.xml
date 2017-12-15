@@ -1,25 +1,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="@dimen/dp_10"
     >
 
-    <TextView
-        android:id="@+id/text_track_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/sp_15"
-        android:text="@string/id_demo"
-        android:textSize="@dimen/sp_30"
-        />
-
     <ImageView
         android:id="@+id/image_artist"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/dp_10"
+        android:layout_width="@dimen/dp_75"
+        android:layout_height="@dimen/dp_75"
         android:src="@drawable/mp3_icon_100x100"
         tools:ignore="ContentDescription"
         />
