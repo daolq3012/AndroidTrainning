@@ -4,4 +4,10 @@
     <string name="search">Search</string>
     <string name="favorite">Favorite</string>
     <string name="profile">Profile</string>
+    <string name="now_playing">Now Playing</string>
+    <string name="more">More</string>
+    <string name="top_rated">Top Rated</string>
+    <string name="upcoming">Upcoming</string>
+    <string name="banner">This is movie banner</string>
+    <string name="popular">Popular</string>
 </resources>

@@ -1,32 +1,52 @@
-package com.fstyle.androidtrainning;
+package com.fstyle.androidtrainning.screen.main;
 
-import android.support.annotation.IntDef;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import com.fstyle.androidtrainning.screen.ViewPagerAdapter;
+import android.support.annotation.IntDef;
+import com.fstyle.androidtrainning.R;
+import com.fstyle.androidtrainning.screen.BaseActivity;
+import com.fstyle.androidtrainning.widget.UnSwipeViewPager;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
 
+/**
+ * Main Screen.
+ */
+public class MainActivity extends BaseActivity
+        implements MainContract.MainView, OnTabSelectListener {
 
-public class MainActivity extends AppCompatActivity implements OnTabSelectListener {
-    private ViewPager mViewPager;
+    MainContract.Presenter mPresenter;
+    private UnSwipeViewPager mViewPager;
     private BottomBar mBottombar;
+    private ViewPagerAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mPresenter = new MainPresenter(this);
+
         initViews();
-        final ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        mViewPager.setAdapter(viewPagerAdapter);
+        mViewPager.setAdapter(mAdapter);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mPresenter.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        mPresenter.onStop();
+        super.onStop();
     }
 
     private void initViews() {
-        mViewPager = findViewById(R.id.unSwipViewPager);
-        mBottombar = findViewById(R.id.bottomBar);
+        mViewPager = findViewById(R.id.view_pager_main);
+        mBottombar = findViewById(R.id.bottom_bar_main);
         mBottombar.setOnTabSelectListener(this);
+        mAdapter = new ViewPagerAdapter(getSupportFragmentManager());
     }
 
     @Override
@@ -52,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements OnTabSelectListen
     /**
      * IntDef Tab.
      */
-    @IntDef({Tab.HOME, Tab.SEARCH, Tab.FAVORITE, Tab.PROFILE})
+    @IntDef({ Tab.HOME, Tab.SEARCH, Tab.FAVORITE, Tab.PROFILE })
     public @interface Tab {
         int HOME = 0;
         int SEARCH = 1;

@@ -6,19 +6,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.fstyle.androidtrainning.MainActivity"
+    style="@style/BackgroundTheme"
+    tools:context="com.fstyle.androidtrainning.screen.main.MainActivity"
     >
 
-    <com.fstyle.androidtrainning.UnSwipeViewPager
-        android:id="@+id/unSwipViewPager"
+    <com.fstyle.androidtrainning.widget.UnSwipeViewPager
+        android:id="@+id/view_pager_main"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"/>
 
     <com.roughike.bottombar.BottomBar
-        android:id="@+id/bottomBar"
+        android:id="@+id/bottom_bar_main"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_55"
+        android:background="@color/colorBackground"
         app:bb_tabXmlResource="@xml/bottom_bar"/>
 
 </LinearLayout>
