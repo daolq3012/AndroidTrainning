@@ -2,15 +2,17 @@ package com.fstyle.androidtrainning.screen.main.mainfragments.online.subfragment
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.fstyle.androidtrainning.R;
 import com.fstyle.androidtrainning.application.MainApplication;
 import com.fstyle.androidtrainning.data.remote.service.config.LastFmApi;
-import com.fstyle.androidtrainning.model.RecentTrack;
+import com.fstyle.androidtrainning.model.RecentTracks;
 import com.fstyle.androidtrainning.screen.BaseFragment;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -18,7 +20,8 @@ import java.util.List;
 public class RecentFragment extends BaseFragment implements RecentContract.Viewer {
 
     private RecentPresenter mPresenter;
-    private static final String TAG = "RecentFragment";
+    private RecyclerView mRecyclerView;
+    private RecentRecyclerAdapter mRecyclerAdapter;
 
     public RecentFragment() {
         // Required empty public constructor
@@ -26,7 +29,7 @@ public class RecentFragment extends BaseFragment implements RecentContract.Viewe
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_recent, container, false);
         initViews(v);
@@ -37,9 +40,14 @@ public class RecentFragment extends BaseFragment implements RecentContract.Viewe
 
     private void initViews(View v) {
         mPresenter = new RecentPresenter();
+        mRecyclerView = v.findViewById(R.id.recycler_recent);
+        mPresenter.setViewer(this);
         LastFmApi mApi = MainApplication.getLastFmApi();
         mPresenter.setApi(mApi);
-        mPresenter.setView(this);
+        mRecyclerAdapter = new RecentRecyclerAdapter(getActivity());
+        LinearLayoutManager manager = new LinearLayoutManager(getActivity());
+        mRecyclerView.setLayoutManager(manager);
+        mRecyclerView.setAdapter(mRecyclerAdapter);
     }
 
     @Override
@@ -48,11 +56,8 @@ public class RecentFragment extends BaseFragment implements RecentContract.Viewe
     }
 
     @Override
-    public void onListRecentTrackSuccess(List<RecentTrack> tracks) {
-        if (tracks.isEmpty()) {
-            return;
-        }
-        //TODO do something with data
+    public void onGetRecentTracksSuccess(RecentTracks tracks) {
+        mRecyclerAdapter.updateData(tracks);
     }
 
     @Override
