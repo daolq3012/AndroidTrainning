@@ -90,7 +90,7 @@ public class MainActivity extends BaseActivity
         mPlayingPagerAdapter.registerDataSetObserver(mIndicator.getDataSetObserver());
 
         LinearLayoutManager songManager = new LinearLayoutManager(getApplicationContext());
-        LinearLayoutManager albumhManager = new LinearLayoutManager(getApplicationContext());
+        LinearLayoutManager albumManager = new LinearLayoutManager(getApplicationContext());
         LinearLayoutManager artistManager = new LinearLayoutManager(getApplicationContext());
         //song
         mSearchSongRecyclerAdapter = new SearchSongRecyclerAdapter(this);
@@ -98,7 +98,7 @@ public class MainActivity extends BaseActivity
         mRecyclerSong.setAdapter(mSearchSongRecyclerAdapter);
         //album
         mSearchAlbumRecyclerAdapter = new SearchAlbumRecyclerAdapter(this);
-        mRecyclerAlbum.setLayoutManager(albumhManager);
+        mRecyclerAlbum.setLayoutManager(albumManager);
         mRecyclerAlbum.setAdapter(mSearchAlbumRecyclerAdapter);
         //artist
         mSearchArtistRecyclerAdapter = new SearchArtistRecyclerAdapter(this);
