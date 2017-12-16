@@ -7,20 +7,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.fstyle.androidtrainning.R;
 import com.fstyle.androidtrainning.model.RecentTrack;
 import com.fstyle.androidtrainning.model.RecentTracks;
-
 import java.util.ArrayList;
 
 /**
  * Created by phong on 12/13/17.
  */
 
-public class RecentRecyclerAdapter extends RecyclerView
-        .Adapter<RecentRecyclerAdapter.RecyclerViewHolder> {
+public class RecentRecyclerAdapter
+        extends RecyclerView.Adapter<RecentRecyclerAdapter.RecyclerViewHolder> {
 
     private RecentTracks mTracks = new RecentTracks();
     private Context mContext;
@@ -58,7 +56,7 @@ public class RecentRecyclerAdapter extends RecyclerView
     public class RecyclerViewHolder extends RecyclerView.ViewHolder {
         private ImageView mImageView;
         private TextView mTxtSong, mTxtSinger;
-        private static final int SMALL_IMAGE = 0;
+        private static final int MEDIUM_IMAGE = 1;
         private static final int MIN_LENGTH = 0;
         private static final int MAX_LENGTH = 25;
 
@@ -77,6 +75,9 @@ public class RecentRecyclerAdapter extends RecyclerView
         }
 
         private void getSongsRecent(int position) {
+            if (mTracks.getTrack().get(position) == null || mTracks.getTrack() == null) {
+                return;
+            }
             String songs = mTracks.getTrack().get(position).getName();
             if (songs.length() >= MAX_LENGTH) {
                 String subSongs = songs.substring(MIN_LENGTH, MAX_LENGTH) + "...";
@@ -87,13 +88,21 @@ public class RecentRecyclerAdapter extends RecyclerView
         }
 
         private void getArtistsRecent(int position) {
-            mTxtSinger.setText(mTracks.getTrack().get(position)
-                    .getArtist().getText());
+            if (mTracks.getTrack().get(position).getArtist() == null
+                    || mTracks.getTrack() == null) {
+                return;
+            }
+            mTxtSinger.setText(mTracks.getTrack().get(position).getArtist().getText());
         }
 
         private void getImagesRecent(int position) {
-            String urlImage = mTracks.getTrack().get(position).getImage()
-                    .get(SMALL_IMAGE).getText();
+            if (mTracks.getTrack().get(position).getImage() == null
+                    || mTracks.getTrack().get(position) == null
+                    || mTracks.getTrack().get(position).getImage().size() < MEDIUM_IMAGE + 1) {
+                return;
+            }
+            String urlImage =
+                    mTracks.getTrack().get(position).getImage().get(MEDIUM_IMAGE).getText();
             if (urlImage != null && !urlImage.isEmpty()) {
                 Glide.with(mContext).load(urlImage).into(mImageView);
             } else {

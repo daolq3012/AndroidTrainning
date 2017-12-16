@@ -7,11 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.fstyle.androidtrainning.R;
+import com.fstyle.androidtrainning.screen.BaseFragment;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class LyricsFragment extends Fragment implements LyricsContract.Viewer {
+public class LyricsFragment extends BaseFragment implements LyricsContract.Viewer {
 
     private LyricsPresenter mPresenter;
 
@@ -31,6 +32,6 @@ public class LyricsFragment extends Fragment implements LyricsContract.Viewer {
 
     private void initViews(View v) {
         mPresenter = new LyricsPresenter();
-        mPresenter.setViewer(this);
+        mPresenter.setView(this);
     }
 }
