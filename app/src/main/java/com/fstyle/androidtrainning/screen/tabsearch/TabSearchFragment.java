@@ -24,7 +24,8 @@ public class TabSearchFragment extends BaseFragment implements TabSearchContract
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mPresenter = new TabSearchPresenter(this);
+        mPresenter = new TabSearchPresenter();
+        mPresenter.setView(this);
     }
 
     @Nullable

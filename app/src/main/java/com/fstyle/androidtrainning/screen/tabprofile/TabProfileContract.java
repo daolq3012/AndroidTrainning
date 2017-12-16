@@ -16,6 +16,6 @@ interface TabProfileContract {
     /**
      * Presenter.
      */
-    interface Presenter extends BasePresenter {
+    interface Presenter extends BasePresenter<ProfileView> {
     }
 }

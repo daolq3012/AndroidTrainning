@@ -16,6 +16,6 @@ interface TabSearchContract {
     /**
      * Presenter.
      */
-    interface Presenter extends BasePresenter {
+    interface Presenter extends BasePresenter<SearchView> {
     }
 }

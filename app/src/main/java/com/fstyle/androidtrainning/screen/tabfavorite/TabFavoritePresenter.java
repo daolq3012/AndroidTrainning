@@ -7,9 +7,13 @@ package com.fstyle.androidtrainning.screen.tabfavorite;
 final class TabFavoritePresenter implements TabFavoriteContract.Presenter {
     private static final String TAG = TabFavoritePresenter.class.getName();
 
-     final TabFavoriteContract.FavoriteView mFavoriteView;
+    TabFavoriteContract.FavoriteView mFavoriteView;
 
-     TabFavoritePresenter(TabFavoriteContract.FavoriteView view) {
+    TabFavoritePresenter() {
+    }
+
+    @Override
+    public void setView(TabFavoriteContract.FavoriteView view) {
         mFavoriteView = view;
     }
 

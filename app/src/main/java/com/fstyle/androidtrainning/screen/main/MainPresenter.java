@@ -9,7 +9,11 @@ final class MainPresenter implements MainContract.Presenter {
 
     private MainContract.MainView mView;
 
-    MainPresenter(MainContract.MainView view) {
+    MainPresenter() {
+    }
+
+    @Override
+    public void setView(MainContract.MainView view) {
         mView = view;
     }
 

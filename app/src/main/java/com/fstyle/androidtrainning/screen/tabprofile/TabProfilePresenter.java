@@ -7,9 +7,13 @@ package com.fstyle.androidtrainning.screen.tabprofile;
 final class TabProfilePresenter implements TabProfileContract.Presenter {
     private static final String TAG = TabProfilePresenter.class.getName();
 
-     final TabProfileContract.ProfileView mProfileView;
+     TabProfileContract.ProfileView mProfileView;
 
-     TabProfilePresenter(TabProfileContract.ProfileView view) {
+     TabProfilePresenter() {
+    }
+
+    @Override
+    public void setView(TabProfileContract.ProfileView view) {
         mProfileView = view;
     }
 

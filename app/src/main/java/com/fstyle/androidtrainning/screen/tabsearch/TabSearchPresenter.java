@@ -7,10 +7,14 @@ package com.fstyle.androidtrainning.screen.tabsearch;
 final class TabSearchPresenter implements TabSearchContract.Presenter {
     private static final String TAG = TabSearchPresenter.class.getName();
 
-    final TabSearchContract.SearchView mSearchContractView;
+    TabSearchContract.SearchView mSearchView;
 
-    TabSearchPresenter(TabSearchContract.SearchView view) {
-        mSearchContractView = view;
+    TabSearchPresenter() {
+    }
+
+    @Override
+    public void setView(TabSearchContract.SearchView view) {
+        mSearchView = view;
     }
 
     @Override
