@@ -1,5 +1,6 @@
 package com.fstyle.androidtrainning.screen.tabhome;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +14,8 @@ import com.fstyle.androidtrainning.R;
 import com.fstyle.androidtrainning.data.model.Movie;
 import com.fstyle.androidtrainning.data.service.config.MoviesApi;
 import com.fstyle.androidtrainning.screen.BaseFragment;
+import com.fstyle.androidtrainning.screen.detailsmovie.DetailsMovieActivity;
+import com.fstyle.androidtrainning.utils.Constant;
 import java.util.List;
 
 /**
@@ -120,7 +123,9 @@ public class TabHomeFragment extends BaseFragment
 
     @Override
     public void onItemClick(Movie movie) {
-        //TODO Chuyen sang DetailsMovieActivity
+        Intent intent = new Intent(getActivity(), DetailsMovieActivity.class);
+        intent.putExtra(Constant.EXTRA_MOVIE_ID, movie.getId());
+        startActivity(intent);
     }
 
     @Override

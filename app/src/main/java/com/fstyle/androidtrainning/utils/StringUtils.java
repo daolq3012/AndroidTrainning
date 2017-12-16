@@ -1,5 +1,7 @@
 package com.fstyle.androidtrainning.utils;
 
+import java.util.List;
+
 /**
  * Created by Admin on 12/15/17.
  */
@@ -10,6 +12,7 @@ public final class StringUtils {
     private static final String MORE = " ...";
     private static final String OPEN_PARENTHESE = " (";
     private static final String CLOSE_PARENTHESE = ")";
+    private static final String SEPARATOR = ", ";
     private static final int BEGIN_INDEX = 0;
     private static final int END_INDEX = 28;
     private static final int YEAR = 4;
@@ -26,7 +29,8 @@ public final class StringUtils {
         String year = releaseDate.substring(BEGIN_INDEX, YEAR);
         if (titleMovie.length() > END_INDEX) {
             titleMovie = titleMovie.substring(BEGIN_INDEX, END_INDEX)
-                    + MORE + OPEN_PARENTHESE
+                    + MORE
+                    + OPEN_PARENTHESE
                     + year
                     + CLOSE_PARENTHESE;
             return titleMovie;
@@ -34,5 +38,16 @@ public final class StringUtils {
             titleMovie = titleMovie + OPEN_PARENTHESE + year + CLOSE_PARENTHESE;
             return titleMovie;
         }
+    }
+
+    public static String convertListToStringCommaSeparated(List<String> strings) {
+        StringBuilder builder = new StringBuilder();
+        for (String s : strings) {
+            builder.append(s);
+            builder.append(SEPARATOR);
+        }
+        String result = builder.toString();
+        result = result.substring(BEGIN_INDEX, result.length() - SEPARATOR.length());
+        return result;
     }
 }
