@@ -57,7 +57,7 @@ public class TopTrackRecyclerAdapter
         private ImageView mImageView;
         private TextView mTxtNameSong;
         private TextView mTxtNameSinger;
-        private static final int SMALL_IMAGE = 0;
+        private static final int MEDIUM_IMAGE = 1;
         private static final int MAX_LENGTH = 30;
         private static final int MIN_LENGTH = 0;
         private static final String MORE = "...";
@@ -76,7 +76,12 @@ public class TopTrackRecyclerAdapter
         }
 
         private void setImage(int position) {
-            String urlImage = mTracks.get(position).getImage().get(SMALL_IMAGE).getText();
+            if (mTracks.get(position) == null
+                    || mTracks.get(position).getImage() == null
+                    || mTracks.get(position).getImage().size() < MEDIUM_IMAGE + 1) {
+                return;
+            }
+            String urlImage = mTracks.get(position).getImage().get(MEDIUM_IMAGE).getText();
             if (!urlImage.isEmpty()) {
                 Glide.with(mContext).load(urlImage).into(mImageView);
             } else {
@@ -85,6 +90,9 @@ public class TopTrackRecyclerAdapter
         }
 
         private void setNameArtist(int position) {
+            if (mTracks.get(position) == null || mTracks.get(position).getArtist() == null) {
+                return;
+            }
             String nameArtist = mTracks.get(position).getArtist().getName();
             if (nameArtist.length() >= MAX_LENGTH) {
                 String subNameArtist = nameArtist.substring(MIN_LENGTH, MAX_LENGTH) + MORE;
@@ -95,6 +103,9 @@ public class TopTrackRecyclerAdapter
         }
 
         private void setNameSong(int position) {
+            if (mTracks.get(position) == null || mTracks.get(position).getName() == null) {
+                return;
+            }
             String nameSong = mTracks.get(position).getName();
             if (nameSong.length() >= MAX_LENGTH) {
                 String subNameSong = nameSong.substring(MIN_LENGTH, MAX_LENGTH) + MORE;

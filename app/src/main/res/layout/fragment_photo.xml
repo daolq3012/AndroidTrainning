@@ -1,17 +1,20 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
+    android:padding="@dimen/dp_10"
     tools:context="com.fstyle.androidtrainning.screen.main.playingfragments.photo.PhotoFragment"
     >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="@string/photo"
-        android:textColor="@color/color_black"
-        android:textSize="@dimen/sp_30"
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/circleImage"
+        android:layout_width="@dimen/dp_300"
+        android:layout_height="@dimen/dp_300"
+        android:src="@drawable/disc"
+        app:civ_border_color="@color/color_little_purple"
+        app:civ_border_width="@dimen/dp_2"
         />
 
 </RelativeLayout>

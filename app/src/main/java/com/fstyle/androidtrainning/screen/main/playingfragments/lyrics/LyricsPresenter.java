@@ -9,7 +9,17 @@ public class LyricsPresenter implements LyricsContract.Presenter {
     private LyricsContract.Viewer mViewer;
 
     @Override
-    public void setViewer(LyricsContract.Viewer viewer) {
-        mViewer = viewer;
+    public void setView(LyricsContract.Viewer view) {
+        mViewer = view;
+    }
+
+    @Override
+    public void onStart() {
+
+    }
+
+    @Override
+    public void onStop() {
+
     }
 }
