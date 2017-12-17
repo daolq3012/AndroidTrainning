@@ -14,6 +14,7 @@ public final class Constant {
     public static final String CATEGORY_UPCOMING = "upcoming";
     public static final String CATEGORY_POPULAR = "popular";
     public static final int DEFAULT_PAGE = 1;
+    public static final String EXTRA_MOVIE_ID = "EXTRA_MOVIE_ID";
 
     private Constant() {
         //No-op

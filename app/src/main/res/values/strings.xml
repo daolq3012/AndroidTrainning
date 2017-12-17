@@ -13,9 +13,9 @@
     <string name="name_line">This is name movie</string>
     <string name="poster_item_description">Poster item description</string>
     <string name="namemovie">Movie Name</string>
-    <string name="movielong">44min</string>
-    <string name="timeMovie">8 December 2017</string>
-    <string name="kindmovie">Drama, Horror, Thriller</string>
-    <string name="ratemovie">7.0/10</string>
-    <string name="describeMovie">describe movie</string>
+    <string name="movielong">0min</string>
+    <string name="timeMovie">D M YYYY</string>
+    <string name="kindmovie">Genre</string>
+    <string name="ratemovie">0.0/10</string>
+    <string name="describeMovie">Describe movie</string>
 </resources>

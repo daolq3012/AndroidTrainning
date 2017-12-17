@@ -8,4 +8,6 @@
     <color name="colorView">#101418</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorTitle">#EBEBEB</color>
+    <color name="colorText">#F7F6F6</color>
+    <color name="colorDescription">#C0C0C0</color>
 </resources>
