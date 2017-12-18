@@ -27,7 +27,8 @@
             android:layout_height="wrap_content"
             android:text="@string/album"
             android:textColor="@color/color_white"
-            android:textSize="@dimen/sp_20" />
+            android:textSize="@dimen/sp_20"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/text_name_singer"

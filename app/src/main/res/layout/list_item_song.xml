@@ -3,8 +3,10 @@
     android:layout_height="wrap_content"
     android:background="@color/color_dark_opacity"
     android:orientation="horizontal"
-    android:paddingLeft="@dimen/dp_20"
-    android:paddingRight="@dimen/dp_20">
+    android:paddingEnd="@dimen/dp_20"
+    android:paddingLeft="@dimen/dp_40"
+    android:paddingRight="@dimen/dp_20"
+    android:paddingStart="@dimen/dp_40">
 
     <ImageView
         android:id="@+id/image_song"
