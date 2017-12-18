@@ -13,8 +13,13 @@ public final class Constant {
     public static final String CATEGORY_TOP_RATED = "top_rated";
     public static final String CATEGORY_UPCOMING = "upcoming";
     public static final String CATEGORY_POPULAR = "popular";
+    public static final String TITLE_NOW_PLAYING = "Now Playing";
+    public static final String TITLE_UP_COMING = "Upcoming";
+    public static final String TITLE_TOP_RATED = "Top Rated";
+    public static final String TITLE_POPULAR = "Popular";
     public static final int DEFAULT_PAGE = 1;
     public static final String EXTRA_MOVIE_ID = "EXTRA_MOVIE_ID";
+    public static final String EXTRA_CATEGORY = "EXTRA_CATEGORY";
 
     private Constant() {
         //No-op

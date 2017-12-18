@@ -25,7 +25,7 @@
             android:fitsSystemWindows="true"
             app:contentScrim="@color/colorOrange"
             app:expandedTitleTextAppearance="@android:color/transparent"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
             >
             <ImageView
                 android:id="@+id/image_backdrop"
@@ -146,9 +146,9 @@
                 android:layout_toRightOf="@id/image_kind_movie"
                 android:contentDescription="@string/appbar_scrolling_view_behavior"
                 android:paddingEnd="@dimen/dp_10"
+                android:paddingLeft="0dp"
                 android:paddingRight="@dimen/dp_10"
                 android:paddingStart="0dp"
-                android:paddingLeft="0dp"
                 android:text="@string/kindmovie"
                 android:textColor="@color/colorDescription"
                 android:textSize="@dimen/sp_18"
@@ -166,7 +166,7 @@
                 android:layout_toRightOf="@id/image_rate"
                 android:text="@string/ratemovie"
                 android:textColor="@color/colorWhite"
-                android:textSize="@dimen/sp_18"
+                android:textSize="@dimen/sp_20"
                 android:textStyle="bold"
                 />
 
