@@ -7,10 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
 import com.fstyle.androidtrainning.R;
 import com.fstyle.androidtrainning.model.RecentTrack;
 import com.fstyle.androidtrainning.model.RecentTracks;
+
 import java.util.ArrayList;
 
 /**
@@ -18,14 +20,34 @@ import java.util.ArrayList;
  */
 
 public class RecentRecyclerAdapter
-        extends RecyclerView.Adapter<RecentRecyclerAdapter.RecyclerViewHolder> {
+        extends RecyclerView.Adapter {
 
     private RecentTracks mTracks = new RecentTracks();
     private Context mContext;
+    private ImageView mImageRecent;
+    private TextView mTxtSong, mTxtSinger;
+    private ImageView mImageView;
+
+    private static final int EXTRA_IMAGE = 3;
+    private static final int MEDIUM_IMAGE = 1;
+    private static final int MIN_LENGTH = 0;
+    private static final int MAX_LENGTH = 25;
+    private static final int IMAGE = 0;
+    private static final int TRACKS = 1;
 
     public RecentRecyclerAdapter(Context context) {
-        mTracks.setTrack(new ArrayList<RecentTrack>());
         mContext = context;
+        mTracks.setTrack(new ArrayList<RecentTrack>());
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (position == 0) {
+            return IMAGE;
+        } else if (position > 0) {
+            return TRACKS;
+        }
+        return -1;
     }
 
     public void updateData(RecentTracks tracks) {
@@ -37,15 +59,38 @@ public class RecentRecyclerAdapter
     }
 
     @Override
-    public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.list_item_song, parent, false);
-        return new RecyclerViewHolder(view);
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        switch (viewType) {
+            case IMAGE:
+                View itemImageView = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_row_image_recent, parent, false);
+                return new ImageViewHolder(itemImageView);
+            case TRACKS:
+                View viewTracks = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.list_item_song, parent, false);
+                return new TracksViewHolder(viewTracks);
+            default:
+                break;
+        }
+        return null;
     }
 
     @Override
-    public void onBindViewHolder(RecyclerViewHolder holder, int position) {
-        holder.bind(position);
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        switch (getItemViewType(position)) {
+            case IMAGE:
+                ImageViewHolder imageViewHolder = (ImageViewHolder) holder;
+                imageViewHolder.setImagesRecent(position);
+                break;
+            case TRACKS:
+                TracksViewHolder tracksViewHolder = (TracksViewHolder) holder;
+                tracksViewHolder.setSongsRecent(position);
+                tracksViewHolder.setArtistsRecent(position);
+                tracksViewHolder.setImagesRecent(position);
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
@@ -53,29 +98,51 @@ public class RecentRecyclerAdapter
         return mTracks.getTrack().size();
     }
 
-    public class RecyclerViewHolder extends RecyclerView.ViewHolder {
-        private ImageView mImageView;
-        private TextView mTxtSong, mTxtSinger;
-        private static final int MEDIUM_IMAGE = 1;
-        private static final int MIN_LENGTH = 0;
-        private static final int MAX_LENGTH = 25;
+    private void initViews(View itemView) {
+        mImageView = itemView.findViewById(R.id.image_song);
+        mTxtSong = itemView.findViewById(R.id.text_name_song);
+        mTxtSinger = itemView.findViewById(R.id.text_name_singer);
+    }
 
-        public RecyclerViewHolder(View itemView) {
+    public class ImageViewHolder extends RecyclerView.ViewHolder {
 
+        public ImageViewHolder(View itemView) {
             super(itemView);
-            mImageView = itemView.findViewById(R.id.image_song);
-            mTxtSong = itemView.findViewById(R.id.text_name_song);
-            mTxtSinger = itemView.findViewById(R.id.text_name_singer);
+            mImageRecent = itemView.findViewById(R.id.image_recent);
+            initViews(itemView);
         }
 
-        public void bind(int position) {
-            getSongsRecent(position);
-            getArtistsRecent(position);
-            getImagesRecent(position);
+        private void setImagesRecent(int position) {
+            if (mTracks.getTrack().get(position).getImage() == null
+                    || mTracks.getTrack().get(position) == null
+                    || mTracks.getTrack().get(position).getImage().size() < MEDIUM_IMAGE + 1
+                    || mTracks.getTrack().get(position).getImage().size() < EXTRA_IMAGE + 1) {
+                return;
+            }
+            String urlImage =
+                    mTracks.getTrack().get(position).getImage().get(MEDIUM_IMAGE).getText();
+            String urlExtraImage =
+                    mTracks.getTrack().get(position).getImage().get(EXTRA_IMAGE).getText();
+            if (urlImage != null && !urlImage.isEmpty()) {
+                Glide.with(mContext).load(urlImage).into(mImageView);
+                Glide.with(mContext).load(urlExtraImage).into(mImageRecent);
+            } else {
+                mImageView.setImageResource(R.drawable.img_demo_100x100);
+                mImageRecent.setImageResource(R.drawable.img_demo_800x300);
+            }
+        }
+    }
+
+    public class TracksViewHolder extends RecyclerView.ViewHolder {
+
+        public TracksViewHolder(View itemView) {
+            super(itemView);
+            initViews(itemView);
         }
 
-        private void getSongsRecent(int position) {
-            if (mTracks.getTrack().get(position) == null || mTracks.getTrack() == null) {
+        private void setSongsRecent(int position) {
+            if (mTracks.getTrack().get(position) == null
+                    || mTracks.getTrack() == null) {
                 return;
             }
             String songs = mTracks.getTrack().get(position).getName();
@@ -87,7 +154,7 @@ public class RecentRecyclerAdapter
             }
         }
 
-        private void getArtistsRecent(int position) {
+        private void setArtistsRecent(int position) {
             if (mTracks.getTrack().get(position).getArtist() == null
                     || mTracks.getTrack() == null) {
                 return;
@@ -95,7 +162,7 @@ public class RecentRecyclerAdapter
             mTxtSinger.setText(mTracks.getTrack().get(position).getArtist().getText());
         }
 
-        private void getImagesRecent(int position) {
+        private void setImagesRecent(int position) {
             if (mTracks.getTrack().get(position).getImage() == null
                     || mTracks.getTrack().get(position) == null
                     || mTracks.getTrack().get(position).getImage().size() < MEDIUM_IMAGE + 1) {
@@ -103,7 +170,8 @@ public class RecentRecyclerAdapter
             }
             String urlImage =
                     mTracks.getTrack().get(position).getImage().get(MEDIUM_IMAGE).getText();
-            if (urlImage != null && !urlImage.isEmpty()) {
+            if (urlImage != null
+                    && !urlImage.isEmpty()) {
                 Glide.with(mContext).load(urlImage).into(mImageView);
             } else {
                 mImageView.setImageResource(R.drawable.img_demo_100x100);
