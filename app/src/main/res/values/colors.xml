@@ -10,4 +10,5 @@
     <color name="colorTitle">#EBEBEB</color>
     <color name="colorText">#F7F6F6</color>
     <color name="colorDescription">#C0C0C0</color>
+    <color name="toolbar">#db4c18</color>
 </resources>

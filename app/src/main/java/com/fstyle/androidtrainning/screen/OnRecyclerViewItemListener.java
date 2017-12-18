@@ -1,4 +1,4 @@
-package com.fstyle.androidtrainning.screen.tabhome;
+package com.fstyle.androidtrainning.screen;
 
 import com.fstyle.androidtrainning.data.model.Movie;
 

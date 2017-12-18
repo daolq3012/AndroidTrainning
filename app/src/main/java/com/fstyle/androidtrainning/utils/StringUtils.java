@@ -26,17 +26,20 @@ public final class StringUtils {
     }
 
     public static String convertLongTitleToShortTitle(String titleMovie, String releaseDate) {
-        String year = releaseDate.substring(BEGIN_INDEX, YEAR);
-        if (titleMovie.length() > END_INDEX) {
-            titleMovie = titleMovie.substring(BEGIN_INDEX, END_INDEX)
-                    + MORE
-                    + OPEN_PARENTHESE
-                    + year
-                    + CLOSE_PARENTHESE;
+        if (releaseDate.equals("")) {
             return titleMovie;
         } else {
-            titleMovie = titleMovie + OPEN_PARENTHESE + year + CLOSE_PARENTHESE;
-            return titleMovie;
+            String year = releaseDate.substring(BEGIN_INDEX, YEAR);
+            if (titleMovie.length() > END_INDEX) {
+                titleMovie = titleMovie.substring(BEGIN_INDEX, END_INDEX)
+                        + MORE + OPEN_PARENTHESE
+                        + year
+                        + CLOSE_PARENTHESE;
+                return titleMovie;
+            } else {
+                titleMovie = titleMovie + OPEN_PARENTHESE + year + CLOSE_PARENTHESE;
+                return titleMovie;
+            }
         }
     }
 

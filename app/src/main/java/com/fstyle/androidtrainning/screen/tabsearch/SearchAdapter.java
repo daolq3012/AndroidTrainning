@@ -1,4 +1,4 @@
-package com.fstyle.androidtrainning.screen.tabhome;
+package com.fstyle.androidtrainning.screen.tabsearch;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -7,38 +7,40 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
 import com.fstyle.androidtrainning.R;
 import com.fstyle.androidtrainning.data.model.Movie;
 import com.fstyle.androidtrainning.screen.OnRecyclerViewItemListener;
 import com.fstyle.androidtrainning.utils.StringUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Admin on 12/14/17.
+ * Created by huynh on 16/12/2017.
  */
 
-public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder> {
+public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchHolder> {
 
     private List<Movie> mMovieList = new ArrayList<>();
     private OnRecyclerViewItemListener mOnRecyclerViewItemListener;
     private Context mContext;
     private LayoutInflater mInflater;
 
-    public MovieAdapter(Context context) {
+    public SearchAdapter(Context context) {
         mContext = context;
         mInflater = LayoutInflater.from(context);
     }
 
     @Override
-    public MovieHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public SearchHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = mInflater.inflate(R.layout.movie_item, parent, false);
-        return new MovieHolder(itemView, mOnRecyclerViewItemListener);
+        return new SearchHolder(itemView, mOnRecyclerViewItemListener);
     }
 
     @Override
-    public void onBindViewHolder(MovieHolder holder, int position) {
+    public void onBindViewHolder(SearchHolder holder, int position) {
         holder.bind(mMovieList.get(position));
     }
 
@@ -61,17 +63,17 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder>
         notifyDataSetChanged();
     }
 
-    static class MovieHolder extends RecyclerView.ViewHolder {
+    static class SearchHolder extends RecyclerView.ViewHolder {
 
         private Movie mMovie;
-        private ImageView mPoster;
-        private TextView mNameMovie;
+        private ImageView mSearchPoster;
+        private TextView mMovieName;
         private OnRecyclerViewItemListener mOnRecyclerViewItemListener;
 
-        MovieHolder(View itemView, OnRecyclerViewItemListener onRecyclerViewItemListener) {
+        SearchHolder(View itemView, OnRecyclerViewItemListener onRecyclerViewItemListener) {
             super(itemView);
-            mPoster = itemView.findViewById(R.id.image_poster_item);
-            mNameMovie = itemView.findViewById(R.id.text_name_item);
+            mSearchPoster = itemView.findViewById(R.id.image_poster_item);
+            mMovieName = itemView.findViewById(R.id.text_name_item);
             mOnRecyclerViewItemListener = onRecyclerViewItemListener;
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -86,8 +88,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder>
             String urlPoster = StringUtils.convertPosterPathToUrlPoster(movie.getPosterPath());
             String titleMovie = StringUtils.convertLongTitleToShortTitle(movie.getTitle(),
                     movie.getReleaseDate());
-            Glide.with(itemView.getContext()).load(urlPoster).into(mPoster);
-            mNameMovie.setText(titleMovie);
+            Glide.with(itemView.getContext()).load(urlPoster).into(mSearchPoster);
+            mMovieName.setText(titleMovie);
         }
     }
 }

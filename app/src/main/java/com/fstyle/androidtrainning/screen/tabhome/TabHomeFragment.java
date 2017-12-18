@@ -14,6 +14,7 @@ import com.fstyle.androidtrainning.R;
 import com.fstyle.androidtrainning.data.model.Movie;
 import com.fstyle.androidtrainning.data.service.config.MoviesApi;
 import com.fstyle.androidtrainning.screen.BaseFragment;
+import com.fstyle.androidtrainning.screen.OnRecyclerViewItemListener;
 import com.fstyle.androidtrainning.screen.detailsmovie.DetailsMovieActivity;
 import com.fstyle.androidtrainning.utils.Constant;
 import java.util.List;
