@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/color_dark_opacity"
     android:orientation="horizontal"
     android:paddingEnd="@dimen/dp_20"
@@ -11,12 +12,13 @@
     >
 
     <ImageView
-        android:id="@+id/image"
+        android:id="@+id/image_song"
         android:layout_width="@dimen/dp_50"
         android:layout_height="@dimen/dp_50"
         android:layout_marginTop="@dimen/dp_10"
         android:contentDescription="@string/description"
-        android:src="@drawable/ic_unknown" />
+        android:src="@drawable/img_demo_100x100"
+        />
 
     <LinearLayout
         android:layout_width="0dp"
@@ -27,7 +29,7 @@
         android:paddingRight="@dimen/dp_10"
         >
         <TextView
-            android:id="@+id/text_upper"
+            android:id="@+id/text_name_song"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_10"
@@ -38,7 +40,7 @@
             />
 
         <TextView
-            android:id="@+id/text_lower"
+            android:id="@+id/text_name_singer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/artist_name_demo"
@@ -46,4 +48,14 @@
             />
 
     </LinearLayout>
+    <com.like.LikeButton
+        android:id="@+id/image_favorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:icon_size="@dimen/dp_25"
+        app:icon_type="heart"
+        app:liked="false"
+        app:anim_scale_factor="2"
+        app:is_enabled="true"
+        />
 </LinearLayout>

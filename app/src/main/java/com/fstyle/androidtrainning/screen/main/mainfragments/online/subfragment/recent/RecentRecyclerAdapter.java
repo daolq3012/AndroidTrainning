@@ -7,31 +7,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.fstyle.androidtrainning.R;
 import com.fstyle.androidtrainning.model.RecentTrack;
 import com.fstyle.androidtrainning.model.RecentTracks;
-
 import java.util.ArrayList;
 
 /**
  * Created by phong on 12/13/17.
  */
 
-public class RecentRecyclerAdapter
-        extends RecyclerView.Adapter {
+public class RecentRecyclerAdapter extends RecyclerView.Adapter {
 
     private RecentTracks mTracks = new RecentTracks();
     private Context mContext;
-    private ImageView mImageRecent;
-    private TextView mTxtSong, mTxtSinger;
-    private ImageView mImageView;
 
-    private static final int EXTRA_IMAGE = 3;
-    private static final int MEDIUM_IMAGE = 1;
-    private static final int MIN_LENGTH = 0;
-    private static final int MAX_LENGTH = 25;
     private static final int IMAGE = 0;
     private static final int TRACKS = 1;
 
@@ -81,6 +71,8 @@ public class RecentRecyclerAdapter
             case IMAGE:
                 ImageViewHolder imageViewHolder = (ImageViewHolder) holder;
                 imageViewHolder.setImagesRecent(position);
+                imageViewHolder.setSongsRecent(position);
+                imageViewHolder.setArtistsRecent(position);
                 break;
             case TRACKS:
                 TracksViewHolder tracksViewHolder = (TracksViewHolder) holder;
@@ -98,18 +90,26 @@ public class RecentRecyclerAdapter
         return mTracks.getTrack().size();
     }
 
-    private void initViews(View itemView) {
-        mImageView = itemView.findViewById(R.id.image_song);
-        mTxtSong = itemView.findViewById(R.id.text_name_song);
-        mTxtSinger = itemView.findViewById(R.id.text_name_singer);
-    }
-
     public class ImageViewHolder extends RecyclerView.ViewHolder {
+        private ImageView mImageRecent;
+        private TextView mTxtSong, mTxtSinger;
+        private ImageView mImageView;
+
+        private static final int EXTRA_IMAGE = 3;
+        private static final int MEDIUM_IMAGE = 1;
+        private static final int MIN_LENGTH = 0;
+        private static final int MAX_LENGTH = 20;
 
         public ImageViewHolder(View itemView) {
             super(itemView);
             mImageRecent = itemView.findViewById(R.id.image_recent);
             initViews(itemView);
+        }
+
+        private void initViews(View itemView) {
+            mImageView = itemView.findViewById(R.id.image_song);
+            mTxtSong = itemView.findViewById(R.id.text_name_song);
+            mTxtSinger = itemView.findViewById(R.id.text_name_singer);
         }
 
         private void setImagesRecent(int position) {
@@ -131,18 +131,50 @@ public class RecentRecyclerAdapter
                 mImageRecent.setImageResource(R.drawable.img_demo_800x300);
             }
         }
+
+        private void setSongsRecent(int position) {
+            if (mTracks.getTrack().get(position) == null || mTracks.getTrack() == null) {
+                return;
+            }
+            String songs = mTracks.getTrack().get(position).getName();
+            if (songs.length() >= MAX_LENGTH) {
+                String subSongs = songs.substring(MIN_LENGTH, MAX_LENGTH) + "...";
+                mTxtSong.setText(subSongs);
+            } else {
+                mTxtSong.setText(songs);
+            }
+        }
+
+        private void setArtistsRecent(int position) {
+            if (mTracks.getTrack().get(position).getArtist() == null
+                    || mTracks.getTrack() == null) {
+                return;
+            }
+            mTxtSinger.setText(mTracks.getTrack().get(position).getArtist().getText());
+        }
     }
 
     public class TracksViewHolder extends RecyclerView.ViewHolder {
+        private TextView mTxtSong, mTxtSinger;
+        private ImageView mImageView;
+
+        private static final int MEDIUM_IMAGE = 1;
+        private static final int MIN_LENGTH = 0;
+        private static final int MAX_LENGTH = 20;
 
         public TracksViewHolder(View itemView) {
             super(itemView);
             initViews(itemView);
         }
 
+        private void initViews(View itemView) {
+            mImageView = itemView.findViewById(R.id.image);
+            mTxtSong = itemView.findViewById(R.id.text_upper);
+            mTxtSinger = itemView.findViewById(R.id.text_lower);
+        }
+
         private void setSongsRecent(int position) {
-            if (mTracks.getTrack().get(position) == null
-                    || mTracks.getTrack() == null) {
+            if (mTracks.getTrack().get(position) == null || mTracks.getTrack() == null) {
                 return;
             }
             String songs = mTracks.getTrack().get(position).getName();
@@ -170,8 +202,7 @@ public class RecentRecyclerAdapter
             }
             String urlImage =
                     mTracks.getTrack().get(position).getImage().get(MEDIUM_IMAGE).getText();
-            if (urlImage != null
-                    && !urlImage.isEmpty()) {
+            if (urlImage != null && !urlImage.isEmpty()) {
                 Glide.with(mContext).load(urlImage).into(mImageView);
             } else {
                 mImageView.setImageResource(R.drawable.img_demo_100x100);

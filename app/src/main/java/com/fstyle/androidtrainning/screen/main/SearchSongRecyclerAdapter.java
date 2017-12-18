@@ -70,9 +70,9 @@ public class SearchSongRecyclerAdapter
 
         public RecyclerViewHolder(View itemView) {
             super(itemView);
-            mImageView = itemView.findViewById(R.id.image_song);
-            mTxtNameSong = itemView.findViewById(R.id.text_name_song);
-            mTxtNameSinger = itemView.findViewById(R.id.text_name_singer);
+            mImageView = itemView.findViewById(R.id.image);
+            mTxtNameSong = itemView.findViewById(R.id.text_upper);
+            mTxtNameSinger = itemView.findViewById(R.id.text_lower);
         }
 
         public void bind(int position) {

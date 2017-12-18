@@ -53,13 +53,13 @@ public class MainActivity extends BaseActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolBar);
-        setSupportActionBar(toolbar);
 
         initViews();
     }
 
     private void initViews() {
+        Toolbar toolbar = findViewById(R.id.toolBar);
+        setSupportActionBar(toolbar);
         mBottomBar = findViewById(R.id.bottomBar);
         mTxtLabelAlbum = findViewById(R.id.text_label_album);
         mTxtLabelArtist = findViewById(R.id.text_label_artist);
@@ -126,7 +126,6 @@ public class MainActivity extends BaseActivity
         getMenuInflater().inflate(R.menu.search_view, menu);
         MenuItem item = menu.findItem(R.id.search_view);
         mSearchView = (SearchView) item.getActionView();
-
         mSearchView.setOnQueryTextListener(this);
         return true;
     }
@@ -138,7 +137,7 @@ public class MainActivity extends BaseActivity
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        if (!newText.equals("")) {
+        if (!newText.isEmpty()) {
             mPresenter.doPassKeyWord(newText);
             mLayoutSearch.setVisibility(View.VISIBLE);
             mRelativeLayout.setVisibility(View.GONE);

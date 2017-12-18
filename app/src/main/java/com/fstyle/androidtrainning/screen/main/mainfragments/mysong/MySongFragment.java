@@ -18,6 +18,7 @@ public class MySongFragment extends Fragment {
     private MySongViewPagerAdapter mPagerAdapter;
     private ViewPager mViewPager;
     private TabLayout mTabLayout;
+    private static final int PAGE_LIMIT = 2;
 
     public MySongFragment() {
         // Required empty public constructor
@@ -39,6 +40,7 @@ public class MySongFragment extends Fragment {
         mPagerAdapter = new MySongViewPagerAdapter(getChildFragmentManager(), getContext());
         mViewPager.setAdapter(mPagerAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
+        mViewPager.setOffscreenPageLimit(PAGE_LIMIT);
     }
 }
 

@@ -1,4 +1,4 @@
-package com.fstyle.androidtrainning.data.local.external;
+package com.fstyle.androidtrainning.data.local.storage;
 
 import com.fstyle.androidtrainning.utils.Constant;
 import java.io.File;
