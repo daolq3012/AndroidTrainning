@@ -5,6 +5,10 @@
     android:background="@color/color_dark_opacity"
     android:padding="@dimen/dp_10">
 
+    android:layout_height="wrap_content"
+    android:background="@color/color_dark_opacity"
+    android:padding="@dimen/dp_10">
+
     <ImageView
         android:id="@+id/image_album"
         android:layout_width="wrap_content"

@@ -2,6 +2,7 @@ package com.fstyle.androidtrainning.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 /**
@@ -34,6 +35,33 @@ public class Track {
     @SerializedName("date")
     @Expose
     private Date date;
+    private String nameArtist;
+    private Integer position;
+    private String trackData;
+
+    public String getTrackData() {
+        return trackData;
+    }
+
+    public void setTrackData(String trackData) {
+        this.trackData = trackData;
+    }
+
+    public Integer getPosition() {
+        return position;
+    }
+
+    public void setPosition(Integer position) {
+        this.position = position;
+    }
+
+    public String getNameArtist() {
+        return nameArtist;
+    }
+
+    public void setNameArtist(String nameArtist) {
+        this.nameArtist = nameArtist;
+    }
 
     public Artist getArtist() {
         return artist;
