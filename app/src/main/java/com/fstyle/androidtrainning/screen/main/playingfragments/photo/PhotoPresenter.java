@@ -9,7 +9,17 @@ public class PhotoPresenter implements PhotoContract.Presenter {
     private PhotoContract.Viewer mViewer;
 
     @Override
-    public void setViewer(PhotoContract.Viewer viewer) {
-        mViewer = viewer;
+    public void setView(PhotoContract.Viewer view) {
+        mViewer = view;
+    }
+
+    @Override
+    public void onStart() {
+
+    }
+
+    @Override
+    public void onStop() {
+
     }
 }

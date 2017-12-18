@@ -5,22 +5,25 @@
     android:padding="@dimen/dp_10"
     >
 
+    android:layout_height="wrap_content"
+    android:background="@color/color_dark_opacity"
+    android:padding="@dimen/dp_10">
+
     <ImageView
         android:id="@+id/image_album"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="@dimen/dp_10"
         android:src="@drawable/mp3_icon_100x100"
-        tools:ignore="ContentDescription"
-        />
+        tools:ignore="ContentDescription" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_70"
+
         android:orientation="vertical"
         android:paddingLeft="@dimen/dp_10"
-        android:paddingRight="@dimen/dp_10"
-        >
+        android:paddingRight="@dimen/dp_10">
 
         <TextView
             android:id="@+id/text_name_album"
@@ -28,16 +31,16 @@
             android:layout_height="@dimen/dp_30"
             android:layout_marginTop="@dimen/dp_10"
             android:text="@string/album_name_demo"
+            android:textColor="@color/color_white"
             android:textSize="@dimen/sp_20"
-            android:textStyle="bold"
-            />
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/text_count_song"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/songs_count"
-            />
+            android:textColor="@color/color_white" />
 
     </LinearLayout>
 </LinearLayout>

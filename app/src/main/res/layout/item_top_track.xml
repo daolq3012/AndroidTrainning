@@ -2,8 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/dp_10"
-    android:background="@color/color_little_gray">
+    android:padding="@dimen/dp_10">
 
     <ImageView
         android:id="@+id/image_top_track"
@@ -29,7 +28,8 @@
             android:layout_height="wrap_content"
             android:text="@string/song_name_demo"
             android:textColor="@color/color_white"
-            android:textSize="@dimen/sp_20" />
+            android:textSize="@dimen/sp_20"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/text_name_singer"

@@ -1,5 +1,7 @@
 package com.fstyle.androidtrainning.model;
 
+import android.graphics.Bitmap;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import java.util.List;
@@ -31,6 +33,24 @@ public class Album {
     @SerializedName("@attr")
     @Expose
     private Attr attr;
+    private Bitmap bmAlbum;
+    private String nameArtist;
+
+    public String getNameArtist() {
+        return nameArtist;
+    }
+
+    public void setNameArtist(String nameArtist) {
+        this.nameArtist = nameArtist;
+    }
+
+    public Bitmap getBmAlbum() {
+        return bmAlbum;
+    }
+
+    public void setBmAlbum(Bitmap bmAlbum) {
+        this.bmAlbum = bmAlbum;
+    }
 
     public String getName() {
         return name;
