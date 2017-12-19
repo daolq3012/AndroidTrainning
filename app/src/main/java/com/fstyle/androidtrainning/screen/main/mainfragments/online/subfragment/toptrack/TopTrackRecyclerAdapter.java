@@ -85,7 +85,7 @@ public class TopTrackRecyclerAdapter
             if (!urlImage.isEmpty()) {
                 Glide.with(mContext).load(urlImage).into(mImageView);
             } else {
-                mImageView.setImageResource(R.drawable.img_demo_50x50);
+                mImageView.setImageResource(R.drawable.ic_unknown);
             }
         }
 

@@ -127,7 +127,7 @@ public class RecentRecyclerAdapter
                 Glide.with(mContext).load(urlImage).into(mImageView);
                 Glide.with(mContext).load(urlExtraImage).into(mImageRecent);
             } else {
-                mImageView.setImageResource(R.drawable.img_demo_100x100);
+                mImageView.setImageResource(R.drawable.ic_unknown);
                 mImageRecent.setImageResource(R.drawable.img_demo_800x300);
             }
         }
