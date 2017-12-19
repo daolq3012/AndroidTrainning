@@ -3,24 +3,22 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/color_dark_opacity"
-    android:padding="@dimen/dp_10">
-
-    android:layout_height="wrap_content"
-    android:background="@color/color_dark_opacity"
-    android:padding="@dimen/dp_10">
+    android:paddingBottom="@dimen/dp_10"
+    android:paddingLeft="@dimen/dp_40"
+    android:paddingStart="@dimen/dp_40"
+    android:paddingTop="@dimen/dp_10"
+    tools:ignore="RtlSymmetry">
 
     <ImageView
         android:id="@+id/image_album"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/dp_10"
-        android:src="@drawable/mp3_icon_100x100"
+        android:layout_width="@dimen/dp_70"
+        android:layout_height="@dimen/dp_70"
+        android:src="@drawable/ic_unknown"
         tools:ignore="ContentDescription" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_70"
-
         android:orientation="vertical"
         android:paddingLeft="@dimen/dp_10"
         android:paddingRight="@dimen/dp_10">

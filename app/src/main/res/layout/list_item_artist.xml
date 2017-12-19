@@ -15,7 +15,7 @@
         android:id="@+id/image_artist"
         android:layout_width="@dimen/dp_50"
         android:layout_height="@dimen/dp_50"
-        android:src="@drawable/mp3_icon_100x100"
+        android:src="@drawable/ic_unknown"
         tools:ignore="ContentDescription" />
 
     <LinearLayout

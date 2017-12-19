@@ -4,14 +4,15 @@
     android:id="@+id/parentLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/wallpaper"
+    android:background="@drawable/wallpaper_main"
     tools:context="com.fstyle.androidtrainning.screen.splash.SplashActivity">
 
     <ImageView
         android:id="@+id/image_logo"
-        android:layout_width="@dimen/dp_400"
-        android:layout_height="@dimen/dp_400"
+        android:layout_width="@dimen/dp_150"
+        android:layout_height="@dimen/dp_150"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/logo" />
+        android:layout_marginTop="@dimen/dp_150"
+        android:src="@drawable/logo_main" />
 
 </RelativeLayout>
