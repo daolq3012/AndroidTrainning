@@ -17,5 +17,14 @@
     <string name="timeMovie">D M YYYY</string>
     <string name="kindmovie">Genre</string>
     <string name="ratemovie">0.0/10</string>
-    <string name="describeMovie">Describe movie</string>
+    <string name="title">Title</string>
+    <string name="describeMovie">DescribeMovie</string>
+    <string name="overview">Overview</string>
+    <string name="trailer">Trailer</string>
+    <string name="thumbnail_image_view_desc">Thumnail Video</string>
+    <string name="name_cast_line">Name cast</string>
+    <string name="cast_description">This is cast image</string>
+    <string name="cast">Cast</string>
+    <string name="background_video">Background thumnail video</string>
+    <string name="play_button">Play button</string>
 </resources>

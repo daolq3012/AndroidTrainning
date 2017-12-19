@@ -4,6 +4,8 @@ import android.util.Log;
 import com.fstyle.androidtrainning.data.model.Genre;
 import com.fstyle.androidtrainning.data.model.Movie;
 import com.fstyle.androidtrainning.data.service.config.MoviesApi;
+import com.fstyle.androidtrainning.data.service.response.GetCreditsResponse;
+import com.fstyle.androidtrainning.data.service.response.GetListTrailerResponse;
 import com.fstyle.androidtrainning.utils.Constant;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +56,48 @@ final class DetailsMoviePresenter implements DetailsMovieContract.Presenter {
                     @Override
                     public void onFailure(Call<Movie> call, Throwable t) {
                         Log.e(TAG, "onFailure: ", t);
+                    }
+                });
+    }
+
+    @Override
+    public void getMovieTrailers() {
+        long movieId = mDetailsMovieView.getMovieId();
+        mMoviesApi.getListTrailer(movieId, Constant.API_KEY)
+                .enqueue(new Callback<GetListTrailerResponse>() {
+                    @Override
+                    public void onResponse(Call<GetListTrailerResponse> call,
+                            Response<GetListTrailerResponse> response) {
+                        if (response.body() == null) {
+                            return;
+                        }
+                        mDetailsMovieView.onListTrailerSuccess(response.body().getResults());
+                    }
+
+                    @Override
+                    public void onFailure(Call<GetListTrailerResponse> call, Throwable t) {
+                        Log.e(TAG, "onGetMovieTrailersFailure: ", t);
+                    }
+                });
+    }
+
+    @Override
+    public void getCastsMovie() {
+        long movieId = mDetailsMovieView.getMovieId();
+        mMoviesApi.getCreditsMovie(movieId, Constant.API_KEY)
+                .enqueue(new Callback<GetCreditsResponse>() {
+                    @Override
+                    public void onResponse(Call<GetCreditsResponse> call,
+                            Response<GetCreditsResponse> response) {
+                        if (response.body() == null || response.body().getCast() == null) {
+                            return;
+                        }
+                        mDetailsMovieView.onListCastMovieSuccess(response.body().getCast());
+                    }
+
+                    @Override
+                    public void onFailure(Call<GetCreditsResponse> call, Throwable t) {
+                        Log.e(TAG, "onGetCastsMovieFailure: ", t);
                     }
                 });
     }

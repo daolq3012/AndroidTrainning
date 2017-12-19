@@ -1,4 +1,4 @@
-package com.fstyle.androidtrainning.screen.tabsearch;
+package com.fstyle.androidtrainning.screen.moremovies;
 
 import com.fstyle.androidtrainning.data.model.Movie;
 import com.fstyle.androidtrainning.data.service.config.MoviesApi;
@@ -9,25 +9,26 @@ import java.util.List;
 /**
  * This specifies the contract between the view and the presenter.
  */
-interface TabSearchContract {
+interface MoreMoviesContract {
     /**
      * View.
      */
-    interface SearchView extends BaseView {
+    interface MoreMoviesView extends BaseView {
+        String getCategoryMovie();
 
-        void onListSearchMovieSuccess(List<Movie> listSearchMovie);
+        void onListMoreMoviesSuccess(List<Movie> results);
 
-        void onListMoreMovieSuccess(List<Movie> results);
+        void onListMovieSuccess(List<Movie> results);
     }
 
     /**
      * Presenter.
      */
-    interface Presenter extends BasePresenter<SearchView> {
+    interface Presenter extends BasePresenter<MoreMoviesView> {
         void setMoviesApi(MoviesApi moviesApi);
 
-        void getListSearchMovie(String keyWord);
+        void getListMoreMovie(int currentPage);
 
-        void seachMoreMovies(int currentPage, String keyWord);
+        void getListMoviesByCategory();
     }
 }

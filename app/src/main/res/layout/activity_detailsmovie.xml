@@ -12,7 +12,7 @@
         android:id="@+id/app_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFC107"
+        android:background="@color/colorNoImage"
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         >
@@ -20,10 +20,10 @@
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsing_detail_movie"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_200"
+            android:layout_height="wrap_content"
             android:contentDescription="@string/appbar_scrolling_view_behavior"
             android:fitsSystemWindows="true"
-            app:contentScrim="@color/colorOrange"
+            app:contentScrim="@color/colorView"
             app:expandedTitleTextAppearance="@android:color/transparent"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             >
@@ -43,6 +43,7 @@
                 app:popupTheme="@style/Theme.AppCompat.Light"
                 app:title="@string/namemovie"
                 />
+
         </android.support.design.widget.CollapsingToolbarLayout>
 
     </android.support.design.widget.AppBarLayout>
@@ -70,7 +71,7 @@
                 android:layout_marginLeft="@dimen/dp_12"
                 android:layout_marginStart="@dimen/dp_12"
                 android:layout_marginTop="@dimen/dp_15"
-                android:background="#766767"
+                android:background="@color/colorNoImage"
                 android:contentDescription="@string/appbar_scrolling_view_behavior"
                 android:scaleType="fitXY"
                 />
@@ -146,9 +147,9 @@
                 android:layout_toRightOf="@id/image_kind_movie"
                 android:contentDescription="@string/appbar_scrolling_view_behavior"
                 android:paddingEnd="@dimen/dp_10"
+                android:paddingLeft="0dp"
                 android:paddingRight="@dimen/dp_10"
                 android:paddingStart="0dp"
-                android:paddingLeft="0dp"
                 android:text="@string/kindmovie"
                 android:textColor="@color/colorDescription"
                 android:textSize="@dimen/sp_18"
@@ -166,7 +167,7 @@
                 android:layout_toRightOf="@id/image_rate"
                 android:text="@string/ratemovie"
                 android:textColor="@color/colorWhite"
-                android:textSize="@dimen/sp_18"
+                android:textSize="@dimen/sp_20"
                 android:textStyle="bold"
                 />
 
@@ -185,7 +186,7 @@
                 />
 
             <View
-                android:id="@+id/view"
+                android:id="@+id/view_overview"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_1"
                 android:layout_below="@+id/image_poster"
@@ -194,18 +195,118 @@
                 />
 
             <TextView
+                android:id="@+id/text_overview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/view_overview"
+                android:padding="@dimen/dp_10"
+                android:text="@string/overview"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/sp_25"
+                />
+
+            <TextView
                 android:id="@+id/text_describe_movie"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/view"
-                android:padding="@dimen/dp_12"
+                android:layout_below="@id/text_overview"
+                android:paddingLeft="@dimen/dp_12"
+                android:paddingRight="@dimen/dp_12"
                 android:text="@string/describeMovie"
                 android:textColor="@color/colorText"
                 android:textSize="@dimen/dp_16"
                 />
+
+            <View
+                android:id="@+id/view_trailer"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_below="@+id/text_describe_movie"
+                android:layout_marginTop="@dimen/dp_15"
+                android:background="@color/colorView"
+                />
+
+            <TextView
+                android:id="@+id/text_trailer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/view_trailer"
+                android:padding="@dimen/dp_10"
+                android:text="@string/trailer"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/sp_25"
+                />
+
+            <FrameLayout
+                android:id="@+id/frame_trailer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/text_trailer"
+                android:layout_marginBottom="@dimen/dp_20"
+                >
+                <FrameLayout
+                    android:id="@+id/frame_fragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_202"
+                    />
+                <com.google.android.youtube.player.YouTubeThumbnailView
+                    android:id="@+id/youtube_thumnail"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_202"
+                    android:contentDescription="@string/thumbnail_image_view_desc"
+                    android:scaleType="centerCrop"
+                    />
+                <RelativeLayout
+                    android:id="@+id/relative_play"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_202"
+                    >
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_202"
+                        android:scaleType="fitXY"
+                        android:contentDescription="@string/background_video"
+                        android:src="@color/colorBackgroundVideo"
+                        />
+
+                    <ImageView
+                        android:layout_width="@dimen/dp_50"
+                        android:layout_height="@dimen/dp_50"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/ic_play_circle"
+                        android:contentDescription="@string/play_button"
+                        />
+                </RelativeLayout>
+            </FrameLayout>
+
+            <View
+                android:id="@+id/view_cast"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_below="@+id/frame_trailer"
+                android:layout_marginTop="@dimen/dp_15"
+                android:background="@color/colorView"
+                />
+            <TextView
+                android:id="@+id/text_cast"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/view_cast"
+                android:padding="@dimen/dp_10"
+                android:text="@string/cast"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/sp_25"
+                />
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_cast"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text_cast"
+                />
         </RelativeLayout>
-
-
     </android.support.v4.widget.NestedScrollView>
 
     <android.support.design.widget.FloatingActionButton

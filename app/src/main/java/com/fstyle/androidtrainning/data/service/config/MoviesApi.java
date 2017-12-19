@@ -1,7 +1,9 @@
 package com.fstyle.androidtrainning.data.service.config;
 
 import com.fstyle.androidtrainning.data.model.Movie;
+import com.fstyle.androidtrainning.data.service.response.GetCreditsResponse;
 import com.fstyle.androidtrainning.data.service.response.GetListMoviesResponse;
+import com.fstyle.androidtrainning.data.service.response.GetListTrailerResponse;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -26,4 +28,12 @@ public interface MoviesApi {
     Call<GetListMoviesResponse> searchMovies(@Query("query") String query,
             @Query("api_key") String apiKey, @Query("language") String language,
             @Query("page") int page);
+
+    @GET("/3/movie/{movieid}/videos")
+    Call<GetListTrailerResponse> getListTrailer(@Path("movieid") long movieId,
+            @Query("api_key") String apiKey);
+
+    @GET("/3/movie/{movieid}/credits")
+    Call<GetCreditsResponse> getCreditsMovie(@Path("movieid") long movieId,
+            @Query("api_key") String apiKey);
 }

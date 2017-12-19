@@ -16,6 +16,7 @@ import com.fstyle.androidtrainning.data.service.config.MoviesApi;
 import com.fstyle.androidtrainning.screen.BaseFragment;
 import com.fstyle.androidtrainning.screen.OnRecyclerViewItemListener;
 import com.fstyle.androidtrainning.screen.detailsmovie.DetailsMovieActivity;
+import com.fstyle.androidtrainning.screen.moremovies.MoreMoviesActivity;
 import com.fstyle.androidtrainning.utils.Constant;
 import java.util.List;
 
@@ -131,7 +132,28 @@ public class TabHomeFragment extends BaseFragment
 
     @Override
     public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.button_more_now_playing:
+                openMoreMoviesActivity(Constant.CATEGORY_NOW_PLAYING);
+                break;
+            case R.id.button_more_up_coming:
+                openMoreMoviesActivity(Constant.CATEGORY_UPCOMING);
+                break;
+            case R.id.button_more_top_rated:
+                openMoreMoviesActivity(Constant.CATEGORY_TOP_RATED);
+                break;
+            case R.id.button_more_popular:
+                openMoreMoviesActivity(Constant.CATEGORY_POPULAR);
+                break;
+            default:
+                break;
+        }
+    }
 
+    private void openMoreMoviesActivity(String category) {
+        Intent intent = new Intent(getActivity(), MoreMoviesActivity.class);
+        intent.putExtra(Constant.EXTRA_CATEGORY, category);
+        startActivity(intent);
     }
 
     @Override
