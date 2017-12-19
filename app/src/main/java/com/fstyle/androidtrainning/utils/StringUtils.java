@@ -7,7 +7,7 @@ import java.util.List;
  */
 
 public final class StringUtils {
-
+    private static final String TAG = "StringUtils";
     private static final String URL_POSTER_API = "https://image.tmdb.org/t/p/w500/";
     private static final String MORE = " ...";
     private static final String OPEN_PARENTHESE = " (";
@@ -32,7 +32,8 @@ public final class StringUtils {
             String year = releaseDate.substring(BEGIN_INDEX, YEAR);
             if (titleMovie.length() > END_INDEX) {
                 titleMovie = titleMovie.substring(BEGIN_INDEX, END_INDEX)
-                        + MORE + OPEN_PARENTHESE
+                        + MORE
+                        + OPEN_PARENTHESE
                         + year
                         + CLOSE_PARENTHESE;
                 return titleMovie;
@@ -44,6 +45,10 @@ public final class StringUtils {
     }
 
     public static String convertListToStringCommaSeparated(List<String> strings) {
+        if (strings.size() == 0) {
+            String result = "Unknown genre";
+            return result;
+        }
         StringBuilder builder = new StringBuilder();
         for (String s : strings) {
             builder.append(s);

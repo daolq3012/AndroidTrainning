@@ -1,9 +1,9 @@
 package com.fstyle.androidtrainning.screen.tabsearch;
 
+import android.util.Log;
 import com.fstyle.androidtrainning.data.service.config.MoviesApi;
 import com.fstyle.androidtrainning.data.service.response.GetListMoviesResponse;
 import com.fstyle.androidtrainning.utils.Constant;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -41,21 +41,42 @@ final class TabSearchPresenter implements TabSearchContract.Presenter {
 
     @Override
     public void getListSearchMovie(String keyWord) {
-        mMoviesApi.searchMovies(keyWord, Constant.API_KEY, Constant.LANGUAGE,
-                Constant.DEFAULT_PAGE).enqueue(new Callback<GetListMoviesResponse>() {
-            @Override
-            public void onResponse(Call<GetListMoviesResponse> call,
-                                   Response<GetListMoviesResponse> response) {
-                if (response.body() == null || response.body().getResults() == null) {
-                    return;
-                }
-                mSearchView.onListSearchMovieSuccess(response.body().getResults());
-            }
+        mMoviesApi.searchMovies(keyWord, Constant.API_KEY, Constant.LANGUAGE, Constant.DEFAULT_PAGE)
+                .enqueue(new Callback<GetListMoviesResponse>() {
+                    @Override
+                    public void onResponse(Call<GetListMoviesResponse> call,
+                            Response<GetListMoviesResponse> response) {
+                        if (response.body() == null || response.body().getResults() == null) {
+                            return;
+                        }
+                        mSearchView.onListSearchMovieSuccess(response.body().getResults());
+                    }
 
-            @Override
-            public void onFailure(Call<GetListMoviesResponse> call, Throwable t) {
+                    @Override
+                    public void onFailure(Call<GetListMoviesResponse> call, Throwable t) {
+                        Log.e(TAG, "onGetListSearchMovieFailure: ", t);
+                    }
+                });
+    }
 
-            }
-        });
+    @Override
+    public void seachMoreMovies(int currentPage, String keyWord) {
+        mMoviesApi.searchMovies(keyWord, Constant.API_KEY, Constant.LANGUAGE, currentPage)
+                .enqueue(new Callback<GetListMoviesResponse>() {
+
+                    @Override
+                    public void onResponse(Call<GetListMoviesResponse> call,
+                            Response<GetListMoviesResponse> response) {
+                        if (response.body() == null || response.body().getResults() == null) {
+                            return;
+                        }
+                        mSearchView.onListMoreMovieSuccess(response.body().getResults());
+                    }
+
+                    @Override
+                    public void onFailure(Call<GetListMoviesResponse> call, Throwable t) {
+                        Log.e(TAG, "onSeachMoreMoviesFailure: ", t);
+                    }
+                });
     }
 }

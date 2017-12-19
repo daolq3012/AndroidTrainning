@@ -18,4 +18,5 @@
     <string name="kindmovie">Genre</string>
     <string name="ratemovie">0.0/10</string>
     <string name="describeMovie">Describe movie</string>
+    <string name="title">Title</string>
 </resources>
