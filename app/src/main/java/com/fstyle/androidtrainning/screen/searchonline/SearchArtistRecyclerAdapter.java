@@ -1,4 +1,4 @@
-package com.fstyle.androidtrainning.screen.main;
+package com.fstyle.androidtrainning.screen.searchonline;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

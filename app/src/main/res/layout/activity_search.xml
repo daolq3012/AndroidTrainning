@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.fstyle.androidtrainning.screen.search.SearchActivity"
+    android:padding="@dimen/dp_10"
+    >
+
+    <ImageView
+        android:id="@+id/image_back"
+        android:layout_marginTop="@dimen/dp_5"
+        android:layout_width="@dimen/dp_36"
+        android:layout_height="@dimen/dp_36"
+        android:src="@drawable/ic_back"
+        android:contentDescription="@string/description"
+        />
+    <EditText
+        android:id="@+id/edit_search"
+        android:layout_toRightOf="@+id/image_back"
+        android:layout_width="@dimen/dp_320"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sp_24"
+        android:inputType="text"
+        android:layout_toEndOf="@+id/image_back"
+        />
+    <ImageView
+        android:id="@+id/image_cancel"
+        android:visibility="gone"
+        android:layout_marginTop="@dimen/dp_5"
+        android:layout_toRightOf="@id/edit_search"
+        android:layout_width="@dimen/dp_36"
+        android:layout_height="@dimen/dp_36"
+        android:src="@drawable/ic_cancel"
+        android:contentDescription="@string/description"
+        android:layout_toEndOf="@id/edit_search"
+        />
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_below="@+id/image_back"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabMode="fixed"
+        app:tabIndicatorColor="@color/color_little_purple"
+        />
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_below="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+</RelativeLayout>

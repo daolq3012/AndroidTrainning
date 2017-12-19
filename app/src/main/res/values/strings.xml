@@ -5,6 +5,7 @@
     <string name="my_song">My Songs</string>
     <string name="another">Another</string>
     <string name="online">Online</string>
+    <string name="offline">Offline</string>
     <string name="list_song">Songs</string>
     <string name="favorite_song">Favorite</string>
     <string name="artist">Artist</string>
