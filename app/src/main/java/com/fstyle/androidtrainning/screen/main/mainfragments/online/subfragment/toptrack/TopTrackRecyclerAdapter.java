@@ -38,7 +38,7 @@ public class TopTrackRecyclerAdapter
     @Override
     public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_top_track, parent, false);
+                .inflate(R.layout.list_item_song, parent, false);
         return new RecyclerViewHolder(view);
     }
 
@@ -58,15 +58,15 @@ public class TopTrackRecyclerAdapter
         private TextView mTxtNameSong;
         private TextView mTxtNameSinger;
         private static final int MEDIUM_IMAGE = 1;
-        private static final int MAX_LENGTH = 30;
+        private static final int MAX_LENGTH = 20;
         private static final int MIN_LENGTH = 0;
         private static final String MORE = "...";
 
         public RecyclerViewHolder(View itemView) {
             super(itemView);
-            mImageView = itemView.findViewById(R.id.image_top_track);
-            mTxtNameSong = itemView.findViewById(R.id.text_name_song);
-            mTxtNameSinger = itemView.findViewById(R.id.text_name_singer);
+            mImageView = itemView.findViewById(R.id.image);
+            mTxtNameSong = itemView.findViewById(R.id.text_upper);
+            mTxtNameSinger = itemView.findViewById(R.id.text_lower);
         }
 
         public void bind(int position) {

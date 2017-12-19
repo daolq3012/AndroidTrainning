@@ -14,6 +14,7 @@
         app:title="@string/pcm_music"
         app:titleTextColor="@color/color_white"
         tools:targetApi="lollipop"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         />
     <RelativeLayout
         android:id="@+id/layout_main"
@@ -36,7 +37,6 @@
             android:layout_alignParentBottom="true"
             android:paddingTop="@dimen/dp_10"
             android:textAlignment="center"
-            app:bb_badgeBackgroundColor="@color/color_transparent"
             app:bb_tabXmlResource="@xml/bottombar_tabs"
             />
         <LinearLayout

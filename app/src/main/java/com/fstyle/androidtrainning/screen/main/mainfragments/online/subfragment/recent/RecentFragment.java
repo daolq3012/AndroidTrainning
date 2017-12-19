@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.fstyle.androidtrainning.R;
 import com.fstyle.androidtrainning.application.MainApplication;
 import com.fstyle.androidtrainning.data.remote.service.config.LastFmApi;
@@ -29,11 +28,10 @@ public class RecentFragment extends BaseFragment implements RecentContract.Viewe
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+            Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_recent, container, false);
         initViews(v);
-
         mPresenter.getRecentTrack();
         return v;
     }

@@ -46,7 +46,7 @@ public class SearchArtistRecyclerAdapter
     @Override
     public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.list_item_artist, parent, false);
+                .inflate(R.layout.list_item_song, parent, false);
         return new RecyclerViewHolder(view);
     }
 
@@ -70,9 +70,9 @@ public class SearchArtistRecyclerAdapter
 
         public RecyclerViewHolder(View itemView) {
             super(itemView);
-            mImageView = itemView.findViewById(R.id.image_artist);
-            mTxtArtist = itemView.findViewById(R.id.text_name_artist);
-            mTxtCount = itemView.findViewById(R.id.text_count_song);
+            mImageView = itemView.findViewById(R.id.image);
+            mTxtArtist = itemView.findViewById(R.id.text_upper);
+            mTxtCount = itemView.findViewById(R.id.text_lower);
         }
 
         public void bind(int position) {
