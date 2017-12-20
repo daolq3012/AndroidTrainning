@@ -7,6 +7,7 @@ package com.fstyle.androidtrainning.utils;
 public final class Constant {
 
     public static final String API_KEY = "81926142a0ec9e95744652262dc8ec1c";
+    public static final String GOOGLE_API_KEY = "AIzaSyA99nefcNFvOztPiH4lp8YtcSjz072UsDU";
     public static final String LANGUAGE = "en-US";
     public static final String BASE_URL = "https://api.themoviedb.org";
     public static final String CATEGORY_NOW_PLAYING = "now_playing";

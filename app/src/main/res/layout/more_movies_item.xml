@@ -9,9 +9,10 @@
     <ImageView
         android:id="@+id/image_more_poster_item"
         android:layout_width="@dimen/dp_120"
-        android:layout_height="@dimen/dp_178"
+        android:layout_height="@dimen/dp_163"
         android:contentDescription="@string/poster_item_description"
-        android:background="@color/colorBackground"
+        android:background="@color/colorNoImage"
+        android:scaleType="fitXY"
         />
     <TextView
         android:id="@+id/text_more_name_item"

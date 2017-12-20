@@ -44,6 +44,15 @@ public final class StringUtils {
         }
     }
 
+    public static String convertLongNameToShortName(String nameCast) {
+        if (nameCast.length() > END_INDEX) {
+            nameCast = nameCast.substring(BEGIN_INDEX, END_INDEX) + MORE;
+            return nameCast;
+        } else {
+            return nameCast;
+        }
+    }
+
     public static String convertListToStringCommaSeparated(List<String> strings) {
         if (strings.size() == 0) {
             String result = "Unknown genre";
