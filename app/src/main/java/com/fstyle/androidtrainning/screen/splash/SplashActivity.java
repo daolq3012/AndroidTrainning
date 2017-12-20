@@ -29,10 +29,11 @@ public class SplashActivity extends BaseActivity {
         setContentView(R.layout.activity_splash);
 
         //permission
-        requestStoragePermissions();
+//        requestStoragePermissions();
 
         initViews();
         doAnimation();
+        doGoToMainActivity();
     }
 
     private void initViews() {
@@ -59,35 +60,35 @@ public class SplashActivity extends BaseActivity {
         mHandler.postDelayed(mRunnable, TIME_HANDLER);
     }
 
-    private void requestStoragePermissions() {
-        if (Build.VERSION.SDK_INT >= SDK_DEFAULT) {
-            if (ActivityCompat.checkSelfPermission(SplashActivity.this,
-                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(SplashActivity.this, new String[] {
-                        android.Manifest.permission.WRITE_EXTERNAL_STORAGE
-                }, REQUEST_PERMISSION_CODE);
-            } else {
-                doGoToMainActivity();
-            }
-        }
-    }
+//    private void requestStoragePermissions() {
+//        if (Build.VERSION.SDK_INT >= SDK_DEFAULT) {
+//            if (ActivityCompat.checkSelfPermission(SplashActivity.this,
+//                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+//                    != PackageManager.PERMISSION_GRANTED) {
+//                ActivityCompat.requestPermissions(SplashActivity.this, new String[] {
+//                        android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+//                }, REQUEST_PERMISSION_CODE);
+//            } else {
+//                doGoToMainActivity();
+//            }
+//        }
+//    }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-            @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode) {
-            case REQUEST_PERMISSION_CODE:
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
-                    finish();
-                } else {
-                    finish();
-                }
-                break;
-        }
-    }
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+//            @NonNull int[] grantResults) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//        switch (requestCode) {
+//            case REQUEST_PERMISSION_CODE:
+//                // If request is cancelled, the result arrays are empty.
+//                if (grantResults.length > 0
+//                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
+//                    finish();
+//                } else {
+//                    finish();
+//                }
+//                break;
+//        }
+//    }
 }
