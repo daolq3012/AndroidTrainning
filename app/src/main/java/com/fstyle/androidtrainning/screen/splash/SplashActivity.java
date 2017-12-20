@@ -2,6 +2,7 @@ package com.fstyle.androidtrainning.screen.splash;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -20,6 +21,7 @@ public class SplashActivity extends BaseActivity {
     private ImageView mImageView;
     public static final int REQUEST_PERMISSION_CODE = 101;
     public static final int TIME_HANDLER = 3000;
+    public static final int SDK_DEFAULT = 15;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,14 +60,16 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void requestStoragePermissions() {
-        if (ActivityCompat.checkSelfPermission(SplashActivity.this,
-                android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(SplashActivity.this,
-                    new String[] { android.Manifest.permission.WRITE_EXTERNAL_STORAGE },
-                    REQUEST_PERMISSION_CODE);
-        } else {
-            doGoToMainActivity();
+        if (Build.VERSION.SDK_INT >= SDK_DEFAULT) {
+            if (ActivityCompat.checkSelfPermission(SplashActivity.this,
+                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(SplashActivity.this, new String[] {
+                        android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+                }, REQUEST_PERMISSION_CODE);
+            } else {
+                doGoToMainActivity();
+            }
         }
     }
 

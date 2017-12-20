@@ -32,7 +32,6 @@ public class ListSongFragment extends BaseFragment
     private ListSongAdapter mListSongAdapter;
     private GetListAsyncTask mGetListAsyncTask;
     private List<Track> mTracks = new ArrayList<>();
-    private boolean isFavorite = false;
 
     public ListSongFragment() {
         // Required empty public constructor
@@ -52,7 +51,7 @@ public class ListSongFragment extends BaseFragment
         mPresenter = new ListSongPresenter();
         mPresenter.setView(this);
         mRecyclerView = v.findViewById(R.id.recycler_song);
-        mListSongAdapter = new ListSongAdapter(getActivity(), isFavorite);
+        mListSongAdapter = new ListSongAdapter(getActivity());
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(mListSongAdapter);

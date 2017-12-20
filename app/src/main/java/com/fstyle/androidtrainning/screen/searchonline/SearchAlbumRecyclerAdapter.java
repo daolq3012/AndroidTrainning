@@ -1,4 +1,4 @@
-package com.fstyle.androidtrainning.screen.main;
+package com.fstyle.androidtrainning.screen.searchonline;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.fstyle.androidtrainning.R;
-import com.fstyle.androidtrainning.model.SearchTrack;
+import com.fstyle.androidtrainning.model.SearchAlbum;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,29 +17,29 @@ import java.util.List;
  * Created by Administrator on 12/15/17.
  */
 
-public class SearchSongRecyclerAdapter
-        extends RecyclerView.Adapter<SearchSongRecyclerAdapter.RecyclerViewHolder> {
+public class SearchAlbumRecyclerAdapter
+        extends RecyclerView.Adapter<SearchAlbumRecyclerAdapter.RecyclerViewHolder> {
 
-    private List<SearchTrack> mTracks = new ArrayList<>();
+    private List<SearchAlbum> mAlbums = new ArrayList<>();
     private Context mContext;
 
-    public SearchSongRecyclerAdapter(Context context) {
+    public SearchAlbumRecyclerAdapter(Context context) {
         mContext = context;
     }
 
-    public void updateData(List<SearchTrack> tracks) {
-        if (tracks == null) {
+    public void updateData(List<SearchAlbum> albums) {
+        if (albums == null) {
             return;
         }
-        mTracks = tracks;
+        mAlbums = albums;
         notifyDataSetChanged();
     }
 
     public void clearData() {
-        if (mTracks == null) {
+        if (mAlbums == null) {
             return;
         }
-        mTracks.clear();
+        mAlbums.clear();
         notifyDataSetChanged();
     }
 
@@ -57,12 +57,12 @@ public class SearchSongRecyclerAdapter
 
     @Override
     public int getItemCount() {
-        return mTracks.size();
+        return mAlbums.size();
     }
 
     public class RecyclerViewHolder extends RecyclerView.ViewHolder {
         private ImageView mImageView;
-        private TextView mTxtNameSong, mTxtNameSinger;
+        private TextView mTxtName, mTxtArtist;
         private static final int MEDIUM_IMAGE = 1;
         private static final int MAX_LENGTH = 25;
         private static final int MIN_LENGTH = 0;
@@ -71,18 +71,18 @@ public class SearchSongRecyclerAdapter
         public RecyclerViewHolder(View itemView) {
             super(itemView);
             mImageView = itemView.findViewById(R.id.image);
-            mTxtNameSong = itemView.findViewById(R.id.text_upper);
-            mTxtNameSinger = itemView.findViewById(R.id.text_lower);
+            mTxtName = itemView.findViewById(R.id.text_upper);
+            mTxtArtist = itemView.findViewById(R.id.text_lower);
         }
 
         public void bind(int position) {
             setImage(position);
-            setNameArtist(position);
-            setNameSong(position);
+            setName(position);
+            setArtist(position);
         }
 
         private void setImage(int position) {
-            String urlImage = mTracks.get(position).getImage().get(MEDIUM_IMAGE).getText();
+            String urlImage = mAlbums.get(position).getImage().get(MEDIUM_IMAGE).getText();
             if (!urlImage.isEmpty()) {
                 Glide.with(mContext).load(urlImage).into(mImageView);
             } else {
@@ -90,23 +90,23 @@ public class SearchSongRecyclerAdapter
             }
         }
 
-        private void setNameArtist(int position) {
-            String nameArtist = mTracks.get(position).getArtist();
-            if (nameArtist.length() >= MAX_LENGTH) {
-                String subNameArtist = nameArtist.substring(MIN_LENGTH, MAX_LENGTH) + MORE;
-                mTxtNameSinger.setText(subNameArtist);
+        private void setName(int position) {
+            String name = mAlbums.get(position).getName();
+            if (name.length() >= MAX_LENGTH) {
+                String subName = name.substring(MIN_LENGTH, MAX_LENGTH) + MORE;
+                mTxtName.setText(subName);
             } else {
-                mTxtNameSinger.setText(nameArtist);
+                mTxtName.setText(name);
             }
         }
 
-        private void setNameSong(int position) {
-            String nameSong = mTracks.get(position).getName();
-            if (nameSong.length() >= MAX_LENGTH) {
-                String subNameSong = nameSong.substring(MIN_LENGTH, MAX_LENGTH) + MORE;
-                mTxtNameSong.setText(subNameSong);
+        private void setArtist(int position) {
+            String artist = mAlbums.get(position).getArtist();
+            if (artist.length() >= MAX_LENGTH) {
+                String subArtist = artist.substring(MIN_LENGTH, MAX_LENGTH) + MORE;
+                mTxtArtist.setText(subArtist);
             } else {
-                mTxtNameSong.setText(nameSong);
+                mTxtArtist.setText(artist);
             }
         }
     }

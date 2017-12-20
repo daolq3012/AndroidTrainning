@@ -16,25 +16,13 @@ public interface MainContract {
 
     interface Viewer extends BaseView {
 
-        void onListTrackSuccess(List<SearchTrack> track);
 
-        void onListAlbumSuccess(List<SearchAlbum> album);
-
-        void onListArtistSuccess(List<Artist> artist);
-
-        void onListArtistFail();
-
-        void onListAlbumFail();
-
-        void onListTrackFail();
-
-        void onFetchAllDataSuccess(boolean isFetchDataSuccess);
     }
 
     interface Presenter extends BasePresenter<Viewer> {
 
         void setApi(LastFmApi api);
 
-        void doPassKeyWord(String newText);
+
     }
 }

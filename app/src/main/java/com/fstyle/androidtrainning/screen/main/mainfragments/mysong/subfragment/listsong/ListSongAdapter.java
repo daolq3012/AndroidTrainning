@@ -26,7 +26,7 @@ public class ListSongAdapter extends RecyclerView.Adapter<ListSongAdapter.Recycl
     private OnFavoriteClick mOnFavoriteClick;
     private List<TrackEntity> mFavorites = new ArrayList<>();
 
-    public ListSongAdapter(Context context, boolean isFavorite) {
+    public ListSongAdapter(Context context) {
         mContext = context;
     }
 
