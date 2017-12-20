@@ -1,5 +1,6 @@
 package com.fstyle.androidtrainning.screen.main.mainfragments.mysong.subfragment.album;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -8,17 +9,18 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.fstyle.androidtrainning.R;
 import com.fstyle.androidtrainning.model.Album;
 import com.fstyle.androidtrainning.screen.BaseFragment;
-
+import com.fstyle.androidtrainning.screen.songbelongalbum.SongBelongAlbumActivity;
+import com.fstyle.androidtrainning.utils.Constant;
 import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AlbumFragment extends BaseFragment implements AlbumContract.Viewer {
+public class AlbumFragment extends BaseFragment
+        implements AlbumContract.Viewer, OnItemClickListener {
 
     private RecyclerView mRecyclerView;
     private AlbumAdapter mAlbumAdapter;
@@ -31,7 +33,7 @@ public class AlbumFragment extends BaseFragment implements AlbumContract.Viewer 
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+            Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_album, container, false);
         initViews(v);
@@ -47,6 +49,7 @@ public class AlbumFragment extends BaseFragment implements AlbumContract.Viewer 
         GridLayoutManager manager = new GridLayoutManager(getActivity(), COLUMN);
         mRecyclerView.setLayoutManager(manager);
         mRecyclerView.setAdapter(mAlbumAdapter);
+        mAlbumAdapter.setOnItemClickListener(this);
     }
 
     @Override
@@ -64,5 +67,11 @@ public class AlbumFragment extends BaseFragment implements AlbumContract.Viewer 
     @Override
     public void onGetListAlbumSuccess(List<Album> albums) {
         mAlbumAdapter.updateData(albums);
+    }
+
+    @Override
+    public void onItemClicked(String name) {
+        startActivity(new Intent(getActivity(), SongBelongAlbumActivity.class).putExtra(
+                Constant.EXTRA_NAME_ALBUM, name));
     }
 }

@@ -21,7 +21,7 @@ public class SplashActivity extends BaseActivity {
     private ImageView mImageView;
     public static final int REQUEST_PERMISSION_CODE = 101;
     public static final int TIME_HANDLER = 3000;
-    public static final int SDK_DEFAULT = 15;
+    public static final int SDK_DEFAULT = 23;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

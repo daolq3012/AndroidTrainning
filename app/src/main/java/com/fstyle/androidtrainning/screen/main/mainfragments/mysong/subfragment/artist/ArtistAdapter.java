@@ -6,10 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.fstyle.androidtrainning.R;
 import com.fstyle.androidtrainning.model.Artist;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,18 +17,23 @@ import java.util.List;
 
 public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.RecyclerViewHolder> {
 
-    private List<Artist> mArtist = new ArrayList<>();
+    private List<Artist> mArtists = new ArrayList<>();
     private Context mContext;
+    private OnItemClickListener mOnItemClickListener;
 
     public ArtistAdapter(Context context) {
         mContext = context;
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        mOnItemClickListener = onItemClickListener;
     }
 
     public void updateData(List<Artist> artists) {
         if (artists == null) {
             return;
         }
-        mArtist.addAll(artists);
+        mArtists.addAll(artists);
         notifyDataSetChanged();
     }
 
@@ -38,7 +41,7 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.RecyclerVi
     public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.list_artist_offline, parent, false);
-        return new RecyclerViewHolder(view);
+        return new RecyclerViewHolder(view, mOnItemClickListener);
     }
 
     @Override
@@ -48,20 +51,30 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.RecyclerVi
 
     @Override
     public int getItemCount() {
-        return mArtist.size();
+        return mArtists.size();
     }
 
     public final class RecyclerViewHolder extends RecyclerView.ViewHolder {
 
         private TextView mTxtArtist;
+        private OnItemClickListener mOnItemClickListener;
+        private int position = 0;
 
-        public RecyclerViewHolder(View itemView) {
+        public RecyclerViewHolder(View itemView, OnItemClickListener onItemClickListener) {
             super(itemView);
             mTxtArtist = itemView.findViewById(R.id.text_name);
+            mOnItemClickListener = onItemClickListener;
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mOnItemClickListener.onItemClicked(mArtists.get(position).getName());
+                }
+            });
         }
 
         public void bind(int position) {
-            String nameArtist = mArtist.get(position).getName();
+            this.position = position;
+            String nameArtist = mArtists.get(position).getName();
             mTxtArtist.setText(nameArtist);
         }
     }
