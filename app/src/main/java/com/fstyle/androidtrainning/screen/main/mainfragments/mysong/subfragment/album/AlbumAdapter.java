@@ -8,10 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.fstyle.androidtrainning.R;
 import com.fstyle.androidtrainning.model.Album;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,10 +17,11 @@ import java.util.List;
  * Created by Administrator on 12/17/17.
  */
 
-public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.RecyclerViewHoler> {
+public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.RecyclerViewHolder> {
 
-    private List<Album> mAlbum = new ArrayList<>();
+    private List<Album> mAlbums = new ArrayList<>();
     private Context mContext;
+    private OnItemClickListener mOnItemClickListener;
 
     public AlbumAdapter(Context context) {
         mContext = context;
@@ -32,43 +31,65 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.RecyclerView
         if (albums == null) {
             return;
         }
-        mAlbum.addAll(albums);
+        mAlbums.addAll(albums);
         notifyDataSetChanged();
     }
 
-    @Override
-    public RecyclerViewHoler onCreateViewHolder(ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.item_top_album, parent, false);
-        return new RecyclerViewHoler(view);
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        mOnItemClickListener = onItemClickListener;
     }
 
     @Override
-    public void onBindViewHolder(RecyclerViewHoler holder, int position) {
+    public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        View view = inflater.inflate(R.layout.item_top_album, parent, false);
+        return new RecyclerViewHolder(view, mOnItemClickListener);
+    }
+
+    @Override
+    public void onBindViewHolder(RecyclerViewHolder holder, int position) {
         holder.bind(position);
     }
 
     @Override
     public int getItemCount() {
-        return mAlbum.size();
+        return mAlbums.size();
     }
 
-    public final class RecyclerViewHoler extends RecyclerView.ViewHolder {
+    public final class RecyclerViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView mImageAlbum;
         private TextView mTxtAlbum, mTxtArtist;
+        private OnItemClickListener mOnItemClickListener;
+        private int position = 0;
 
-        private RecyclerViewHoler(View itemView) {
+        private RecyclerViewHolder(View itemView, OnItemClickListener onItemClickListener) {
             super(itemView);
             mImageAlbum = itemView.findViewById(R.id.image_album);
             mTxtAlbum = itemView.findViewById(R.id.text_name_album);
             mTxtArtist = itemView.findViewById(R.id.text_name_singer);
+            mOnItemClickListener = onItemClickListener;
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (mAlbums.get(position).getName() == null) {
+                        return;
+                    }
+                    mOnItemClickListener.onItemClicked(mAlbums.get(position).getName());
+                }
+            });
         }
 
         private void bind(int position) {
-            Bitmap image = mAlbum.get(position).getBmAlbum();
-            String nameAlbum = mAlbum.get(position).getName();
-            String nameArtist = mAlbum.get(position).getNameArtist();
+            if (mAlbums.get(position).getName() == null
+                    || mAlbums.get(position).getNameArtist() == null
+                    || mAlbums.get(position).getBmAlbum() == null) {
+                return;
+            }
+            this.position = position;
+            Bitmap image = mAlbums.get(position).getBmAlbum();
+            String nameAlbum = mAlbums.get(position).getName();
+            String nameArtist = mAlbums.get(position).getNameArtist();
             mImageAlbum.setImageBitmap(image);
             mTxtAlbum.setText(nameAlbum);
             mTxtArtist.setText(nameArtist);

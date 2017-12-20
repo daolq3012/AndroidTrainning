@@ -12,10 +12,11 @@
         android:icon="@mipmap/icon_launcher_main"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/icon_launcher_main"
-        android:supportsRtl="true"
         android:screenOrientation="portrait"
+        android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".screen.splash.SplashActivity"
+        <activity
+            android:name=".screen.splash.SplashActivity"
             android:windowSoftInputMode="adjustNothing">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -26,6 +27,14 @@
         <activity android:name=".screen.main.MainActivity"/>
         <activity
             android:name=".screen.search.SearchActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
+        <activity
+            android:name=".screen.songbelongalbum.SongBelongAlbumActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
+        <activity
+            android:name=".screen.songbelongartist.SongBelongArtistActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"/>
     </application>

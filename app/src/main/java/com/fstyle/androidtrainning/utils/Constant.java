@@ -26,4 +26,6 @@ public final class Constant {
     // .getPath();
     // path sd card cho android 4.4.x tro len
     public static final String STR_PATH_UPPER_4 = System.getenv("SECONDARY_STORAGE");
+    public static final String EXTRA_NAME_ALBUM = "EXTRA_NAME_ALBUM";
+    public static final String EXTRA_NAME_ARTIST = "EXTRA_NAME_ARTIST";
 }
