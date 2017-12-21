@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".screen.main.MainActivity"
+        <activity
+            android:name=".screen.splash.SplashActivity"
             android:windowSoftInputMode="adjustNothing">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -28,5 +29,10 @@
             android:name=".screen.moremovies.MoreMoviesActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"/>
+        <activity
+            android:name=".screen.main.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
     </application>
+
 </manifest>

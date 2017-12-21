@@ -27,4 +27,5 @@
     <string name="cast">Cast</string>
     <string name="background_video">Background thumnail video</string>
     <string name="play_button">Play button</string>
+    <string name="this_is_logo">This is logo image</string>
 </resources>
