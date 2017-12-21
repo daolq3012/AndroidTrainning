@@ -12,9 +12,17 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.fstyle.androidtrainning.MainApplication;
 import com.fstyle.androidtrainning.R;
+import com.fstyle.androidtrainning.data.local.DeleteMovieFromDatabase;
+import com.fstyle.androidtrainning.data.local.GetMovieFromDatabase;
+import com.fstyle.androidtrainning.data.local.InsertMovieToDatabase;
+import com.fstyle.androidtrainning.data.local.MovieDatabase;
+import com.fstyle.androidtrainning.data.local.OnDeleteDataListener;
+import com.fstyle.androidtrainning.data.local.OnInsertDataListener;
+import com.fstyle.androidtrainning.data.local.entity.MovieEntity;
 import com.fstyle.androidtrainning.data.model.Cast;
 import com.fstyle.androidtrainning.data.model.Movie;
 import com.fstyle.androidtrainning.data.model.Trailer;
@@ -30,13 +38,15 @@ import com.google.android.youtube.player.YouTubeThumbnailLoader;
 import com.google.android.youtube.player.YouTubeThumbnailView;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * DetailsMovie Screen.
  */
 public class DetailsMovieActivity extends BaseActivity
         implements DetailsMovieContract.DetailsMovieView, View.OnClickListener,
-        YouTubePlayer.OnInitializedListener, YouTubeThumbnailView.OnInitializedListener {
+        YouTubePlayer.OnInitializedListener, YouTubeThumbnailView.OnInitializedListener,
+        OnDeleteDataListener, OnInsertDataListener {
     private static final String TAG = "DetailsMovieActivity";
     public static final String DATE_FORMATT_DD_MM_YYYY = "yyyy-MM-dd";
     public static final String DATE_FORMATT_DD_MMM_YYYY = "dd MMM yyyy";
@@ -44,11 +54,13 @@ public class DetailsMovieActivity extends BaseActivity
     private static final String MAX_POINT = "/10";
     private static final String OFFICIAL = "Official";
     private static final int FIRST_TRAILER = 0;
-    private ImageView mImageBackdrop, mImagePoster, mImageThumnail;
+    private ImageView mImageBackdrop, mImagePoster;
     private TextView mTextReleaseDate, mTextRunTime, mTextGenreMovie, mTextOverview, mTextRateMovie;
     private CollapsingToolbarLayout mCollapsingToolbarLayout;
     private Toolbar mToolbar;
     private FloatingActionButton mFloatingFavoriteButton;
+    private MovieDatabase mMovieDatabase;
+    private boolean isFavorite = false;
     private RelativeLayout mRelativeLayout;
     private YouTubePlayerFragment mYouTubePlayer;
     private YouTubePlayer.OnInitializedListener mOnPlayerInitListener;
@@ -58,6 +70,9 @@ public class DetailsMovieActivity extends BaseActivity
     private CastAdapter mAdapter;
     DetailsMovieContract.Presenter mPresenter;
     private String mYoutubeKey;
+    private String mTitleMovie;
+    private String mPosterPath;
+    private String mReleaseDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +82,7 @@ public class DetailsMovieActivity extends BaseActivity
         mPresenter = new DetailsMoviePresenter();
         mPresenter.setView(this);
         MoviesApi moviesApi = MainApplication.getMoviesApi();
+        mMovieDatabase = MainApplication.getMovieDatabase();
         mPresenter.setMovieApi(moviesApi);
         mPresenter.getDetailsMovie();
         mPresenter.getMovieTrailers();
@@ -98,6 +114,12 @@ public class DetailsMovieActivity extends BaseActivity
         mFloatingFavoriteButton.setBackgroundTintList(
                 ColorStateList.valueOf(getResources().getColor(R.color.colorOrange)));
         mFloatingFavoriteButton.setOnClickListener(this);
+        if (isFavoriteMovie()) {
+            mFloatingFavoriteButton.setImageResource(R.drawable.ic_action_favorite);
+            isFavorite = !isFavorite;
+        } else {
+            mFloatingFavoriteButton.setImageResource(R.drawable.ic_favorite_border);
+        }
 
         mCollapsingToolbarLayout = findViewById(R.id.collapsing_detail_movie);
         mCollapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.CollapsedAppBar);
@@ -120,6 +142,21 @@ public class DetailsMovieActivity extends BaseActivity
                 onBackPressed();
             }
         });
+    }
+
+    private boolean isFavoriteMovie() {
+        int isLike;
+        try {
+            isLike = new GetMovieFromDatabase(mMovieDatabase).execute(getMovieId()).get();
+            if (isLike > 0) {
+                return true;
+            }
+        } catch (InterruptedException e) {
+            Log.e(TAG, "isFavoriteMovie: Ops! ", e);
+        } catch (ExecutionException e) {
+            Log.e(TAG, "isFavoriteMovie: Ops! ", e);
+        }
+        return false;
     }
 
     @Override
@@ -149,6 +186,10 @@ public class DetailsMovieActivity extends BaseActivity
         Date date =
                 DateTimeUtils.convertStringToDate(movie.getReleaseDate(), DATE_FORMATT_DD_MM_YYYY);
         String releaseDate = DateTimeUtils.getStrDateTimeFormatted(date, DATE_FORMATT_DD_MMM_YYYY);
+
+        mTitleMovie = movie.getTitle();
+        mPosterPath = movie.getPosterPath();
+        mReleaseDate = movie.getReleaseDate();
 
         Glide.with(this).load(urlBackdrop).into(mImageBackdrop);
         Glide.with(this).load(urlPoster).into(mImagePoster);
@@ -189,7 +230,21 @@ public class DetailsMovieActivity extends BaseActivity
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.floating_favorite:
-                //TODO Add movie to favorite list
+                if (!isFavorite) {
+                    mFloatingFavoriteButton.setImageResource(R.drawable.ic_action_favorite);
+                    MovieEntity movieEntity = new MovieEntity();
+                    movieEntity.setId(getMovieId());
+                    movieEntity.setTitle(mTitleMovie);
+                    movieEntity.setPosterPath(mPosterPath);
+                    movieEntity.setReleaseDate(mReleaseDate);
+                    new InsertMovieToDatabase(mMovieDatabase, this).execute(movieEntity);
+                } else {
+                    mFloatingFavoriteButton.setImageResource(R.drawable.ic_favorite_border);
+                    MovieEntity movieEntity = new MovieEntity();
+                    movieEntity.setId(getMovieId());
+                    new DeleteMovieFromDatabase(mMovieDatabase, this).execute(movieEntity);
+                }
+                isFavorite = !isFavorite;
                 break;
             case R.id.relative_play:
                 mRelativeLayout.setVisibility(View.INVISIBLE);
@@ -241,5 +296,17 @@ public class DetailsMovieActivity extends BaseActivity
     public void onInitializationFailure(YouTubeThumbnailView youTubeThumbnailView,
             YouTubeInitializationResult youTubeInitializationResult) {
         Log.e(TAG, "onInitializationFailure: ");
+    }
+
+    @Override
+    public void onDeleteDataSuccess() {
+        Toast.makeText(this, getResources().getString(R.string.remove_favorite_movie),
+                Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onInsertDataSuccess() {
+        Toast.makeText(this, getResources().getString(R.string.add_favorite_movie),
+                Toast.LENGTH_LONG).show();
     }
 }

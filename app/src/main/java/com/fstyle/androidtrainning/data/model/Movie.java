@@ -89,6 +89,9 @@ public class Movie implements Parcelable {
     @Expose
     private Integer voteCount;
 
+    public Movie() {
+    }
+
     protected Movie(Parcel in) {
         byte tmpAdult = in.readByte();
         adult = tmpAdult == 0 ? null : tmpAdult == 1;
