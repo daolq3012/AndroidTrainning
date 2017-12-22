@@ -2,15 +2,18 @@ package com.fstyle.androidtrainning.model;
 
 import android.graphics.Bitmap;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Administrator on 12/12/17.
  */
 
-public class Album {
+public class Album implements Parcelable {
 
     @SerializedName("name")
     @Expose
@@ -107,4 +110,50 @@ public class Album {
     public void setAttr(Attr attr) {
         this.attr = attr;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.name);
+        dest.writeString(this.playcount);
+        dest.writeString(this.mbid);
+        dest.writeString(this.url);
+        dest.writeParcelable(this.artist, flags);
+        dest.writeList(this.image);
+        dest.writeParcelable(this.attr, flags);
+        dest.writeParcelable(this.bmAlbum, flags);
+        dest.writeString(this.nameArtist);
+    }
+
+    public Album() {
+    }
+
+    protected Album(Parcel in) {
+        this.name = in.readString();
+        this.playcount = in.readString();
+        this.mbid = in.readString();
+        this.url = in.readString();
+        this.artist = in.readParcelable(Artist.class.getClassLoader());
+        this.image = new ArrayList<Image>();
+        in.readList(this.image, Image.class.getClassLoader());
+        this.attr = in.readParcelable(Attr.class.getClassLoader());
+        this.bmAlbum = in.readParcelable(Bitmap.class.getClassLoader());
+        this.nameArtist = in.readString();
+    }
+
+    public static final Parcelable.Creator<Album> CREATOR = new Parcelable.Creator<Album>() {
+        @Override
+        public Album createFromParcel(Parcel source) {
+            return new Album(source);
+        }
+
+        @Override
+        public Album[] newArray(int size) {
+            return new Album[size];
+        }
+    };
 }

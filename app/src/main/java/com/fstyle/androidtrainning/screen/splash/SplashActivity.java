@@ -30,7 +30,6 @@ public class SplashActivity extends BaseActivity {
 
         //permission
         requestStoragePermissions();
-
         initViews();
         doAnimation();
     }
@@ -70,6 +69,8 @@ public class SplashActivity extends BaseActivity {
             } else {
                 doGoToMainActivity();
             }
+        } else {
+            doGoToMainActivity();
         }
     }
 
