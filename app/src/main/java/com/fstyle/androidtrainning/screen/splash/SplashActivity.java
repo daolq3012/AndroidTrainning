@@ -1,6 +1,8 @@
 package com.fstyle.androidtrainning.screen.splash;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,10 +10,12 @@ import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import com.fstyle.androidtrainning.R;
 import com.fstyle.androidtrainning.screen.BaseActivity;
+import com.fstyle.androidtrainning.screen.login.LoginActivity;
 import com.fstyle.androidtrainning.screen.main.MainActivity;
+import com.fstyle.androidtrainning.utils.Constant;
 
 /**
  * Splash Screen.
@@ -20,7 +24,7 @@ public class SplashActivity extends BaseActivity {
 
     private static final String TAG = "SplashActivity";
     private Thread mSplashThread;
-    private LinearLayout mLinearLayout;
+    private RelativeLayout mRelativeLayout;
     private ImageView mImageView;
 
     public void onAttachedToWindow() {
@@ -39,15 +43,15 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void initViews() {
-        mLinearLayout = findViewById(R.id.linear_layout);
+        mRelativeLayout = findViewById(R.id.relative_layout);
         mImageView = findViewById(R.id.image_splash);
     }
 
     private void startAnimations() {
         Animation anim = AnimationUtils.loadAnimation(this, R.anim.alpha);
         anim.reset();
-        mLinearLayout.clearAnimation();
-        mLinearLayout.startAnimation(anim);
+        mRelativeLayout.clearAnimation();
+        mRelativeLayout.startAnimation(anim);
         anim = AnimationUtils.loadAnimation(this, R.anim.translate);
         anim.reset();
         mImageView.clearAnimation();
@@ -57,15 +61,26 @@ public class SplashActivity extends BaseActivity {
             @Override
             public void run() {
                 try {
+                    SharedPreferences sharedPreferences =
+                            SplashActivity.this.getSharedPreferences(Constant.PREF_NAME,
+                                    Context.MODE_PRIVATE);
+                    String dataUser =
+                            sharedPreferences.getString(Constant.PREF_USER, Constant.DEFAULT);
                     int waited = 0;
                     // Splash screen pause time
                     while (waited < 2500) {
                         sleep(100);
                         waited += 100;
                     }
-                    Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                    startActivity(intent);
+                    if (dataUser.equals(Constant.DEFAULT)) {
+                        Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                        startActivity(intent);
+                    } else {
+                        Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                        startActivity(intent);
+                    }
                     SplashActivity.this.finish();
                 } catch (InterruptedException e) {
                     Log.e(TAG, "run: ", e);
