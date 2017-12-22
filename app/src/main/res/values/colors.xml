@@ -7,6 +7,7 @@
     <color name="color_white">#e9e7e7</color>
     <color name="color_transparent">#9e424242</color>
     <color name="color_yellow">#fff600</color>
+    <color name="color_yellow_custom">#fdf756</color>
     <color name="color_custom1">#6f6078</color>
     <color name="color_custom2">#503396</color>
     <color name="color_custom3">#8104cf</color>

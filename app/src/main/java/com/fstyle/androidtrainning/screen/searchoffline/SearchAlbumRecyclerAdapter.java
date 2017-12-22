@@ -85,7 +85,7 @@ public class SearchAlbumRecyclerAdapter
             if (bitmap != null) {
                 mImageView.setImageBitmap(bitmap);
             } else {
-                mImageView.setImageResource(R.drawable.img_demo_50x50);
+                mImageView.setImageResource(R.drawable.ic_unknown_album);
             }
         }
 

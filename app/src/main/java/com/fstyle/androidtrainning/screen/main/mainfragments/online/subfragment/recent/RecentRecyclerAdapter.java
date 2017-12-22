@@ -127,8 +127,8 @@ public class RecentRecyclerAdapter extends RecyclerView.Adapter {
                 Glide.with(mContext).load(urlImage).into(mImageView);
                 Glide.with(mContext).load(urlExtraImage).into(mImageRecent);
             } else {
-                mImageView.setImageResource(R.drawable.ic_unknown);
-                mImageRecent.setImageResource(R.drawable.img_demo_800x300);
+                mImageView.setImageResource(R.drawable.ic_unknown_song);
+                mImageRecent.setImageResource(R.drawable.ic_unknown_album);
             }
         }
 
@@ -205,7 +205,7 @@ public class RecentRecyclerAdapter extends RecyclerView.Adapter {
             if (urlImage != null && !urlImage.isEmpty()) {
                 Glide.with(mContext).load(urlImage).into(mImageView);
             } else {
-                mImageView.setImageResource(R.drawable.img_demo_100x100);
+                mImageView.setImageResource(R.drawable.ic_unknown_album);
             }
         }
     }

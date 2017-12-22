@@ -11,7 +11,7 @@
         android:layout_marginStart="@dimen/dp_30"
         android:layout_marginTop="@dimen/dp_30"
         android:contentDescription="@string/avatar"
-        android:src="@drawable/ic_unknown" />
+        android:src="@drawable/ic_unknown_song" />
 
     <LinearLayout
         android:layout_width="@dimen/dp_125"
@@ -23,7 +23,7 @@
 
         <TextView
             android:id="@+id/text_name_album"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/album"
             android:textColor="@color/color_white"
