@@ -27,5 +27,7 @@
     <string name="cast">Cast</string>
     <string name="background_video">Background thumnail video</string>
     <string name="play_button">Play button</string>
+    <string name="remove_favorite_movie">Remove from favorite list</string>
+    <string name="add_favorite_movie">Added to favorite list</string>
     <string name="this_is_logo">This is logo image</string>
 </resources>

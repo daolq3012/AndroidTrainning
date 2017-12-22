@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/dp_10"
+    android:padding="@dimen/dp_5"
+    >
+    <ImageView
+        android:id="@+id/image_poster_item"
+        android:layout_width="@dimen/dp_123"
+        android:layout_height="@dimen/dp_180"
+        android:contentDescription="@string/poster_item_description"
+        android:background="@color/colorNoImage"
+        android:scaleType="fitXY"
+        />
+    <LinearLayout
+        android:layout_width="@dimen/dp_123"
+        android:layout_height="@dimen/dp_54"
+        android:layout_below="@id/image_poster_item"
+        android:background="@color/titleBackground"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:id="@+id/text_name_item"
+            android:layout_width="@dimen/dp_123"
+            android:layout_height="@dimen/dp_54"
+            android:layout_below="@+id/image_poster_item"
+            android:layout_marginTop="@dimen/dp_7"
+            android:maxLines="2"
+            android:layout_gravity="center"
+            android:layout_weight="6"
+            android:text="@string/name_line"
+            android:textColor="@color/colorTitle"
+            android:textSize="@dimen/sp_13"
+            />
+        <ImageView
+            android:id="@+id/image_favorite_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:background="@drawable/ic_favorite"
+            />
+    </LinearLayout>
+</RelativeLayout>
