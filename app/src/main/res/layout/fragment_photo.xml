@@ -1,0 +1,20 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:padding="@dimen/dp_10"
+    tools:context="com.fstyle.androidtrainning.screen.main.playingfragments.photo.PhotoFragment"
+    >
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/circleImage"
+        android:layout_width="@dimen/dp_300"
+        android:layout_height="@dimen/dp_300"
+        android:src="@drawable/disc"
+        app:civ_border_color="@color/color_little_purple"
+        app:civ_border_width="@dimen/dp_2"
+        />
+
+</RelativeLayout>
