@@ -1,6 +1,7 @@
 package com.fstyle.androidtrainning.screen.main.mainfragments.mysong.subfragment.listsong;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import com.fstyle.androidtrainning.R;
 import com.fstyle.androidtrainning.data.local.roomdb.entity.TrackEntity;
 import com.fstyle.androidtrainning.model.Track;
+import com.fstyle.androidtrainning.utils.Constant;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
 import java.util.ArrayList;
@@ -21,7 +23,7 @@ import java.util.List;
 
 public class ListSongAdapter extends RecyclerView.Adapter<ListSongAdapter.RecyclerViewHolder> {
 
-    private List<Track> mTrack = new ArrayList<>();
+    private List<Track> mTracks = new ArrayList<>();
     private Context mContext;
     private OnFavoriteClick mOnFavoriteClick;
     private List<TrackEntity> mFavorites = new ArrayList<>();
@@ -34,7 +36,7 @@ public class ListSongAdapter extends RecyclerView.Adapter<ListSongAdapter.Recycl
         if (tracks == null) {
             return;
         }
-        mTrack.addAll(tracks);
+        mTracks.addAll(tracks);
         notifyDataSetChanged();
     }
 
@@ -64,7 +66,7 @@ public class ListSongAdapter extends RecyclerView.Adapter<ListSongAdapter.Recycl
 
     @Override
     public int getItemCount() {
-        return mTrack.size();
+        return mTracks.size();
     }
 
     public final class RecyclerViewHolder extends RecyclerView.ViewHolder {
@@ -75,20 +77,31 @@ public class ListSongAdapter extends RecyclerView.Adapter<ListSongAdapter.Recycl
         private OnFavoriteClick mOnFavoriteClick;
         private List<TrackEntity> mFavorites;
         private boolean isFavoriteClicked = false;
+        private int position = 0;
 
         public RecyclerViewHolder(View itemView, OnFavoriteClick onFavoriteClick,
                 List<TrackEntity> favorites) {
             super(itemView);
-            initViews(onFavoriteClick);
-            mFavorites = favorites;
+            initViews(onFavoriteClick, favorites);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent();
+                    intent.putExtra(Constant.EXTRA_TRACK_ITEM, mTracks.get(position));
+                    intent.setAction(Constant.ACTION_ITEM_PLAY);
+                    mContext.sendBroadcast(intent);
+                }
+            });
+
         }
 
-        private void initViews(OnFavoriteClick onFavoriteClick) {
+        private void initViews(OnFavoriteClick onFavoriteClick, List<TrackEntity> favorites) {
             mImageView = itemView.findViewById(R.id.image_song);
             mTxtNameSong = itemView.findViewById(R.id.text_name_song);
             mTxtNameSinger = itemView.findViewById(R.id.text_name_singer);
             mLikeButton = itemView.findViewById(R.id.image_favorite);
             mOnFavoriteClick = onFavoriteClick;
+            mFavorites = favorites;
         }
 
         private void handleEvents(final int position) {
@@ -97,22 +110,23 @@ public class ListSongAdapter extends RecyclerView.Adapter<ListSongAdapter.Recycl
                 @Override
                 public void liked(LikeButton likeButton) {
                     mLikeButton.setLiked(true);
-                    mOnFavoriteClick.onFavoriteClicked(mTrack.get(position));
+                    mOnFavoriteClick.onFavoriteClicked(mTracks.get(position));
                     isFavoriteClicked = !isFavoriteClicked;
                 }
 
                 @Override
                 public void unLiked(LikeButton likeButton) {
                     mLikeButton.setLiked(false);
-                    mOnFavoriteClick.onUnFavoriteClicked(mTrack.get(position));
+                    mOnFavoriteClick.onUnFavoriteClicked(mTracks.get(position));
                     isFavoriteClicked = !isFavoriteClicked;
                 }
             });
         }
 
         public void bind(int position) {
-            String name = mTrack.get(position).getName();
-            String artist = mTrack.get(position).getNameArtist();
+            this.position = position;
+            String name = mTracks.get(position).getName();
+            String artist = mTracks.get(position).getNameArtist();
             mTxtNameSong.setText(name);
             mTxtNameSinger.setText(artist);
             mLikeButton.setLiked(false);

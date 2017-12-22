@@ -16,13 +16,10 @@ public interface MainContract {
 
     interface Viewer extends BaseView {
 
-
     }
 
     interface Presenter extends BasePresenter<Viewer> {
 
         void setApi(LastFmApi api);
-
-
     }
 }

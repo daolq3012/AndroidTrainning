@@ -24,6 +24,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <service android:name=".service.ServicePlayMusic"/>
         <activity android:name=".screen.main.MainActivity"/>
         <activity
             android:name=".screen.search.SearchActivity"
