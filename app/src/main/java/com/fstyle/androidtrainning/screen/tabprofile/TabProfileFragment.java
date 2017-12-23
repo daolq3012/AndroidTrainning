@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.facebook.login.LoginManager;
@@ -40,7 +41,8 @@ public class TabProfileFragment extends BaseFragment
     private static final String SPACE = " ";
     TabProfileContract.Presenter mPresenter;
     private Button mButtonLogin;
-    private RelativeLayout mRelativeGuest, mRelativeFacebook;
+    private RelativeLayout mRelativeGuest;
+    private ScrollView mScrollFacebook;
     private TextView mTextNameUser, mTextLogout;
     private ImageView mImageCover;
     private CircleImageView mImageAvatar;
@@ -71,8 +73,8 @@ public class TabProfileFragment extends BaseFragment
 
     private void initViews(View view) {
         mButtonLogin = view.findViewById(R.id.button_login_profile);
+        mScrollFacebook = view.findViewById(R.id.scroll_profile_facebook);
         mRelativeGuest = view.findViewById(R.id.relative_profile_guest);
-        mRelativeFacebook = view.findViewById(R.id.relative_profile_facebook);
         mTextNameUser = view.findViewById(R.id.text_name_user);
         mImageAvatar = view.findViewById(R.id.image_avatar);
         mImageCover = view.findViewById(R.id.image_cover);
@@ -89,10 +91,10 @@ public class TabProfileFragment extends BaseFragment
         String dataUser = mSharedPreferences.getString(Constant.PREF_USER, Constant.DEFAULT);
         if (dataUser.equals(Constant.DEFAULT)) {
             mRelativeGuest.setVisibility(View.VISIBLE);
-            mRelativeFacebook.setVisibility(View.GONE);
+            mScrollFacebook.setVisibility(View.GONE);
         } else {
             mRelativeGuest.setVisibility(View.GONE);
-            mRelativeFacebook.setVisibility(View.VISIBLE);
+            mScrollFacebook.setVisibility(View.VISIBLE);
             try {
                 mDataUser = new JSONObject(dataUser);
                 String username =

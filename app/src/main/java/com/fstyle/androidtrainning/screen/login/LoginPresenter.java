@@ -25,7 +25,7 @@ final class LoginPresenter implements LoginContract.Presenter {
     private static final String EMAIL_PERMISSION = "email";
     private static final String FIELDS = "fields";
     private static final String INFORMATION =
-            "first_name, last_name, picture.type(large), cover.type(large)";
+            "email, first_name, last_name, picture.type(large), cover.type(large)";
     private LoginContract.LoginView mLoginView;
     private CallbackManager mCallbackManager;
     private LoginManager mLoginManager;

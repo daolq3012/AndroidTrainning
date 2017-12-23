@@ -1,5 +1,7 @@
 package com.fstyle.androidtrainning.screen.detailsmovie;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -36,9 +38,16 @@ import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerFragment;
 import com.google.android.youtube.player.YouTubeThumbnailLoader;
 import com.google.android.youtube.player.YouTubeThumbnailView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * DetailsMovie Screen.
@@ -53,7 +62,10 @@ public class DetailsMovieActivity extends BaseActivity
     private static final String MINUTE = " min";
     private static final String MAX_POINT = "/10";
     private static final String OFFICIAL = "Official";
+    private static final String USER_ID = "id";
+    private static final String MOVIE_ID = "id";
     private static final int FIRST_TRAILER = 0;
+    private static final String USERS_NODE = "Users";
     private ImageView mImageBackdrop, mImagePoster;
     private TextView mTextReleaseDate, mTextRunTime, mTextGenreMovie, mTextOverview, mTextRateMovie;
     private CollapsingToolbarLayout mCollapsingToolbarLayout;
@@ -73,6 +85,8 @@ public class DetailsMovieActivity extends BaseActivity
     private String mTitleMovie;
     private String mPosterPath;
     private String mReleaseDate;
+    private SharedPreferences mSharedPreferences;
+    private DatabaseReference mDatabaseRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +104,7 @@ public class DetailsMovieActivity extends BaseActivity
 
         initViews();
         setHomeButtonToolbar();
+        initDatabaseReference();
     }
 
     private void initViews() {
@@ -131,6 +146,10 @@ public class DetailsMovieActivity extends BaseActivity
         mAdapter = new CastAdapter(this);
         mRecyclerCast.setLayoutManager(mLayoutManager);
         mRecyclerCast.setAdapter(mAdapter);
+
+        mSharedPreferences = getSharedPreferences(Constant.PREF_NAME, Context.MODE_PRIVATE);
+
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference();
     }
 
     private void setHomeButtonToolbar() {
@@ -157,6 +176,17 @@ public class DetailsMovieActivity extends BaseActivity
             Log.e(TAG, "isFavoriteMovie: Ops! ", e);
         }
         return false;
+    }
+
+    private void initDatabaseReference() {
+        String dataUser = mSharedPreferences.getString(Constant.PREF_USER, Constant.DEFAULT);
+        try {
+            JSONObject mDataUser = new JSONObject(dataUser);
+            mDataUser.getString(USER_ID);
+            mDatabaseRef = mDatabaseRef.child(USERS_NODE).child(mDataUser.getString(USER_ID));
+        } catch (JSONException e) {
+            Log.e(TAG, "JSONException: ", e);
+        }
     }
 
     @Override
@@ -238,11 +268,29 @@ public class DetailsMovieActivity extends BaseActivity
                     movieEntity.setPosterPath(mPosterPath);
                     movieEntity.setReleaseDate(mReleaseDate);
                     new InsertMovieToDatabase(mMovieDatabase, this).execute(movieEntity);
+
+                    mDatabaseRef.push().setValue(movieEntity);
                 } else {
                     mFloatingFavoriteButton.setImageResource(R.drawable.ic_favorite_border);
                     MovieEntity movieEntity = new MovieEntity();
                     movieEntity.setId(getMovieId());
                     new DeleteMovieFromDatabase(mMovieDatabase, this).execute(movieEntity);
+
+                    mDatabaseRef.orderByChild(MOVIE_ID)
+                            .equalTo(movieEntity.getId())
+                            .addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    for (DataSnapshot child : dataSnapshot.getChildren()) {
+                                        child.getRef().setValue(null);
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+                                    Log.e(TAG, "onCancelled: " + databaseError);
+                                }
+                            });
                 }
                 isFavorite = !isFavorite;
                 break;
