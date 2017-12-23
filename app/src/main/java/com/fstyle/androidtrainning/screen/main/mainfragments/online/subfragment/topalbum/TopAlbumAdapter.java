@@ -109,7 +109,7 @@ public class TopAlbumAdapter extends RecyclerView.Adapter<TopAlbumAdapter.Recycl
             if (!imageAlbum.isEmpty()) {
                 Glide.with(mContext).load(imageAlbum).into(mImageView);
             } else {
-                mImageView.setImageResource(R.drawable.ic_unknown);
+                mImageView.setImageResource(R.drawable.ic_unknown_album);
             }
         }
     }

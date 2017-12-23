@@ -30,7 +30,7 @@
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
                 app:layout_collapseMode="parallax"
-                android:src="@drawable/img_demo_800x400"
+                android:src="@drawable/image_800x400"
                 android:contentDescription="@string/description"
                 />
             <android.support.v7.widget.Toolbar

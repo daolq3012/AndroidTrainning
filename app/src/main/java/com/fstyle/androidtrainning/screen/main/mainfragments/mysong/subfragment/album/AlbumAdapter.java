@@ -23,6 +23,9 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.RecyclerView
     private Context mContext;
     private OnItemClickListener mOnItemClickListener;
 
+    private static final int MIN_LENGTH = 0;
+    private static final int MAX_LENGTH = 10;
+
     public AlbumAdapter(Context context) {
         mContext = context;
     }
@@ -88,11 +91,19 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.RecyclerView
             }
             this.position = position;
             Bitmap image = mAlbums.get(position).getBmAlbum();
-            String nameAlbum = mAlbums.get(position).getName();
             String nameArtist = mAlbums.get(position).getNameArtist();
             mImageAlbum.setImageBitmap(image);
-            mTxtAlbum.setText(nameAlbum);
             mTxtArtist.setText(nameArtist);
+            setNameAlbum();
+        }
+        private void setNameAlbum() {
+            String nameAlbum = mAlbums.get(position).getName();
+            if (nameAlbum.length() >= MAX_LENGTH) {
+                String subNameAlbum = nameAlbum.substring(MIN_LENGTH, MAX_LENGTH) + "...";
+                mTxtAlbum.setText(subNameAlbum);
+            } else {
+                mTxtAlbum.setText(nameAlbum);
+            }
         }
     }
 }

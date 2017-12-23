@@ -12,9 +12,7 @@
         android:id="@+id/circleImage"
         android:layout_width="@dimen/dp_300"
         android:layout_height="@dimen/dp_300"
-        android:src="@drawable/disc"
-        app:civ_border_color="@color/color_little_purple"
-        app:civ_border_width="@dimen/dp_2"
+        android:src="@drawable/ic_unknown_album"
         />
 
 </RelativeLayout>
