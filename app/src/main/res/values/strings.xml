@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AndroidTrainning</string>
+    <string name="app_name">Movies Wiki</string>
     <string name="home">Home</string>
     <string name="search">Search</string>
     <string name="favorite">Favorite</string>
@@ -30,4 +30,18 @@
     <string name="remove_favorite_movie">Remove from favorite list</string>
     <string name="add_favorite_movie">Added to favorite list</string>
     <string name="this_is_logo">This is logo image</string>
+    <string name="facebook_app_id">1060277047446246</string>
+    <string name="fb_login_protocol_scheme">fb1060277047446246</string>
+    <string name="login_failed">Login failed!</string>
+    <string name="login_facebook">Login with Facebook</string>
+    <string name="login_as_guest">Login as Guest</string>
+    <string name="login">Login</string>
+    <string name="logout">Logout</string>
+    <string name="favorite_icon">Favorite icon</string>
+    <string name="invite_friends">Invite friends</string>
+    <string name="setting">Setting</string>
+    <string name="about">About</string>
+    <string name="feedback">Feedback</string>
+    <string name="this_is_cover">This is cover facebook</string>
+    <string name="this_is_avatar">This is avatar facebook user</string>
 </resources>

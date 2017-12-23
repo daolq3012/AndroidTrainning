@@ -1,20 +1,51 @@
 package com.fstyle.androidtrainning.screen.tabprofile;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import com.bumptech.glide.Glide;
+import com.facebook.login.LoginManager;
 import com.fstyle.androidtrainning.R;
 import com.fstyle.androidtrainning.screen.BaseFragment;
+import com.fstyle.androidtrainning.screen.login.LoginActivity;
+import com.fstyle.androidtrainning.utils.Constant;
+import de.hdodenhof.circleimageview.CircleImageView;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * TabProfile Screen.
  */
-public class TabProfileFragment extends BaseFragment implements TabProfileContract.ProfileView {
-
+public class TabProfileFragment extends BaseFragment
+        implements TabProfileContract.ProfileView, View.OnClickListener {
+    private static final String TAG = "TabProfileFragment";
+    private static final String FIRST_NAME = "first_name";
+    private static final String LAST_NAME = "last_name";
+    private static final String PICTURE = "picture";
+    private static final String DATA = "data";
+    private static final String URL = "url";
+    private static final String COVER = "cover";
+    private static final String SOURCE = "source";
+    private static final String SPACE = " ";
     TabProfileContract.Presenter mPresenter;
+    private Button mButtonLogin;
+    private RelativeLayout mRelativeGuest, mRelativeFacebook;
+    private TextView mTextNameUser, mTextLogout;
+    private ImageView mImageCover;
+    private CircleImageView mImageAvatar;
+    private SharedPreferences mSharedPreferences;
+    private JSONObject mDataUser;
 
     public static TabProfileFragment newInstance() {
         return new TabProfileFragment();
@@ -30,9 +61,53 @@ public class TabProfileFragment extends BaseFragment implements TabProfileContra
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_tabprofile, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+            @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_tabprofile, container, false);
+        initViews(view);
+        isLoginWithFacebook();
+        return view;
+    }
+
+    private void initViews(View view) {
+        mButtonLogin = view.findViewById(R.id.button_login_profile);
+        mRelativeGuest = view.findViewById(R.id.relative_profile_guest);
+        mRelativeFacebook = view.findViewById(R.id.relative_profile_facebook);
+        mTextNameUser = view.findViewById(R.id.text_name_user);
+        mImageAvatar = view.findViewById(R.id.image_avatar);
+        mImageCover = view.findViewById(R.id.image_cover);
+        mTextLogout = view.findViewById(R.id.text_logout);
+
+        mButtonLogin.setOnClickListener(this);
+        mTextLogout.setOnClickListener(this);
+
+        mSharedPreferences =
+                getActivity().getSharedPreferences(Constant.PREF_NAME, Context.MODE_PRIVATE);
+    }
+
+    private void isLoginWithFacebook() {
+        String dataUser = mSharedPreferences.getString(Constant.PREF_USER, Constant.DEFAULT);
+        if (dataUser.equals(Constant.DEFAULT)) {
+            mRelativeGuest.setVisibility(View.VISIBLE);
+            mRelativeFacebook.setVisibility(View.GONE);
+        } else {
+            mRelativeGuest.setVisibility(View.GONE);
+            mRelativeFacebook.setVisibility(View.VISIBLE);
+            try {
+                mDataUser = new JSONObject(dataUser);
+                String username =
+                        mDataUser.getString(LAST_NAME) + SPACE + mDataUser.getString(FIRST_NAME);
+                String urlAvatar =
+                        mDataUser.getJSONObject(PICTURE).getJSONObject(DATA).getString(URL);
+                String urlCover = mDataUser.getJSONObject(COVER).getString(SOURCE);
+
+                mTextNameUser.setText(username);
+                Glide.with(getActivity()).load(urlCover).into(mImageCover);
+                Glide.with(getActivity()).load(urlAvatar).into(mImageAvatar);
+            } catch (JSONException e) {
+                Log.e(TAG, "JSONException: ", e);
+            }
+        }
     }
 
     @Override
@@ -45,5 +120,27 @@ public class TabProfileFragment extends BaseFragment implements TabProfileContra
     public void onStop() {
         mPresenter.onStop();
         super.onStop();
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.button_login_profile:
+                openLoginActivity();
+                break;
+            case R.id.text_logout:
+                LoginManager.getInstance().logOut();
+                SharedPreferences.Editor editor = mSharedPreferences.edit();
+                editor.clear();
+                editor.apply();
+                openLoginActivity();
+                break;
+        }
+    }
+
+    private void openLoginActivity() {
+        Intent intent = new Intent(getActivity(), LoginActivity.class);
+        startActivity(intent);
+        getActivity().finish();
     }
 }

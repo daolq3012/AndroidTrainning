@@ -21,6 +21,10 @@ public final class Constant {
     public static final int DEFAULT_PAGE = 1;
     public static final String EXTRA_MOVIE_ID = "EXTRA_MOVIE_ID";
     public static final String EXTRA_CATEGORY = "EXTRA_CATEGORY";
+    public static final String PREF_NAME = "User";
+    public static final String PREF_USER = "PREF_USER";
+    public static final String DEFAULT = "DEFAULT";
+    public static final String EXTRA_USER = "EXTRA_USER";
 
     private Constant() {
         //No-op
