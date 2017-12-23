@@ -41,6 +41,8 @@ interface SearchOfflineContract {
 
         void getDataExternal(Context context);
 
+        List<Track> getSongList();
+
         void doPassKeyWord();
     }
 }

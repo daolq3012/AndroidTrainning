@@ -67,7 +67,7 @@
                     android:layout_height="@dimen/dp_30"
                     android:text="@string/song_name_demo"
                     android:textColor="@color/color_yellow"
-                    android:textSize="@dimen/sp_24"
+                    android:textSize="@dimen/sp_15"
                     android:textStyle="bold" />
 
                 <TextView
@@ -76,10 +76,11 @@
                     android:layout_height="@dimen/dp_20"
                     android:text="@string/artist_name_demo"
                     android:textColor="@color/color_yellow_custom"
-                    android:textSize="@dimen/sp_15" />
+                    android:textSize="@dimen/sp_10" />
             </LinearLayout>
 
             <ImageView
+                android:id="@+id/image_previous_mini"
                 android:layout_width="@dimen/dp_50"
                 android:layout_height="@dimen/dp_50"
                 android:contentDescription="@string/description"
@@ -87,6 +88,7 @@
                 android:src="@drawable/ic_skip_previous" />
 
             <ImageView
+                android:id="@+id/image_pause_mini"
                 android:layout_width="@dimen/dp_50"
                 android:layout_height="@dimen/dp_50"
                 android:contentDescription="@string/description"
@@ -94,6 +96,7 @@
                 android:src="@drawable/ic_pause" />
 
             <ImageView
+                android:id="@+id/image_next_mini"
                 android:layout_width="@dimen/dp_50"
                 android:layout_height="@dimen/dp_50"
                 android:contentDescription="@string/description"
@@ -182,8 +185,8 @@
                 android:layout_gravity="center"
                 android:text="@string/default_time"
                 android:textColor="@color/color_black"
-                android:textSize="@dimen/sp_24" />
-
+                android:textSize="@dimen/sp_15"
+                />
             <SeekBar
                 android:id="@+id/seekBar"
                 android:layout_width="0dp"
@@ -197,7 +200,8 @@
                 android:layout_gravity="center"
                 android:text="@string/default_time"
                 android:textColor="@color/color_black"
-                android:textSize="@dimen/sp_24" />
+                android:textSize="@dimen/sp_15"
+                />
         </LinearLayout>
 
         <LinearLayout
@@ -212,8 +216,8 @@
                 android:layout_height="@dimen/dp_30"
                 android:layout_weight="@dimen/weight_1"
                 android:contentDescription="@string/description"
-                android:src="@drawable/ic_shuffle" />
-
+                android:src="@drawable/ic_not_shuffle"
+                />
             <ImageView
                 android:id="@+id/image_previous"
                 android:layout_width="0dp"

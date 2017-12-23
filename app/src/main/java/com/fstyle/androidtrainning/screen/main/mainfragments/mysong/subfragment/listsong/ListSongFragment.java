@@ -1,5 +1,6 @@
 package com.fstyle.androidtrainning.screen.main.mainfragments.mysong.subfragment.listsong;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -32,9 +33,18 @@ public class ListSongFragment extends BaseFragment
     private ListSongAdapter mListSongAdapter;
     private GetListAsyncTask mGetListAsyncTask;
     private List<Track> mTracks = new ArrayList<>();
+    private OnItemListSongClickListener mOnItemListSongClickListener;
 
     public ListSongFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnItemListSongClickListener) {
+            mOnItemListSongClickListener = (OnItemListSongClickListener) context;
+        }
     }
 
     @Override
@@ -51,7 +61,8 @@ public class ListSongFragment extends BaseFragment
         mPresenter = new ListSongPresenter();
         mPresenter.setView(this);
         mRecyclerView = v.findViewById(R.id.recycler_song);
-        mListSongAdapter = new ListSongAdapter(getActivity());
+        mListSongAdapter = new ListSongAdapter(getActivity().getApplicationContext(),
+                mOnItemListSongClickListener);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(mListSongAdapter);

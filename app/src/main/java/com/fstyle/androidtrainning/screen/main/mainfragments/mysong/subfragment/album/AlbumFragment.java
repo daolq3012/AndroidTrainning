@@ -37,12 +37,12 @@ public class AlbumFragment extends BaseFragment
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_album, container, false);
         initViews(v);
-        mPresenter.getDataExternal(getActivity());
+        mPresenter.getDataExternal();
         return v;
     }
 
     private void initViews(View v) {
-        mPresenter = new AlbumPresenter();
+        mPresenter = new AlbumPresenter(getActivity());
         mPresenter.setView(this);
         mRecyclerView = v.findViewById(R.id.recycler_album);
         mAlbumAdapter = new AlbumAdapter(getActivity());
@@ -71,7 +71,8 @@ public class AlbumFragment extends BaseFragment
 
     @Override
     public void onItemClicked(String name) {
-        startActivity(new Intent(getActivity(), SongBelongAlbumActivity.class).putExtra(
-                Constant.EXTRA_NAME_ALBUM, name));
+        getActivity().startActivityForResult(
+                new Intent(getActivity(), SongBelongAlbumActivity.class).putExtra(
+                        Constant.EXTRA_NAME_ALBUM, name), Constant.REQUEST_CODE);
     }
 }

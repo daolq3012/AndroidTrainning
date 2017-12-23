@@ -20,6 +20,7 @@ public class SongBelongArtistRecyclerAdapter
 
     private List<Track> mTracks = new ArrayList<>();
     private Context mContext;
+    private OnItemClickListener mOnItemClickListener;
 
     public SongBelongArtistRecyclerAdapter(Context context) {
         mContext = context;
@@ -33,11 +34,15 @@ public class SongBelongArtistRecyclerAdapter
         notifyDataSetChanged();
     }
 
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        mOnItemClickListener = onItemClickListener;
+    }
+
     @Override
     public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.list_item_song, parent, false);
-        return new RecyclerViewHolder(view);
+        return new RecyclerViewHolder(view, mOnItemClickListener);
     }
 
     @Override
@@ -55,14 +60,23 @@ public class SongBelongArtistRecyclerAdapter
         private static final int MAX_LENGTH = 25;
         private static final int MIN_LENGTH = 0;
         private static final String MORE = "...";
+        private int position = 0;
 
-        public RecyclerViewHolder(View itemView) {
+        public RecyclerViewHolder(View itemView, OnItemClickListener onItemClickListener) {
             super(itemView);
             mTxtNameSong = itemView.findViewById(R.id.text_upper);
             mTxtNameSinger = itemView.findViewById(R.id.text_lower);
+            mOnItemClickListener = onItemClickListener;
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mOnItemClickListener.onItemClicked(position, mTracks);
+                }
+            });
         }
 
         public void bind(int position) {
+            this.position = position;
             setNameArtist(position);
             setNameSong(position);
         }

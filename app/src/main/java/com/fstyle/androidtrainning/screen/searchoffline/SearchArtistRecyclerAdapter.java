@@ -20,9 +20,14 @@ public class SearchArtistRecyclerAdapter
 
     private List<Artist> mArtists = new ArrayList<>();
     private Context mContext;
+    private OnItemArtistClickListener mOnItemArtistClickListener;
 
     public SearchArtistRecyclerAdapter(Context context) {
         mContext = context;
+    }
+
+    public void setOnItemArtistClickListener(OnItemArtistClickListener onItemArtistClickListener) {
+        mOnItemArtistClickListener = onItemArtistClickListener;
     }
 
     public void updateData(List<Artist> artists) {
@@ -45,7 +50,7 @@ public class SearchArtistRecyclerAdapter
     public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.list_artist_offline, parent, false);
-        return new RecyclerViewHolder(view);
+        return new RecyclerViewHolder(view, mOnItemArtistClickListener);
     }
 
     @Override
@@ -63,13 +68,24 @@ public class SearchArtistRecyclerAdapter
         private static final int MAX_LENGTH = 25;
         private static final int MIN_LENGTH = 0;
         private static final String MORE = "...";
+        private int position = 0;
 
-        public RecyclerViewHolder(View itemView) {
+        public RecyclerViewHolder(View itemView,
+                OnItemArtistClickListener onItemArtistClickListener) {
             super(itemView);
             mTxtArtist = itemView.findViewById(R.id.text_name);
+            mOnItemArtistClickListener = onItemArtistClickListener;
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mOnItemArtistClickListener.onItemArtistClicked(
+                            mArtists.get(position).getName());
+                }
+            });
         }
 
         public void bind(int position) {
+            this.position = position;
             setNameArtist(position);
         }
 

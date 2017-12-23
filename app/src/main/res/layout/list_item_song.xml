@@ -15,7 +15,6 @@
         android:paddingStart="@dimen/dp_40"
         >
 
-
         <ImageView
             android:id="@+id/image"
             android:layout_width="@dimen/dp_50"

@@ -1,5 +1,6 @@
 package com.fstyle.androidtrainning.screen.main.mainfragments.mysong.subfragment.favoritesong;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -23,9 +24,18 @@ public class FavoriteSongFragment extends BaseFragment
 
     private RecyclerView mRecyclerView;
     private FavoriteRecyclerAdapter mFavoriteRecyclerAdapter;
+    private OnItemFavoriteClickListener mOnItemFavoriteClickListener;
 
     public FavoriteSongFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnItemFavoriteClickListener) {
+            mOnItemFavoriteClickListener = (OnItemFavoriteClickListener) context;
+        }
     }
 
     @Override
@@ -43,14 +53,14 @@ public class FavoriteSongFragment extends BaseFragment
         mPresenter.setView(this);
         GetListAsyncTask getListAsyncTask = new GetListAsyncTask();
         getListAsyncTask.setOnGetListTrack(this);
-        mFavoriteRecyclerAdapter = new FavoriteRecyclerAdapter(getActivity());
+        mFavoriteRecyclerAdapter =
+                new FavoriteRecyclerAdapter(getActivity(), mOnItemFavoriteClickListener);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(mFavoriteRecyclerAdapter);
 
         getListAsyncTask.execute();
     }
-
 
     @Override
     public void onGetListSuccess(List<TrackEntity> tracks) {
