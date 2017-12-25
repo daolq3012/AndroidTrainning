@@ -44,4 +44,14 @@
     <string name="feedback">Feedback</string>
     <string name="this_is_cover">This is cover facebook</string>
     <string name="this_is_avatar">This is avatar facebook user</string>
+    <string name="double_back">Please click BACK again to exit!</string>
+    <string name="no_results_found">No results found!</string>
+    <string name="no_favorite_movies">You haven\'t favored any movies!</string>
+    <string name="truyen_mail">tdtruyen92lmq@gmail.com</string>
+    <string name="thang_mail">huynhthanhthang1296@gmail.com</string>
+    <string name="subject_email">Report bugs</string>
+    <string name="content_email">I want to report bugs\n\n- Movie: \n\n- My device: \n\n- I have a problem: </string>
+    <string name="title_choice_app">Send email</string>
+    <string name="image_no_results">No results image</string>
+    <string name="this_is_ads_image">This is ads image</string>
 </resources>

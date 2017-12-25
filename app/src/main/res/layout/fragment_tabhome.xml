@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.fstyle.androidtrainning.screen.main.MainActivity"
     >
 
@@ -11,20 +12,36 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
-        <ImageView
-            android:id="@+id/image_banner"
+        <com.fstyle.androidtrainning.widget.AutoScrollViewPager
+            android:id="@+id/view_pager_ads"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_145"
-            android:contentDescription="@string/banner"
-            android:scaleType="fitXY"
-            android:src="@drawable/gift_banner"
+            android:layout_height="@dimen/dp_200"
+            android:layout_marginTop="@dimen/dp_3"
             />
+
+        <me.relex.circleindicator.CircleIndicator
+            android:id="@+id/circle_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_20"
+            android:layout_below="@+id/view_pager_ads"
+            android:layout_marginTop="@dimen/dp_10"
+            app:ci_gravity="center"
+            app:ci_width="@dimen/dp_5"
+            app:ci_height="@dimen/dp_5"
+            app:ci_orientation="horizontal"
+            />
+
         <View
             android:id="@+id/view"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_1"
-            android:layout_below="@+id/image_banner"
-            android:layout_margin="@dimen/dp_30"
+            android:layout_below="@+id/circle_indicator"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginBottom="@dimen/dp_30"
+            android:layout_marginStart="@dimen/dp_50"
+            android:layout_marginLeft="@dimen/dp_50"
+            android:layout_marginEnd="@dimen/dp_50"
+            android:layout_marginRight="@dimen/dp_50"
             android:background="@color/colorView"
             />
 

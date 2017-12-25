@@ -43,7 +43,7 @@ public class TabProfileFragment extends BaseFragment
     private Button mButtonLogin;
     private RelativeLayout mRelativeGuest;
     private ScrollView mScrollFacebook;
-    private TextView mTextNameUser, mTextLogout;
+    private TextView mTextNameUser, mTextLogout, mTextFeedback;
     private ImageView mImageCover;
     private CircleImageView mImageAvatar;
     private SharedPreferences mSharedPreferences;
@@ -79,9 +79,11 @@ public class TabProfileFragment extends BaseFragment
         mImageAvatar = view.findViewById(R.id.image_avatar);
         mImageCover = view.findViewById(R.id.image_cover);
         mTextLogout = view.findViewById(R.id.text_logout);
+        mTextFeedback = view.findViewById(R.id.text_feedback);
 
         mButtonLogin.setOnClickListener(this);
         mTextLogout.setOnClickListener(this);
+        mTextFeedback.setOnClickListener(this);
 
         mSharedPreferences =
                 getActivity().getSharedPreferences(Constant.PREF_NAME, Context.MODE_PRIVATE);
@@ -136,6 +138,22 @@ public class TabProfileFragment extends BaseFragment
                 editor.clear();
                 editor.apply();
                 openLoginActivity();
+                break;
+            case R.id.text_feedback:
+                final Intent emailIntent = new Intent(Intent.ACTION_SEND);
+                emailIntent.setType("plain/text");
+                emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[] {
+                        getResources().getString(R.string.truyen_mail),
+                        getResources().getString(R.string.thang_mail)
+                });
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT,
+                        getResources().getString(R.string.subject_email));
+                emailIntent.putExtra(Intent.EXTRA_TEXT,
+                        getResources().getString(R.string.content_email));
+                startActivity(Intent.createChooser(emailIntent,
+                        getResources().getString(R.string.title_choice_app)));
+                break;
+            default:
                 break;
         }
     }
