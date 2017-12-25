@@ -24,6 +24,17 @@ public class MovieEntity {
     @ColumnInfo(name = "posterpath")
     private String posterPath;
 
+    public MovieEntity() {
+
+    }
+
+    public MovieEntity(int id, String title, String releaseDate, String posterPath) {
+        this.id = id;
+        this.title = title;
+        this.releaseDate = releaseDate;
+        this.posterPath = posterPath;
+    }
+
     public int getId() {
         return id;
     }

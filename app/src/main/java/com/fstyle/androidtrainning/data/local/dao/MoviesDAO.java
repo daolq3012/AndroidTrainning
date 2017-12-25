@@ -18,6 +18,9 @@ public interface MoviesDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertMovie(MovieEntity movieEntity);
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertListMovie(List<MovieEntity> movieEntityList);
+
     @Query("SELECT * FROM movie")
     List<MovieEntity> getMovie();
 
