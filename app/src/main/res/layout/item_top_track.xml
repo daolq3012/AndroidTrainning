@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/color_dark_opacity"
     android:padding="@dimen/dp_10">
 
     <ImageView
@@ -39,5 +40,4 @@
             android:textColor="@color/color_white" />
 
     </LinearLayout>
-
 </RelativeLayout>

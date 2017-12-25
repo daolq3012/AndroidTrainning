@@ -7,10 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
 import com.fstyle.androidtrainning.R;
 import com.fstyle.androidtrainning.model.RecentTrack;
 import com.fstyle.androidtrainning.model.RecentTracks;
+
 import java.util.ArrayList;
 
 /**
@@ -128,7 +130,7 @@ public class RecentRecyclerAdapter extends RecyclerView.Adapter {
                 Glide.with(mContext).load(urlExtraImage).into(mImageRecent);
             } else {
                 mImageView.setImageResource(R.drawable.ic_unknown_song);
-                mImageRecent.setImageResource(R.drawable.ic_unknown_album);
+                mImageRecent.setImageResource(R.drawable.ic_unknown_song);
             }
         }
 
@@ -205,7 +207,7 @@ public class RecentRecyclerAdapter extends RecyclerView.Adapter {
             if (urlImage != null && !urlImage.isEmpty()) {
                 Glide.with(mContext).load(urlImage).into(mImageView);
             } else {
-                mImageView.setImageResource(R.drawable.ic_unknown_album);
+                mImageView.setImageResource(R.drawable.ic_unknown_song);
             }
         }
     }
