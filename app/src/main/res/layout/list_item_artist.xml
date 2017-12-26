@@ -6,16 +6,16 @@
     android:orientation="horizontal"
     android:paddingBottom="@dimen/dp_10"
     android:paddingEnd="@dimen/dp_20"
-    android:paddingLeft="@dimen/dp_40"
+    android:paddingLeft="@dimen/dp_20"
     android:paddingRight="@dimen/dp_20"
-    android:paddingStart="@dimen/dp_40"
+    android:paddingStart="@dimen/dp_20"
     android:paddingTop="@dimen/dp_10">
 
     <ImageView
         android:id="@+id/image_artist"
         android:layout_width="@dimen/dp_50"
         android:layout_height="@dimen/dp_50"
-        android:src="@drawable/ic_unknown"
+        android:src="@drawable/ic_unknown_song"
         tools:ignore="ContentDescription" />
 
     <LinearLayout

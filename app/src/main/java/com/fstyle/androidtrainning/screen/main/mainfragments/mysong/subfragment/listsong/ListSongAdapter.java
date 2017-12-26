@@ -21,20 +21,25 @@ import java.util.List;
 
 public class ListSongAdapter extends RecyclerView.Adapter<ListSongAdapter.RecyclerViewHolder> {
 
-    private List<Track> mTrack = new ArrayList<>();
+    private List<Track> mTracks = new ArrayList<>();
     private Context mContext;
     private OnFavoriteClick mOnFavoriteClick;
     private List<TrackEntity> mFavorites = new ArrayList<>();
+    private OnItemListSongClickListener mOnItemListSongClickListener;
+    private static final int MIN_LENGTH = 0;
+    private static final int MAX_LENGTH = 15;
 
-    public ListSongAdapter(Context context) {
+    public ListSongAdapter(Context context,
+            OnItemListSongClickListener onItemListSongClickListener) {
         mContext = context;
+        mOnItemListSongClickListener = onItemListSongClickListener;
     }
 
     public void updateData(List<Track> tracks) {
         if (tracks == null) {
             return;
         }
-        mTrack.addAll(tracks);
+        mTracks.addAll(tracks);
         notifyDataSetChanged();
     }
 
@@ -46,6 +51,11 @@ public class ListSongAdapter extends RecyclerView.Adapter<ListSongAdapter.Recycl
         notifyDataSetChanged();
     }
 
+    public void setOnItemListSongClickListener(
+            OnItemListSongClickListener onItemListSongClickListener) {
+        mOnItemListSongClickListener = onItemListSongClickListener;
+    }
+
     public void setOnFavoriteClick(OnFavoriteClick onFavoriteClick) {
         mOnFavoriteClick = onFavoriteClick;
     }
@@ -54,7 +64,8 @@ public class ListSongAdapter extends RecyclerView.Adapter<ListSongAdapter.Recycl
     public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.item_song, parent, false);
-        return new RecyclerViewHolder(view, mOnFavoriteClick, mFavorites);
+        return new RecyclerViewHolder(view, mOnFavoriteClick, mFavorites,
+                mOnItemListSongClickListener);
     }
 
     @Override
@@ -64,7 +75,7 @@ public class ListSongAdapter extends RecyclerView.Adapter<ListSongAdapter.Recycl
 
     @Override
     public int getItemCount() {
-        return mTrack.size();
+        return mTracks.size();
     }
 
     public final class RecyclerViewHolder extends RecyclerView.ViewHolder {
@@ -75,20 +86,30 @@ public class ListSongAdapter extends RecyclerView.Adapter<ListSongAdapter.Recycl
         private OnFavoriteClick mOnFavoriteClick;
         private List<TrackEntity> mFavorites;
         private boolean isFavoriteClicked = false;
+        private int position = 0;
 
         public RecyclerViewHolder(View itemView, OnFavoriteClick onFavoriteClick,
-                List<TrackEntity> favorites) {
+                List<TrackEntity> favorites,
+                OnItemListSongClickListener onItemListSongClickListener) {
             super(itemView);
-            initViews(onFavoriteClick);
-            mFavorites = favorites;
+            initViews(onFavoriteClick, favorites, onItemListSongClickListener);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mOnItemListSongClickListener.onItemClicked(position, mTracks);
+                }
+            });
         }
 
-        private void initViews(OnFavoriteClick onFavoriteClick) {
+        private void initViews(OnFavoriteClick onFavoriteClick, List<TrackEntity> favorites,
+                OnItemListSongClickListener onItemListSongClickListener) {
             mImageView = itemView.findViewById(R.id.image_song);
             mTxtNameSong = itemView.findViewById(R.id.text_name_song);
             mTxtNameSinger = itemView.findViewById(R.id.text_name_singer);
             mLikeButton = itemView.findViewById(R.id.image_favorite);
             mOnFavoriteClick = onFavoriteClick;
+            mFavorites = favorites;
+            mOnItemListSongClickListener = onItemListSongClickListener;
         }
 
         private void handleEvents(final int position) {
@@ -97,24 +118,25 @@ public class ListSongAdapter extends RecyclerView.Adapter<ListSongAdapter.Recycl
                 @Override
                 public void liked(LikeButton likeButton) {
                     mLikeButton.setLiked(true);
-                    mOnFavoriteClick.onFavoriteClicked(mTrack.get(position));
+                    mOnFavoriteClick.onFavoriteClicked(mTracks.get(position));
                     isFavoriteClicked = !isFavoriteClicked;
                 }
 
                 @Override
                 public void unLiked(LikeButton likeButton) {
                     mLikeButton.setLiked(false);
-                    mOnFavoriteClick.onUnFavoriteClicked(mTrack.get(position));
+                    mOnFavoriteClick.onUnFavoriteClicked(mTracks.get(position));
                     isFavoriteClicked = !isFavoriteClicked;
                 }
             });
         }
 
         public void bind(int position) {
-            String name = mTrack.get(position).getName();
-            String artist = mTrack.get(position).getNameArtist();
-            mTxtNameSong.setText(name);
-            mTxtNameSinger.setText(artist);
+            this.position = position;
+            String name = mTracks.get(position).getName();
+            String artist = mTracks.get(position).getNameArtist();
+            setName(name);
+            setNameArtist(artist);
             mLikeButton.setLiked(false);
             handleEvents(position);
             for (int i = 0; i < mFavorites.size(); i++) {
@@ -124,6 +146,24 @@ public class ListSongAdapter extends RecyclerView.Adapter<ListSongAdapter.Recycl
                     mLikeButton.setLiked(true);
                     break;
                 }
+            }
+        }
+
+        private void setName(String name) {
+            if (name.length() > MAX_LENGTH) {
+                String subName = name.substring(MIN_LENGTH, MAX_LENGTH) + "...";
+                mTxtNameSong.setText(subName);
+            } else {
+                mTxtNameSong.setText(name);
+            }
+        }
+
+        private void setNameArtist(String artist) {
+            if (artist.length() > MAX_LENGTH) {
+                String subArtist = artist.substring(MIN_LENGTH, MAX_LENGTH) + "...";
+                mTxtNameSinger.setText(subArtist);
+            } else {
+                mTxtNameSinger.setText(artist);
             }
         }
     }

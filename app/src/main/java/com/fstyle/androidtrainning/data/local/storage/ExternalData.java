@@ -21,6 +21,8 @@ import java.util.ArrayList;
 public class ExternalData {
 
     private static final String TAG = "External";
+    private ArrayList<Track> arrayListTrackBelongAlbum = new ArrayList<>();
+    private ArrayList<Track> arrayListTrackBelongArtist = new ArrayList<>();
     private ArrayList<Track> arrayListTrack = new ArrayList<>();
     private ArrayList<Album> arrayListAlbum = new ArrayList<>();
     private ArrayList<Artist> arrayListArtist = new ArrayList<>();
@@ -97,6 +99,22 @@ public class ExternalData {
         this.countArtist = countArtist;
     }
 
+    public ArrayList<Track> getArrayListTrackBelongAlbum() {
+        return arrayListTrackBelongAlbum;
+    }
+
+    public void setArrayListTrackBelongAlbum(ArrayList<Track> arrayListTrackBelongAlbum) {
+        this.arrayListTrackBelongAlbum = arrayListTrackBelongAlbum;
+    }
+
+    public ArrayList<Track> getArrayListTrackBelongArtist() {
+        return arrayListTrackBelongArtist;
+    }
+
+    public void setArrayListTrackBelongArtist(ArrayList<Track> arrayListTrackBelongArtist) {
+        this.arrayListTrackBelongArtist = arrayListTrackBelongArtist;
+    }
+
     public void scanAllMusic(Context context) {
         ContentResolver contentResolver = context.getContentResolver();
         String[] projection = {
@@ -166,7 +184,7 @@ public class ExternalData {
                 track.setNameArtist(subArtist);
                 track.setPosition(position);
                 track.setTrackData(trackData);
-                arrayListTrack.add(track);
+                arrayListTrackBelongAlbum.add(track);
                 audioFilePathList.add(path);
                 position++;
             } while (cursor.moveToNext());
@@ -183,7 +201,7 @@ public class ExternalData {
                 MediaStore.Audio.Media.ALBUM_ID, MediaStore.Audio.Media.ARTIST,
                 MediaStore.Audio.Media.DURATION, MediaStore.Audio.Media.DATA
         };
-        String where = MediaStore.Audio.Media.ALBUM + LIKE;
+        String where = MediaStore.Audio.Media.ARTIST + LIKE;
         String sortOrder = MediaStore.Audio.Media.TITLE + SORT_ASC;
         String[] params = new String[] { temp };
         Cursor cursor =
@@ -206,7 +224,7 @@ public class ExternalData {
                 track.setNameArtist(subArtist);
                 track.setPosition(position);
                 track.setTrackData(trackData);
-                arrayListTrack.add(track);
+                arrayListTrackBelongArtist.add(track);
                 audioFilePathList.add(path);
                 position++;
             } while (cursor.moveToNext());
@@ -235,11 +253,12 @@ public class ExternalData {
             int artist = cursor.getColumnIndex(MediaStore.Audio.Albums.ARTIST);
             int art = cursor.getColumnIndex(MediaStore.Audio.Albums.ALBUM_ART);
             countAlbum = cursor.getCount();
+
             do {
                 Album albums = new Album();
                 String coverPath = cursor.getString(art);
-                Bitmap imgFile = BitmapFactory.decodeFile(coverPath);
                 if (coverPath != null) {
+                    Bitmap imgFile = BitmapFactory.decodeFile(coverPath);
                     Bitmap img = Bitmap.createBitmap(imgFile);
                     String nameArtist = cursor.getString(artist);
                     String nameAlbum = cursor.getString(album);
@@ -248,7 +267,7 @@ public class ExternalData {
                     albums.setNameArtist(nameArtist);
                 } else {
                     Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),
-                            R.drawable.img_demo_100x100);
+                            R.drawable.ic_alarm);
                     String nameArtist = cursor.getString(artist);
                     String nameAlbum = cursor.getString(album);
                     albums.setBmAlbum(bitmap);

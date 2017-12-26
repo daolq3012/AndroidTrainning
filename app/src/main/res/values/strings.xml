@@ -18,7 +18,7 @@
     <string name="artist_name_demo">Unknown Artist</string>
     <string name="song_name_demo">Unknown Song</string>
     <string name="id_demo">id</string>
-    <string name="songs_count">5 bài hát</string>
+    <string name="songs_count">5 songs</string>
     <string name="album_name_demo">Narc Mp3</string>
     <string name="name_of_song">Name of song</string>
     <string name="default_time">0:00</string>
@@ -33,4 +33,8 @@
     <string name="label_album">ALBUM</string>
     <string name="label_artist">ARTIST</string>
     <string name="listener">Listener: </string>
+    <string name="alarm_notification">Shutdown after : 0 mins</string>
+    <string name="shutdown_after">Shutdown after :</string>
+    <string name="min"> mins</string>
+    <string name="alarm_text">Set time to turn off</string>
 </resources>

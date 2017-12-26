@@ -7,9 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
 import com.fstyle.androidtrainning.R;
 import com.fstyle.androidtrainning.model.SearchTrack;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -86,7 +88,7 @@ public class SearchSongRecyclerAdapter
             if (!urlImage.isEmpty()) {
                 Glide.with(mContext).load(urlImage).into(mImageView);
             } else {
-                mImageView.setImageResource(R.drawable.img_demo_50x50);
+                mImageView.setImageResource(R.drawable.ic_unknown_song);
             }
         }
 
