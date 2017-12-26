@@ -24,7 +24,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.RecyclerView
     private OnItemClickListener mOnItemClickListener;
 
     private static final int MIN_LENGTH = 0;
-    private static final int MAX_LENGTH = 15;
+    private static final int MAX_LENGTH = 8;
 
     public AlbumAdapter(Context context) {
         mContext = context;
@@ -99,7 +99,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.RecyclerView
 
         private void setNameAlbum() {
             String nameAlbum = mAlbums.get(position).getName();
-            if (nameAlbum.length() >= MAX_LENGTH) {
+            if (nameAlbum.length() > MAX_LENGTH) {
                 String subNameAlbum = nameAlbum.substring(MIN_LENGTH, MAX_LENGTH) + "...";
                 mTxtAlbum.setText(subNameAlbum);
             } else {

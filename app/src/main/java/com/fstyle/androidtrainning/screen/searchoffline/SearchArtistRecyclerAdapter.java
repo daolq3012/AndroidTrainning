@@ -65,7 +65,7 @@ public class SearchArtistRecyclerAdapter
 
     public class RecyclerViewHolder extends RecyclerView.ViewHolder {
         private TextView mTxtArtist;
-        private static final int MAX_LENGTH = 25;
+        private static final int MAX_LENGTH = 18;
         private static final int MIN_LENGTH = 0;
         private static final String MORE = "...";
         private int position = 0;

@@ -32,16 +32,16 @@
             <TextView
                 android:id="@+id/text_name_song"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_40"
-                android:gravity="center_vertical"
+                android:layout_height="@dimen/dp_35"
+                android:paddingTop="@dimen/dp_10"
                 android:textColor="@color/color_black"
                 android:textSize="@dimen/sp_15"
                 />
             <TextView
                 android:id="@+id/text_name_artist"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_30"
-                android:gravity="center_vertical"
+                android:layout_height="@dimen/dp_35"
+                android:paddingTop="@dimen/dp_5"
                 android:textColor="@color/color_black"
                 android:textSize="@dimen/sp_10"
                 />

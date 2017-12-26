@@ -4,8 +4,10 @@
     android:layout_height="wrap_content"
     android:background="@color/color_dark_opacity"
     android:paddingBottom="@dimen/dp_10"
-    android:paddingLeft="@dimen/dp_40"
-    android:paddingStart="@dimen/dp_40"
+    android:paddingEnd="@dimen/dp_20"
+    android:paddingLeft="@dimen/dp_20"
+    android:paddingRight="@dimen/dp_20"
+    android:paddingStart="@dimen/dp_20"
     android:paddingTop="@dimen/dp_10"
     tools:ignore="RtlSymmetry">
 

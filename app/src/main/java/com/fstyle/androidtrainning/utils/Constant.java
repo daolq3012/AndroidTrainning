@@ -40,8 +40,11 @@ public final class Constant {
     public static final int RESULT_CODE_ALBUM = 102;
     public static final int RESULT_CODE_ARTIST = 103;
     public static final String ACTION_NOTIFICATION_PREVIOUS =
-            "com.fstyle.androidtraining.action.previous";
-    public static final String ACTION_NOTIFICATION_PAUSE = "ACTION_NOTIFICATION_PAUSE";
-    public static final String ACTION_NOTIFICATION_NEXT = "ACTION_NOTIFICATION_NEXT";
-    public static final String ACTION_NOTIFICATION_CLOSE = "ACTION_NOTIFICATION_CLOSE";
+            "com.fstyle.androidtrainning.action.notification.previous";
+    public static final String ACTION_NOTIFICATION_PAUSE =
+            "com.fstyle.androidtrainning.action.notification.pause";
+    public static final String ACTION_NOTIFICATION_NEXT =
+            "com.fstyle.androidtrainning.action.notification.next";
+    public static final String ACTION_NOTIFICATION_CLOSE =
+            "com.fstyle.androidtrainning.action.notification.close";
 }
