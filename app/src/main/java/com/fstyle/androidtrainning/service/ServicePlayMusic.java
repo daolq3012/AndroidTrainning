@@ -48,6 +48,9 @@ public class ServicePlayMusic extends Service {
     private static final int NOTIFICATION_ID = 101;
     private Notification mNotification;
     private RemoteViews mRemoteViews;
+    private NotificationManager notificationManager;
+    private static final int MIN_LENGTH = 0;
+    private static final int MAX_LENGTH = 15;
 
     public class LocalBinder extends Binder {
         public ServicePlayMusic getService() {
@@ -67,6 +70,7 @@ public class ServicePlayMusic extends Service {
     public void onCreate() {
         super.onCreate();
         mMediaPlayer = new MediaPlayer();
+        notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
@@ -89,8 +93,8 @@ public class ServicePlayMusic extends Service {
                 playMusic();
             }
             setupHandle();
+            doRegisterNotificationSign();
         }
-        doRegisterNotificationSign();
         return START_STICKY;
     }
 
@@ -122,15 +126,18 @@ public class ServicePlayMusic extends Service {
                 }
             }
         };
-        registerReceiver(mBroadcastReceiver,
-                new IntentFilter(Constant.ACTION_NOTIFICATION_PREVIOUS));
-        registerReceiver(mBroadcastReceiver, new IntentFilter(Constant.ACTION_NOTIFICATION_PAUSE));
-        registerReceiver(mBroadcastReceiver, new IntentFilter(Constant.ACTION_NOTIFICATION_NEXT));
-        registerReceiver(mBroadcastReceiver, new IntentFilter(Constant.ACTION_NOTIFICATION_CLOSE));
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Constant.ACTION_NOTIFICATION_PREVIOUS);
+        filter.addAction(Constant.ACTION_NOTIFICATION_PAUSE);
+        filter.addAction(Constant.ACTION_NOTIFICATION_NEXT);
+        filter.addAction(Constant.ACTION_NOTIFICATION_CLOSE);
+        registerReceiver(mBroadcastReceiver, filter);
+        startForeground(NOTIFICATION_ID, mNotification);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     private void initNotification() {
+
         Context context = getApplicationContext();
         mRemoteViews = new RemoteViews(getPackageName(), R.layout.layout_notification);
 
@@ -165,28 +172,50 @@ public class ServicePlayMusic extends Service {
         Intent notificationIntent = new Intent(context, MainActivity.class);
         notificationIntent.setFlags(
                 Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, notificationIntent,
+                PendingIntent.FLAG_ONE_SHOT);
 
         Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.logo_main);
         mRemoteViews.setImageViewBitmap(R.id.image, bitmap);
         CharSequence contentTitle = mTracks.get(id).getName();
-        mRemoteViews.setTextViewText(R.id.text_name_song, contentTitle);
         CharSequence contentText = mTracks.get(id).getNameArtist();
-        mRemoteViews.setTextViewText(R.id.text_name_artist, contentText);
+        setString(contentTitle, contentText);
 
         int icon = R.drawable.logo_main;
         mNotification = new Notification.Builder(this).build();
         mNotification.contentView = mRemoteViews;
         mNotification.flags = Notification.FLAG_ONGOING_EVENT;
         mNotification.icon = icon;
+        mNotification.when = System.currentTimeMillis();
         mNotification.contentIntent = pendingIntent;
-        startForeground(NOTIFICATION_ID, mNotification);
     }
 
     public void cancelNotification() {
-        NotificationManager notificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.cancel(NOTIFICATION_ID);
+    }
+
+    public void setNameOnNotification() {
+
+        CharSequence contentTitle = mTracks.get(id).getName();
+        CharSequence contentText = mTracks.get(id).getNameArtist();
+        setString(contentTitle, contentText);
+        startForeground(NOTIFICATION_ID, mNotification);
+    }
+
+    private void setString(CharSequence contentTitle, CharSequence contentText) {
+        if (contentTitle.length() > MAX_LENGTH) {
+            String subTitle = contentTitle.subSequence(MIN_LENGTH, MAX_LENGTH) + "...";
+            mRemoteViews.setTextViewText(R.id.text_name_song, subTitle);
+        } else {
+            mRemoteViews.setTextViewText(R.id.text_name_song, contentTitle);
+        }
+
+        if (contentText.length() > MAX_LENGTH) {
+            String subText = contentText.subSequence(MIN_LENGTH, MAX_LENGTH) + "...";
+            mRemoteViews.setTextViewText(R.id.text_name_artist, subText);
+        } else {
+            mRemoteViews.setTextViewText(R.id.text_name_artist, contentText);
+        }
     }
 
     @Override
@@ -215,7 +244,6 @@ public class ServicePlayMusic extends Service {
             if (mMediaPlayer != null) {
                 Intent intent = new Intent(Constant.ACTION_MEDIA_TIME);
                 intent.putExtra(Constant.EXTRA_CURRENT_TIME, mMediaPlayer.getCurrentPosition());
-                //                intent.setAction(Constant.ACTION_MEDIA_TIME);
                 sendBroadcast(intent);
             }
             mHandler.postDelayed(sendCurrentTime, 1000);
@@ -306,11 +334,7 @@ public class ServicePlayMusic extends Service {
                 id = 0;
             }
         }
-        CharSequence contentTitle = mTracks.get(id).getName();
-        mRemoteViews.setTextViewText(R.id.text_name_song, contentTitle);
-        CharSequence contentText = mTracks.get(id).getNameArtist();
-        mRemoteViews.setTextViewText(R.id.text_name_artist, contentText);
-        startForeground(NOTIFICATION_ID, mNotification);
+        setNameOnNotification();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
@@ -356,11 +380,7 @@ public class ServicePlayMusic extends Service {
                 id--;
             }
         }
-        CharSequence contentTitle = mTracks.get(id).getName();
-        mRemoteViews.setTextViewText(R.id.text_name_song, contentTitle);
-        CharSequence contentText = mTracks.get(id).getNameArtist();
-        mRemoteViews.setTextViewText(R.id.text_name_artist, contentText);
-        startForeground(NOTIFICATION_ID, mNotification);
+        setNameOnNotification();
     }
 
     public boolean isShuffle() {

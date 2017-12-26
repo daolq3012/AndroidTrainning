@@ -26,6 +26,8 @@ public class ListSongAdapter extends RecyclerView.Adapter<ListSongAdapter.Recycl
     private OnFavoriteClick mOnFavoriteClick;
     private List<TrackEntity> mFavorites = new ArrayList<>();
     private OnItemListSongClickListener mOnItemListSongClickListener;
+    private static final int MIN_LENGTH = 0;
+    private static final int MAX_LENGTH = 15;
 
     public ListSongAdapter(Context context,
             OnItemListSongClickListener onItemListSongClickListener) {
@@ -133,8 +135,8 @@ public class ListSongAdapter extends RecyclerView.Adapter<ListSongAdapter.Recycl
             this.position = position;
             String name = mTracks.get(position).getName();
             String artist = mTracks.get(position).getNameArtist();
-            mTxtNameSong.setText(name);
-            mTxtNameSinger.setText(artist);
+            setName(name);
+            setNameArtist(artist);
             mLikeButton.setLiked(false);
             handleEvents(position);
             for (int i = 0; i < mFavorites.size(); i++) {
@@ -144,6 +146,24 @@ public class ListSongAdapter extends RecyclerView.Adapter<ListSongAdapter.Recycl
                     mLikeButton.setLiked(true);
                     break;
                 }
+            }
+        }
+
+        private void setName(String name) {
+            if (name.length() > MAX_LENGTH) {
+                String subName = name.substring(MIN_LENGTH, MAX_LENGTH) + "...";
+                mTxtNameSong.setText(subName);
+            } else {
+                mTxtNameSong.setText(name);
+            }
+        }
+
+        private void setNameArtist(String artist) {
+            if (artist.length() > MAX_LENGTH) {
+                String subArtist = artist.substring(MIN_LENGTH, MAX_LENGTH) + "...";
+                mTxtNameSinger.setText(subArtist);
+            } else {
+                mTxtNameSinger.setText(artist);
             }
         }
     }

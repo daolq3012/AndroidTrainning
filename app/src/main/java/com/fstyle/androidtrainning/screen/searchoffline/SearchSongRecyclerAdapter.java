@@ -21,6 +21,9 @@ public class SearchSongRecyclerAdapter
     private List<Track> mTracks = new ArrayList<>();
     private List<Track> mTracksTemp = new ArrayList<>();
     private Context mContext;
+    private static final int MAX_LENGTH = 20;
+    private static final int MIN_LENGTH = 0;
+    private static final String MORE = "...";
     private OnItemSongClickListener mOnItemSongClickListener;
 
     public SearchSongRecyclerAdapter(Context context) {
@@ -74,9 +77,6 @@ public class SearchSongRecyclerAdapter
 
     public class RecyclerViewHolder extends RecyclerView.ViewHolder {
         private TextView mTxtNameSong, mTxtNameSinger;
-        private static final int MAX_LENGTH = 25;
-        private static final int MIN_LENGTH = 0;
-        private static final String MORE = "...";
         private int position = 0;
         private String nameSong, nameArtist;
 

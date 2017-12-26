@@ -20,6 +20,8 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.RecyclerVi
     private List<Artist> mArtists = new ArrayList<>();
     private Context mContext;
     private OnItemClickListener mOnItemClickListener;
+    private static final int MIN_LENGTH = 0;
+    private static final int MAX_LENGTH = 20;
 
     public ArtistAdapter(Context context) {
         mContext = context;
@@ -75,7 +77,16 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.RecyclerVi
         public void bind(int position) {
             this.position = position;
             String nameArtist = mArtists.get(position).getName();
-            mTxtArtist.setText(nameArtist);
+            setName(nameArtist);
+        }
+
+        private void setName(String nameArtist) {
+            if (nameArtist.length() > MAX_LENGTH) {
+                String subName = nameArtist.substring(MIN_LENGTH, MAX_LENGTH) + "...";
+                mTxtArtist.setText(subName);
+            } else {
+                mTxtArtist.setText(nameArtist);
+            }
         }
     }
 }

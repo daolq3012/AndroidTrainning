@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.fstyle.androidtrainning.R;
-import com.fstyle.androidtrainning.data.local.storage.LyricSdCard;
 import com.fstyle.androidtrainning.model.Track;
 import com.fstyle.androidtrainning.screen.BaseFragment;
 import com.fstyle.androidtrainning.screen.main.MainActivity;
@@ -28,7 +27,7 @@ import me.zhengken.lyricview.LyricView;
  * A simple {@link Fragment} subclass.
  */
 public class LyricsFragment extends BaseFragment
-        implements LyricsContract.Viewer, OnTrackChangeListener {
+        implements LyricsContract.Viewer, OnTrackChangeListener, OnLoadLyricListener {
 
     private LyricsPresenter mPresenter;
     private List<File> fileArrayList = new ArrayList<>();
@@ -38,6 +37,8 @@ public class LyricsFragment extends BaseFragment
     private BroadcastReceiver mReceiver;
     private IntentFilter currentTimeFilter;
     private static final int SDK_DEFAULT = 21;
+    private LoadLyricAsyncTask mLoadLyricAsyncTask;
+    private File mFileSdCard;
 
     public static LyricsFragment newInstance() {
         return new LyricsFragment();
@@ -56,17 +57,20 @@ public class LyricsFragment extends BaseFragment
         View v = inflater.inflate(R.layout.fragment_lyrics, container, false);
         initViews(v);
 
-        ((MainActivity) getActivity()).setOnTrackChangeListener(this);
-//        if (Build.VERSION.SDK_INT >= SDK_DEFAULT) {
-//            File sdCard2 = new File(Constant.STR_PATH_LOWER_4);
-//            fileArrayList = LyricSdCard.findLyrics(sdCard2);
-//        } else {
-//            File sdCard = new File(Constant.STR_PATH_UPPER_4);
-//            fileArrayList = LyricSdCard.findLyrics(sdCard);
-//        }
+        initFileLocal();
 
         initReceiver();
         return v;
+    }
+
+    private void initFileLocal() {
+        if (Build.VERSION.SDK_INT >= SDK_DEFAULT) {
+            mFileSdCard = new File(Constant.STR_PATH_LOWER_4);
+            mLoadLyricAsyncTask.execute(mFileSdCard);
+        } else {
+            mFileSdCard = new File(Constant.STR_PATH_UPPER_4);
+            mLoadLyricAsyncTask.execute(mFileSdCard);
+        }
     }
 
     private void initReceiver() {
@@ -90,28 +94,14 @@ public class LyricsFragment extends BaseFragment
         mPresenter = new LyricsPresenter();
         mPresenter.setView(this);
         mLyricView = v.findViewById(R.id.lyricView);
+        mLoadLyricAsyncTask = new LoadLyricAsyncTask();
+        mLoadLyricAsyncTask.setOnLoadLyricListener(this);
+        ((MainActivity) getActivity()).setOnTrackChangeListener(this);
     }
 
     private void loadLyric(Track track) {
 
-        String songPath = track.getTrackData();
-        int indexSongData = songPath.lastIndexOf('/');
-        String subSongData = songPath.substring(indexSongData + 1).replace(Constant.TYPE_MP3, "");
-        for (int i = 0; i < fileArrayList.size(); i++) {
-            int indexFileArrayList = fileArrayList.get(i).toString().lastIndexOf('/');
-            String file = fileArrayList.get(i)
-                    .toString()
-                    .substring(indexFileArrayList + 1)
-                    .replace(Constant.TYPE_LYRIC, "");
-            if (subSongData.equalsIgnoreCase(file)) {
-                mLyricView.setLyricFile(fileArrayList.get(i));
-                mLyricView.invalidate();
-                return;
-            } else {
-                mLyricView.setLyricFile(null);
-            }
-        }
-        mLyricView.setLyricFile(null);
+        mPresenter.doLoadLyric(track, fileArrayList, mLyricView);
     }
 
     @Override
@@ -126,5 +116,10 @@ public class LyricsFragment extends BaseFragment
             mTrack = ((MainActivity) getActivity()).getTrack();
             loadLyric(mTrack);
         }
+    }
+
+    @Override
+    public void onLoadLyricSuccess(List<File> list) {
+        fileArrayList.addAll(list);
     }
 }
