@@ -14,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import com.fstyle.androidtrainning.MainApplication;
 import com.fstyle.androidtrainning.R;
 import com.fstyle.androidtrainning.data.model.Movie;
@@ -41,6 +42,7 @@ public class TabSearchFragment extends BaseFragment
     private Toolbar mToolbar;
     private String mKeyWord;
     private EndlessRecyclerOnScrollListener mEndlessRecyclerOnScrollListener;
+    private LinearLayout mLinearLayout;
 
     public static TabSearchFragment newInstance() {
         return new TabSearchFragment();
@@ -67,6 +69,7 @@ public class TabSearchFragment extends BaseFragment
 
     private void initView(View view) {
         mRecyclerView = view.findViewById(R.id.recycler_search);
+        mLinearLayout = view.findViewById(R.id.linear_search_not_found);
         mLayoutManager = new GridLayoutManager(view.getContext(), 3);
         mSearchAdapter = new SearchAdapter(getActivity());
         mSearchAdapter.setOnRecyclerViewItemListener(this);
@@ -116,6 +119,10 @@ public class TabSearchFragment extends BaseFragment
         if (listSearchMovie == null) {
             return;
         }
+        if (listSearchMovie.size() > 0) {
+            mLinearLayout.setVisibility(View.GONE);
+            mRecyclerView.setVisibility(View.VISIBLE);
+        }
         mSearchAdapter.refreshData();
         mSearchAdapter.updateData(listSearchMovie);
     }
@@ -145,6 +152,8 @@ public class TabSearchFragment extends BaseFragment
         if (keyWord == null || keyWord.isEmpty()) {
             mEndlessRecyclerOnScrollListener.refreshData();
             mSearchAdapter.refreshData();
+            mLinearLayout.setVisibility(View.VISIBLE);
+            mRecyclerView.setVisibility(View.GONE);
             return false;
         }
         mKeyWord = keyWord;

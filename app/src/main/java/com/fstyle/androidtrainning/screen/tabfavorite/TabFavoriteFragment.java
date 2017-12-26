@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import com.fstyle.androidtrainning.MainApplication;
 import com.fstyle.androidtrainning.R;
 import com.fstyle.androidtrainning.data.local.InsertListMovieToDatabase;
@@ -36,7 +37,8 @@ import org.json.JSONObject;
  * TabFavorite Screen.
  */
 public class TabFavoriteFragment extends BaseFragment
-        implements TabFavoriteContract.FavoriteView, OnFavoriteItemListener, OnSelectDataListener {
+        implements TabFavoriteContract.FavoriteView, OnFavoriteItemListener, OnSelectDataListener,
+        FavoriteAdapterCallback {
 
     private static final String TAG = "TabFavoriteFragment";
     private static final String USER_ID = "id";
@@ -50,6 +52,8 @@ public class TabFavoriteFragment extends BaseFragment
     private DatabaseReference mDatabaseRef;
     private SharedPreferences mSharedPreferences;
     private List<MovieEntity> mListMovieFirebase = new ArrayList<>();
+    private boolean mIsLogin = false;
+    private LinearLayout mLinearLayout;
 
     public static TabFavoriteFragment newInstance() {
         return new TabFavoriteFragment();
@@ -82,22 +86,27 @@ public class TabFavoriteFragment extends BaseFragment
         mLayoutManager = new GridLayoutManager(getActivity(), NUMBER_COLUMNS);
         mFavoriteAdapter = new FavoriteAdapter(getActivity());
         mFavoriteAdapter.setOnFavoriteItemListener(this);
+        mFavoriteAdapter.setFavoriteAdapterCallback(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mFavoriteAdapter);
+        mLinearLayout = view.findViewById(R.id.linear_favorite_not_found);
 
-        mDatabaseRef = FirebaseDatabase.getInstance().getReference();
         mSharedPreferences =
                 getActivity().getSharedPreferences(Constant.PREF_NAME, Context.MODE_PRIVATE);
     }
 
     private void initDatabaseReference() {
         String dataUser = mSharedPreferences.getString(Constant.PREF_USER, Constant.DEFAULT);
-        try {
-            JSONObject mDataUser = new JSONObject(dataUser);
-            mDataUser.getString(USER_ID);
-            mDatabaseRef = mDatabaseRef.child(USERS_NODE).child(mDataUser.getString(USER_ID));
-        } catch (JSONException e) {
-            Log.e(TAG, "JSONException: ", e);
+        if (!dataUser.equals(Constant.DEFAULT)) {
+            mIsLogin = true;
+            mDatabaseRef = FirebaseDatabase.getInstance().getReference();
+            try {
+                JSONObject mDataUser = new JSONObject(dataUser);
+                mDataUser.getString(USER_ID);
+                mDatabaseRef = mDatabaseRef.child(USERS_NODE).child(mDataUser.getString(USER_ID));
+            } catch (JSONException e) {
+                Log.e(TAG, "JSONException: ", e);
+            }
         }
     }
 
@@ -120,8 +129,8 @@ public class TabFavoriteFragment extends BaseFragment
 
     @Override
     public void onResume() {
-        new SelectListMovieFromDatabase(mMovieDatabase, this).execute();
         super.onResume();
+        new SelectListMovieFromDatabase(mMovieDatabase, this).execute();
     }
 
     @Override
@@ -136,7 +145,8 @@ public class TabFavoriteFragment extends BaseFragment
         if (movieEntityList == null) {
             return;
         }
-        if (movieEntityList.size() == 0) {
+        if (movieEntityList.size() == 0 && mIsLogin) {
+            mListMovieFirebase.clear();
             mDatabaseRef.addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -168,6 +178,11 @@ public class TabFavoriteFragment extends BaseFragment
             movieEntityList.clear();
             movieEntityList.addAll(mListMovieFirebase);
         }
+        if (movieEntityList.size() > 0) {
+            invisibleNoFavoredLayout();
+        } else {
+            invisibleRecyclerView();
+        }
         mFavoriteAdapter.updateData(movieEntityList);
     }
 
@@ -176,5 +191,20 @@ public class TabFavoriteFragment extends BaseFragment
         Intent intent = new Intent(getActivity(), DetailsMovieActivity.class);
         intent.putExtra(Constant.EXTRA_MOVIE_ID, movieEntity.getId());
         startActivity(intent);
+    }
+
+    public void invisibleRecyclerView() {
+        mLinearLayout.setVisibility(View.VISIBLE);
+        mRecyclerView.setVisibility(View.GONE);
+    }
+
+    public void invisibleNoFavoredLayout() {
+        mLinearLayout.setVisibility(View.GONE);
+        mRecyclerView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onRemoveAllMovies() {
+        invisibleRecyclerView();
     }
 }

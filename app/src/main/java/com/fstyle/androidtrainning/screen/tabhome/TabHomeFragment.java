@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import com.fstyle.androidtrainning.MainApplication;
 import com.fstyle.androidtrainning.R;
+import com.fstyle.androidtrainning.data.datasource.AdsDataSoure;
 import com.fstyle.androidtrainning.data.model.Movie;
 import com.fstyle.androidtrainning.data.service.config.MoviesApi;
 import com.fstyle.androidtrainning.screen.BaseFragment;
@@ -18,7 +19,9 @@ import com.fstyle.androidtrainning.screen.OnRecyclerViewItemListener;
 import com.fstyle.androidtrainning.screen.detailsmovie.DetailsMovieActivity;
 import com.fstyle.androidtrainning.screen.moremovies.MoreMoviesActivity;
 import com.fstyle.androidtrainning.utils.Constant;
+import com.fstyle.androidtrainning.widget.AutoScrollViewPager;
 import java.util.List;
+import me.relex.circleindicator.CircleIndicator;
 
 /**
  * TabHome Screen.
@@ -34,6 +37,9 @@ public class TabHomeFragment extends BaseFragment
             mButtonMorePopular;
     private RecyclerView.LayoutManager mLayoutManagerNowPlaying, mLayoutManagerUpComing,
             mLayoutManagerTopRated, mLayoutManagerPopular;
+    private AutoScrollViewPager mAutoScrollViewPager;
+    private AdsViewPagerAdapter mPagerAdapter;
+    private CircleIndicator mCircleIndicator;
 
     public static TabHomeFragment newInstance() {
         return new TabHomeFragment();
@@ -68,6 +74,17 @@ public class TabHomeFragment extends BaseFragment
         mRecyclerUpComing = view.findViewById(R.id.recycler_up_coming);
         mRecyclerTopRated = view.findViewById(R.id.recycler_top_rated);
         mRecyclerPopular = view.findViewById(R.id.recycler_popuplar);
+
+        mAutoScrollViewPager = view.findViewById(R.id.view_pager_ads);
+        mAutoScrollViewPager.startAutoScroll();
+        mAutoScrollViewPager.setInterval(4000);
+        mAutoScrollViewPager.setStopScrollWhenTouch(true);
+
+        mPagerAdapter = new AdsViewPagerAdapter(getActivity(), AdsDataSoure.getListAds());
+        mAutoScrollViewPager.setAdapter(mPagerAdapter);
+
+        mCircleIndicator = view.findViewById(R.id.circle_indicator);
+        mCircleIndicator.setViewPager(mAutoScrollViewPager);
 
         mLayoutManagerNowPlaying =
                 new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false);

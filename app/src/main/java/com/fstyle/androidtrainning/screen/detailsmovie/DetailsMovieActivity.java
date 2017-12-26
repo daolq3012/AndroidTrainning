@@ -87,6 +87,7 @@ public class DetailsMovieActivity extends BaseActivity
     private String mReleaseDate;
     private SharedPreferences mSharedPreferences;
     private DatabaseReference mDatabaseRef;
+    private boolean mIsLogin = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,7 +129,6 @@ public class DetailsMovieActivity extends BaseActivity
 
         mFloatingFavoriteButton.setBackgroundTintList(
                 ColorStateList.valueOf(getResources().getColor(R.color.colorOrange)));
-        mFloatingFavoriteButton.setOnClickListener(this);
         if (isFavoriteMovie()) {
             mFloatingFavoriteButton.setImageResource(R.drawable.ic_action_favorite);
             isFavorite = !isFavorite;
@@ -148,8 +148,6 @@ public class DetailsMovieActivity extends BaseActivity
         mRecyclerCast.setAdapter(mAdapter);
 
         mSharedPreferences = getSharedPreferences(Constant.PREF_NAME, Context.MODE_PRIVATE);
-
-        mDatabaseRef = FirebaseDatabase.getInstance().getReference();
     }
 
     private void setHomeButtonToolbar() {
@@ -180,12 +178,16 @@ public class DetailsMovieActivity extends BaseActivity
 
     private void initDatabaseReference() {
         String dataUser = mSharedPreferences.getString(Constant.PREF_USER, Constant.DEFAULT);
-        try {
-            JSONObject mDataUser = new JSONObject(dataUser);
-            mDataUser.getString(USER_ID);
-            mDatabaseRef = mDatabaseRef.child(USERS_NODE).child(mDataUser.getString(USER_ID));
-        } catch (JSONException e) {
-            Log.e(TAG, "JSONException: ", e);
+        if (!dataUser.equals(Constant.DEFAULT)) {
+            mIsLogin = true;
+            mDatabaseRef = FirebaseDatabase.getInstance().getReference();
+            try {
+                JSONObject mDataUser = new JSONObject(dataUser);
+                mDataUser.getString(USER_ID);
+                mDatabaseRef = mDatabaseRef.child(USERS_NODE).child(mDataUser.getString(USER_ID));
+            } catch (JSONException e) {
+                Log.e(TAG, "JSONException: ", e);
+            }
         }
     }
 
@@ -229,6 +231,7 @@ public class DetailsMovieActivity extends BaseActivity
         mTextRunTime.setText(runTimeMovie);
         mTextOverview.setText(movie.getOverview());
         mCollapsingToolbarLayout.setTitle(movie.getTitle());
+        mFloatingFavoriteButton.setOnClickListener(this);
     }
 
     @Override
@@ -269,7 +272,9 @@ public class DetailsMovieActivity extends BaseActivity
                     movieEntity.setReleaseDate(mReleaseDate);
                     new InsertMovieToDatabase(mMovieDatabase, this).execute(movieEntity);
 
-                    mDatabaseRef.push().setValue(movieEntity);
+                    if (mIsLogin) {
+                        mDatabaseRef.push().setValue(movieEntity);
+                    }
                 } else {
                     mFloatingFavoriteButton.setImageResource(R.drawable.ic_favorite_border);
                     MovieEntity movieEntity = new MovieEntity();
@@ -349,12 +354,12 @@ public class DetailsMovieActivity extends BaseActivity
     @Override
     public void onDeleteDataSuccess() {
         Toast.makeText(this, getResources().getString(R.string.remove_favorite_movie),
-                Toast.LENGTH_LONG).show();
+                Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onInsertDataSuccess() {
         Toast.makeText(this, getResources().getString(R.string.add_favorite_movie),
-                Toast.LENGTH_LONG).show();
+                Toast.LENGTH_SHORT).show();
     }
 }

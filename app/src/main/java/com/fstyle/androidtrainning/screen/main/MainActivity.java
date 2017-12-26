@@ -1,12 +1,14 @@
 package com.fstyle.androidtrainning.screen.main;
 
-import android.os.Bundle;
-import android.support.annotation.IntDef;
-import com.fstyle.androidtrainning.R;
-import com.fstyle.androidtrainning.screen.BaseActivity;
-import com.fstyle.androidtrainning.widget.UnSwipeViewPager;
-import com.roughike.bottombar.BottomBar;
-import com.roughike.bottombar.OnTabSelectListener;
+        import android.os.Bundle;
+        import android.os.Handler;
+        import android.support.annotation.IntDef;
+        import android.widget.Toast;
+        import com.fstyle.androidtrainning.R;
+        import com.fstyle.androidtrainning.screen.BaseActivity;
+        import com.fstyle.androidtrainning.widget.UnSwipeViewPager;
+        import com.roughike.bottombar.BottomBar;
+        import com.roughike.bottombar.OnTabSelectListener;
 
 /**
  * Main Screen.
@@ -18,6 +20,7 @@ public class MainActivity extends BaseActivity
     private UnSwipeViewPager mViewPager;
     private BottomBar mBottombar;
     private ViewPagerAdapter mAdapter;
+    private boolean mDoubleBackToExitPressedOnce = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +74,23 @@ public class MainActivity extends BaseActivity
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        if (mDoubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+        mDoubleBackToExitPressedOnce = true;
+        Toast.makeText(this, getResources().getString(R.string.double_back), Toast.LENGTH_SHORT)
+                .show();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mDoubleBackToExitPressedOnce = false;
+            }
+        }, 2000);
+    }
+
     /**
      * IntDef Tab.
      */
@@ -85,7 +105,7 @@ public class MainActivity extends BaseActivity
     /**
      * IntDef Page Limit.
      */
-    @IntDef({Page.LIMIT})
+    @IntDef({ Page.LIMIT })
     public @interface Page {
         int LIMIT = 3;
     }

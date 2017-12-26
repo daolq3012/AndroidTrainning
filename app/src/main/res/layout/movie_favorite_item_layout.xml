@@ -39,7 +39,7 @@
             android:layout_gravity="center"
             android:layout_marginEnd="@dimen/dp_7"
             android:layout_marginRight="@dimen/dp_7"
-            android:background="@drawable/ic_favorite"
+            android:src="@drawable/ic_favorite"
             android:contentDescription="@string/favorite_icon"
             />
     </LinearLayout>
