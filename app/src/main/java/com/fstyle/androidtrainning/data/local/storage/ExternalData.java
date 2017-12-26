@@ -267,7 +267,7 @@ public class ExternalData {
                     albums.setNameArtist(nameArtist);
                 } else {
                     Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),
-                            R.drawable.ic_alarm);
+                            R.drawable.ic_unknown_album);
                     String nameArtist = cursor.getString(artist);
                     String nameAlbum = cursor.getString(album);
                     albums.setBmAlbum(bitmap);
