@@ -19,11 +19,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
 import com.fstyle.androidtrainning.R;
 import com.fstyle.androidtrainning.application.MainApplication;
 import com.fstyle.androidtrainning.data.local.roomdb.entity.TrackEntity;
@@ -46,6 +49,7 @@ import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
 import java.util.ArrayList;
 import java.util.List;
+
 import me.relex.circleindicator.CircleIndicator;
 
 public class MainActivity extends BaseActivity
@@ -87,6 +91,7 @@ public class MainActivity extends BaseActivity
     private boolean mIsPause = false;
     private Intent intent;
     private BroadcastReceiver mBroadcastReceiver;
+    private Animation slideUpAnimation, slideDownAnimation;
 
     private ServiceConnection mConnection = new ServiceConnection() {
         @Override
@@ -187,6 +192,11 @@ public class MainActivity extends BaseActivity
         mPlayingViewPager.setAdapter(mPlayingPagerAdapter);
         mIndicator.setViewPager(mPlayingViewPager);
         mPlayingPagerAdapter.registerDataSetObserver(mIndicator.getDataSetObserver());
+
+        slideUpAnimation = AnimationUtils.loadAnimation(getApplicationContext(),
+                R.anim.slideup);
+        slideDownAnimation = AnimationUtils.loadAnimation(getApplicationContext(),
+                R.anim.slidedown);
     }
 
     public void setOnTrackChangeListener(OnTrackChangeListener onTrackChangeListener) {
@@ -288,14 +298,16 @@ public class MainActivity extends BaseActivity
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.image_back:
-                mLayoutPlaying.setVisibility(View.GONE);
+                startSlideDownAnimation(view);
                 mLayoutMain.setVisibility(View.VISIBLE);
                 mToolbar.setVisibility(View.VISIBLE);
+                mLayoutPlaying.setVisibility(View.GONE);
                 break;
             case R.id.layout_mini_playing:
+                startSlideUpAnimation(view);
                 mLayoutMain.setVisibility(View.GONE);
-                mLayoutPlaying.setVisibility(View.VISIBLE);
                 mToolbar.setVisibility(View.GONE);
+                mLayoutPlaying.setVisibility(View.VISIBLE);
                 break;
             case R.id.image_pause_mini:
                 if (isMusicPlaying) {
@@ -392,7 +404,7 @@ public class MainActivity extends BaseActivity
                     isShuffle = true;
                     mServicePlayMusic.setShuffle(true);
                     // make shuffle to false
-                    mImageShuffle.setImageResource(R.drawable.ic_not_shuffle);
+                    mImageShuffle.setImageResource(R.drawable.ic_non_shuffle);
                 }
                 break;
             case R.id.image_alarm:
@@ -660,11 +672,19 @@ public class MainActivity extends BaseActivity
         mOnTrackChangeListener.onTrackChanged();
     }
 
-    @IntDef({ Tab.MY_SONG, Tab.ONLINE, Tab.ANOTHER })
+    @IntDef({Tab.MY_SONG, Tab.ONLINE, Tab.ANOTHER})
     public @interface Tab {
         int MY_SONG = 0;
         int ONLINE = 1;
         int ANOTHER = 2;
+    }
+
+    public void startSlideUpAnimation(View view) {
+        mLayoutPlaying.startAnimation(slideUpAnimation);
+    }
+
+    public void startSlideDownAnimation(View view) {
+        mLayoutPlaying.startAnimation(slideDownAnimation);
     }
 
     @Override
