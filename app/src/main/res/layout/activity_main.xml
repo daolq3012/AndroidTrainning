@@ -67,7 +67,7 @@
                     android:layout_height="@dimen/dp_30"
                     android:text="@string/song_name_demo"
                     android:textColor="@color/color_yellow"
-                    android:textSize="@dimen/sp_15"
+                    android:textSize="@dimen/sp_20"
                     android:textStyle="bold" />
 
                 <TextView
@@ -76,7 +76,7 @@
                     android:layout_height="@dimen/dp_20"
                     android:text="@string/artist_name_demo"
                     android:textColor="@color/color_yellow_custom"
-                    android:textSize="@dimen/sp_10" />
+                    android:textSize="@dimen/sp_15" />
             </LinearLayout>
 
             <ImageView
@@ -92,7 +92,7 @@
                 android:layout_width="@dimen/dp_50"
                 android:layout_height="@dimen/dp_50"
                 android:contentDescription="@string/description"
-                android:padding="@dimen/dp_10"
+                android:padding="@dimen/dp_5"
                 android:src="@drawable/ic_pause" />
 
             <ImageView
@@ -123,8 +123,8 @@
 
             <ImageView
                 android:id="@+id/image_back"
-                android:layout_width="@dimen/dp_30"
-                android:layout_height="@dimen/dp_30"
+                android:layout_width="@dimen/dp_40"
+                android:layout_height="@dimen/dp_40"
                 android:contentDescription="@string/description"
                 android:src="@drawable/ic_back" />
 
@@ -156,8 +156,8 @@
 
             <ImageView
                 android:id="@+id/image_alarm"
-                android:layout_width="@dimen/dp_30"
-                android:layout_height="@dimen/dp_30"
+                android:layout_width="@dimen/dp_40"
+                android:layout_height="@dimen/dp_40"
                 android:contentDescription="@string/description"
                 android:src="@drawable/ic_alarm" />
         </LinearLayout>
@@ -213,41 +213,46 @@
             <ImageView
                 android:id="@+id/image_shuffle"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/dp_30"
+                android:layout_height="@dimen/dp_70"
                 android:layout_weight="@dimen/weight_1"
                 android:contentDescription="@string/description"
-                android:src="@drawable/ic_not_shuffle"
+                android:padding="@dimen/dp_10"
+                android:src="@drawable/ic_non_shuffle"
                 />
             <ImageView
                 android:id="@+id/image_previous"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/dp_30"
+                android:layout_height="@dimen/dp_70"
                 android:layout_weight="@dimen/weight_1"
+                android:padding="@dimen/dp_10"
                 android:contentDescription="@string/description"
                 android:src="@drawable/ic_skip_previous" />
 
             <ImageView
                 android:id="@+id/image_pause"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/dp_30"
+                android:layout_height="@dimen/dp_70"
                 android:layout_weight="@dimen/weight_1"
                 android:contentDescription="@string/description"
+                android:padding="@dimen/dp_5"
                 android:src="@drawable/ic_pause" />
 
             <ImageView
                 android:id="@+id/image_next"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/dp_30"
+                android:layout_height="@dimen/dp_70"
                 android:layout_weight="@dimen/weight_1"
+                android:padding="@dimen/dp_10"
                 android:contentDescription="@string/description"
                 android:src="@drawable/ic_skip_next" />
 
             <ImageView
                 android:id="@+id/image_repeat"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/dp_30"
+                android:layout_height="@dimen/dp_70"
                 android:layout_weight="@dimen/weight_1"
                 android:contentDescription="@string/description"
+                android:padding="@dimen/dp_10"
                 android:src="@drawable/ic_repeat" />
         </LinearLayout>
     </LinearLayout>

@@ -11,7 +11,7 @@
         android:layout_marginStart="@dimen/dp_30"
         android:layout_marginTop="@dimen/dp_30"
         android:contentDescription="@string/avatar"
-        android:src="@drawable/ic_unknown_song" />
+        android:src="@drawable/ic_unknown_album" />
 
     <LinearLayout
         android:layout_width="@dimen/dp_125"
