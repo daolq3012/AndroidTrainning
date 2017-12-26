@@ -1,7 +1,6 @@
 package com.fstyle.androidtrainning.screen.main.mainfragments.mysong.subfragment.listsong;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +10,6 @@ import android.widget.TextView;
 import com.fstyle.androidtrainning.R;
 import com.fstyle.androidtrainning.data.local.roomdb.entity.TrackEntity;
 import com.fstyle.androidtrainning.model.Track;
-import com.fstyle.androidtrainning.utils.Constant;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
 import java.util.ArrayList;
@@ -27,9 +25,12 @@ public class ListSongAdapter extends RecyclerView.Adapter<ListSongAdapter.Recycl
     private Context mContext;
     private OnFavoriteClick mOnFavoriteClick;
     private List<TrackEntity> mFavorites = new ArrayList<>();
+    private OnItemListSongClickListener mOnItemListSongClickListener;
 
-    public ListSongAdapter(Context context) {
+    public ListSongAdapter(Context context,
+            OnItemListSongClickListener onItemListSongClickListener) {
         mContext = context;
+        mOnItemListSongClickListener = onItemListSongClickListener;
     }
 
     public void updateData(List<Track> tracks) {
@@ -48,6 +49,11 @@ public class ListSongAdapter extends RecyclerView.Adapter<ListSongAdapter.Recycl
         notifyDataSetChanged();
     }
 
+    public void setOnItemListSongClickListener(
+            OnItemListSongClickListener onItemListSongClickListener) {
+        mOnItemListSongClickListener = onItemListSongClickListener;
+    }
+
     public void setOnFavoriteClick(OnFavoriteClick onFavoriteClick) {
         mOnFavoriteClick = onFavoriteClick;
     }
@@ -56,7 +62,8 @@ public class ListSongAdapter extends RecyclerView.Adapter<ListSongAdapter.Recycl
     public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.item_song, parent, false);
-        return new RecyclerViewHolder(view, mOnFavoriteClick, mFavorites);
+        return new RecyclerViewHolder(view, mOnFavoriteClick, mFavorites,
+                mOnItemListSongClickListener);
     }
 
     @Override
@@ -80,28 +87,27 @@ public class ListSongAdapter extends RecyclerView.Adapter<ListSongAdapter.Recycl
         private int position = 0;
 
         public RecyclerViewHolder(View itemView, OnFavoriteClick onFavoriteClick,
-                List<TrackEntity> favorites) {
+                List<TrackEntity> favorites,
+                OnItemListSongClickListener onItemListSongClickListener) {
             super(itemView);
-            initViews(onFavoriteClick, favorites);
+            initViews(onFavoriteClick, favorites, onItemListSongClickListener);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent();
-                    intent.putExtra(Constant.EXTRA_TRACK_ITEM, mTracks.get(position));
-                    intent.setAction(Constant.ACTION_ITEM_PLAY);
-                    mContext.sendBroadcast(intent);
+                    mOnItemListSongClickListener.onItemClicked(position, mTracks);
                 }
             });
-
         }
 
-        private void initViews(OnFavoriteClick onFavoriteClick, List<TrackEntity> favorites) {
+        private void initViews(OnFavoriteClick onFavoriteClick, List<TrackEntity> favorites,
+                OnItemListSongClickListener onItemListSongClickListener) {
             mImageView = itemView.findViewById(R.id.image_song);
             mTxtNameSong = itemView.findViewById(R.id.text_name_song);
             mTxtNameSinger = itemView.findViewById(R.id.text_name_singer);
             mLikeButton = itemView.findViewById(R.id.image_favorite);
             mOnFavoriteClick = onFavoriteClick;
             mFavorites = favorites;
+            mOnItemListSongClickListener = onItemListSongClickListener;
         }
 
         private void handleEvents(final int position) {

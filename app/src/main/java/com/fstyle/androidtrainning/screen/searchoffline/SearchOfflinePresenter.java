@@ -17,7 +17,7 @@ final class SearchOfflinePresenter implements SearchOfflineContract.Presenter {
     private static final String TAG = SearchOfflinePresenter.class.getName();
 
     private SearchOfflineContract.Viewer mView;
-    private ExternalData external = new ExternalData();
+    private ExternalData mExternal = new ExternalData();
     private int countFail = 0;
 
     @Override
@@ -35,9 +35,14 @@ final class SearchOfflinePresenter implements SearchOfflineContract.Presenter {
 
     @Override
     public void getDataExternal(Context context) {
-        external.scanAllMusic(context);
-        external.scanAllAlbum(context);
-        external.scanAllArtist(context);
+        mExternal.scanAllMusic(context);
+        mExternal.scanAllAlbum(context);
+        mExternal.scanAllArtist(context);
+    }
+
+    @Override
+    public List<Track> getSongList() {
+        return mExternal.getArrayListTrack();
     }
 
     @Override
@@ -51,11 +56,11 @@ final class SearchOfflinePresenter implements SearchOfflineContract.Presenter {
 
     private void doSearchArtist(String newText) {
         List<Artist> artists = new ArrayList<>();
-        if (external.getArrayListArtist() == null) {
+        if (mExternal.getArrayListArtist() == null) {
             countFail++;
             return;
         }
-        for (Artist artist : external.getArrayListArtist()) {
+        for (Artist artist : mExternal.getArrayListArtist()) {
             if (artist.getName().contains(newText)) {
                 artists.add(artist);
             }
@@ -71,11 +76,11 @@ final class SearchOfflinePresenter implements SearchOfflineContract.Presenter {
 
     private void doSearchTrack(String newText) {
         List<Track> tracks = new ArrayList<>();
-        if (external.getArrayListTrack() == null) {
+        if (mExternal.getArrayListTrack() == null) {
             countFail++;
             return;
         }
-        for (Track track : external.getArrayListTrack()) {
+        for (Track track : mExternal.getArrayListTrack()) {
             if (track.getName().contains(newText)) {
                 tracks.add(track);
             }
@@ -91,11 +96,11 @@ final class SearchOfflinePresenter implements SearchOfflineContract.Presenter {
 
     private void doSearchAlbum(String newText) {
         List<Album> albums = new ArrayList<>();
-        if (external.getArrayListAlbum() == null) {
+        if (mExternal.getArrayListAlbum() == null) {
             countFail++;
             return;
         }
-        for (Album album : external.getArrayListAlbum()) {
+        for (Album album : mExternal.getArrayListAlbum()) {
             if (album.getName().contains(newText)) {
                 albums.add(album);
             }

@@ -21,9 +21,12 @@ public class FavoriteRecyclerAdapter
     private List<TrackEntity> mList = new ArrayList<>();
     private Context mContext;
     private LayoutInflater mInflater;
+    private OnItemFavoriteClickListener mOnItemFavoriteClickListener;
 
-    public FavoriteRecyclerAdapter(Context context) {
+    public FavoriteRecyclerAdapter(Context context,
+            OnItemFavoriteClickListener onItemFavoriteClickListener) {
         mContext = context;
+        mOnItemFavoriteClickListener = onItemFavoriteClickListener;
         mInflater = LayoutInflater.from(context);
     }
 
@@ -38,7 +41,7 @@ public class FavoriteRecyclerAdapter
     @Override
     public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.list_item_song, parent, false);
-        return new RecyclerViewHolder(view);
+        return new RecyclerViewHolder(view, mOnItemFavoriteClickListener);
     }
 
     @Override
@@ -54,19 +57,29 @@ public class FavoriteRecyclerAdapter
     public class RecyclerViewHolder extends RecyclerView.ViewHolder {
         private ImageView mImageView;
         private TextView mTxtName, mTxtArtist;
+        private int position = 0;
 
-        public RecyclerViewHolder(View itemView) {
+        public RecyclerViewHolder(View itemView,
+                OnItemFavoriteClickListener onItemFavoriteClickListener) {
             super(itemView);
-            initViews(itemView);
+            initViews(itemView, onItemFavoriteClickListener);
         }
 
-        private void initViews(View view) {
+        private void initViews(View view, OnItemFavoriteClickListener onItemFavoriteClickListener) {
             mImageView = view.findViewById(R.id.image);
             mTxtName = view.findViewById(R.id.text_upper);
             mTxtArtist = view.findViewById(R.id.text_lower);
+            mOnItemFavoriteClickListener = onItemFavoriteClickListener;
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mOnItemFavoriteClickListener.onItemFavClicked(position, mList);
+                }
+            });
         }
 
         public void bind(int position) {
+            this.position = position;
             mTxtName.setText(mList.get(position).getNameSong());
             mTxtArtist.setText(mList.get(position).getNameArtist());
         }

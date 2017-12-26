@@ -22,6 +22,7 @@ public class SearchAlbumRecyclerAdapter
 
     private List<Album> mAlbums = new ArrayList<>();
     private Context mContext;
+    private OnItemAlbumClickListener mOnItemAlbumClickListener;
 
     public SearchAlbumRecyclerAdapter(Context context) {
         mContext = context;
@@ -33,6 +34,10 @@ public class SearchAlbumRecyclerAdapter
         }
         mAlbums = albums;
         notifyDataSetChanged();
+    }
+
+    public void setOnItemAlbumClickListener(OnItemAlbumClickListener onItemAlbumClickListener) {
+        mOnItemAlbumClickListener = onItemAlbumClickListener;
     }
 
     public void clearData() {
@@ -47,7 +52,7 @@ public class SearchAlbumRecyclerAdapter
     public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.list_item_song, parent, false);
-        return new RecyclerViewHolder(view);
+        return new RecyclerViewHolder(view, mOnItemAlbumClickListener);
     }
 
     @Override
@@ -66,15 +71,25 @@ public class SearchAlbumRecyclerAdapter
         private static final int MAX_LENGTH = 25;
         private static final int MIN_LENGTH = 0;
         private static final String MORE = "...";
+        private int position = 0;
 
-        public RecyclerViewHolder(View itemView) {
+        public RecyclerViewHolder(View itemView,
+                OnItemAlbumClickListener onItemAlbumClickListener) {
             super(itemView);
             mImageView = itemView.findViewById(R.id.image);
             mTxtName = itemView.findViewById(R.id.text_upper);
             mTxtArtist = itemView.findViewById(R.id.text_lower);
+            mOnItemAlbumClickListener = onItemAlbumClickListener;
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mOnItemAlbumClickListener.onItemAlbumClicked(mAlbums.get(position).getName());
+                }
+            });
         }
 
         public void bind(int position) {
+            this.position = position;
             setImage(position);
             setName(position);
             setArtist(position);

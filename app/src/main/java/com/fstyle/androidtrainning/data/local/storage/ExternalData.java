@@ -253,11 +253,12 @@ public class ExternalData {
             int artist = cursor.getColumnIndex(MediaStore.Audio.Albums.ARTIST);
             int art = cursor.getColumnIndex(MediaStore.Audio.Albums.ALBUM_ART);
             countAlbum = cursor.getCount();
+
             do {
                 Album albums = new Album();
                 String coverPath = cursor.getString(art);
-                Bitmap imgFile = BitmapFactory.decodeFile(coverPath);
                 if (coverPath != null) {
+                    Bitmap imgFile = BitmapFactory.decodeFile(coverPath);
                     Bitmap img = Bitmap.createBitmap(imgFile);
                     String nameArtist = cursor.getString(artist);
                     String nameAlbum = cursor.getString(album);
@@ -266,7 +267,7 @@ public class ExternalData {
                     albums.setNameArtist(nameArtist);
                 } else {
                     Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),
-                            R.drawable.ic_unknown_album);
+                            R.drawable.ic_alarm);
                     String nameArtist = cursor.getString(artist);
                     String nameAlbum = cursor.getString(album);
                     albums.setBmAlbum(bitmap);

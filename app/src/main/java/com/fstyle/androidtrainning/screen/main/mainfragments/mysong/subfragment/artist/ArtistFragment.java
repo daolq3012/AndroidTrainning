@@ -70,7 +70,8 @@ public class ArtistFragment extends BaseFragment
 
     @Override
     public void onItemClicked(String name) {
-        startActivity(new Intent(getActivity(), SongBelongArtistActivity.class).putExtra(
-                Constant.EXTRA_NAME_ARTIST, name));
+        getActivity().startActivityForResult(
+                new Intent(getActivity(), SongBelongArtistActivity.class).putExtra(
+                        Constant.EXTRA_NAME_ARTIST, name), Constant.REQUEST_CODE);
     }
 }

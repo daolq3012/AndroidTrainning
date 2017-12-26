@@ -1,11 +1,8 @@
 package com.fstyle.androidtrainning.screen.main.mainfragments.mysong.subfragment.album;
 
-import android.content.Context;
-
 import com.fstyle.androidtrainning.model.Album;
 import com.fstyle.androidtrainning.screen.BasePresenter;
 import com.fstyle.androidtrainning.screen.BaseView;
-
 import java.util.List;
 
 /**
@@ -19,6 +16,6 @@ public interface AlbumContract {
     }
 
     interface Presenter extends BasePresenter<Viewer> {
-        void getDataExternal(Context context);
+        void getDataExternal();
     }
 }

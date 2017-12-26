@@ -1,6 +1,8 @@
 package com.fstyle.androidtrainning.screen.searchoffline;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,13 +19,16 @@ import com.fstyle.androidtrainning.model.Album;
 import com.fstyle.androidtrainning.model.Artist;
 import com.fstyle.androidtrainning.model.Track;
 import com.fstyle.androidtrainning.screen.BaseFragment;
+import com.fstyle.androidtrainning.utils.Constant;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Searchoffline Screen.
  */
-public class SearchOfflineFragment extends BaseFragment implements SearchOfflineContract.Viewer {
+public class SearchOfflineFragment extends BaseFragment
+        implements SearchOfflineContract.Viewer, OnItemSongClickListener, OnItemAlbumClickListener,
+        OnItemArtistClickListener {
 
     SearchOfflineContract.Presenter mPresenter;
     private RecyclerView mRecyclerSong, mRecyclerAlbum, mRecyclerArtist;
@@ -76,14 +81,18 @@ public class SearchOfflineFragment extends BaseFragment implements SearchOffline
         mSearchSongRecyclerAdapter = new SearchSongRecyclerAdapter(getActivity());
         mRecyclerSong.setLayoutManager(songManager);
         mRecyclerSong.setAdapter(mSearchSongRecyclerAdapter);
+        mSearchSongRecyclerAdapter.setTracksTemp(mPresenter.getSongList());
+        mSearchSongRecyclerAdapter.setOnItemSongClickListener(this);
         //album
         mSearchAlbumRecyclerAdapter = new SearchAlbumRecyclerAdapter(getActivity());
         mRecyclerAlbum.setLayoutManager(albumManager);
         mRecyclerAlbum.setAdapter(mSearchAlbumRecyclerAdapter);
+        mSearchAlbumRecyclerAdapter.setOnItemAlbumClickListener(this);
         //artist
         mSearchArtistRecyclerAdapter = new SearchArtistRecyclerAdapter(getActivity());
         mRecyclerArtist.setLayoutManager(artistManager);
         mRecyclerArtist.setAdapter(mSearchArtistRecyclerAdapter);
+        mSearchArtistRecyclerAdapter.setOnItemArtistClickListener(this);
     }
 
     private void handleEvents() {
@@ -236,5 +245,36 @@ public class SearchOfflineFragment extends BaseFragment implements SearchOffline
     @Override
     public String getEditText() {
         return mEditText.getText().toString();
+    }
+
+    @Override
+    public void onItemSongClicked(String nameSong, String nameArtist, List<Track> tracksTemp) {
+        int position = 0;
+        for (Track track : tracksTemp) {
+            if (nameSong.equals(track.getName()) && nameArtist.equals(track.getNameArtist())) {
+                position = track.getPosition();
+            }
+        }
+        Intent intent = new Intent();
+        intent.putParcelableArrayListExtra(Constant.EXTRA_TRACK_LIST_ITEM,
+                (ArrayList<? extends Parcelable>) tracksTemp).putExtra(Constant.EXTRA_ID, position);
+        getActivity().setResult(Constant.RESULT_CODE, intent);
+        getActivity().finish();
+    }
+
+    @Override
+    public void onItemAlbumClicked(String name) {
+        Intent intent = new Intent();
+        intent.putExtra(Constant.EXTRA_NAME_ALBUM, name);
+        getActivity().setResult(Constant.RESULT_CODE_ALBUM, intent);
+        getActivity().finish();
+    }
+
+    @Override
+    public void onItemArtistClicked(String name) {
+        Intent intent = new Intent();
+        intent.putExtra(Constant.EXTRA_NAME_ARTIST, name);
+        getActivity().setResult(Constant.RESULT_CODE_ARTIST, intent);
+        getActivity().finish();
     }
 }

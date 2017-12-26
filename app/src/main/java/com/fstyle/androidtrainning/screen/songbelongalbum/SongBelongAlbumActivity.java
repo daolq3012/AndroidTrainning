@@ -1,6 +1,8 @@
 package com.fstyle.androidtrainning.screen.songbelongalbum;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,14 +12,17 @@ import android.widget.ImageView;
 import com.fstyle.androidtrainning.R;
 import com.fstyle.androidtrainning.data.local.storage.ExternalData;
 import com.fstyle.androidtrainning.model.Album;
+import com.fstyle.androidtrainning.model.Track;
 import com.fstyle.androidtrainning.screen.BaseActivity;
 import com.fstyle.androidtrainning.utils.Constant;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Songbelongalbum Screen.
  */
 public class SongBelongAlbumActivity extends BaseActivity
-        implements SongBelongAlbumContract.Viewer {
+        implements SongBelongAlbumContract.Viewer, OnItemClickListener {
 
     private SongBelongAlbumContract.Presenter mPresenter;
     private CollapsingToolbarLayout mCollapsingToolbarLayout;
@@ -26,6 +31,7 @@ public class SongBelongAlbumActivity extends BaseActivity
     private RecyclerView mRecyclerView;
     private SongBelongAlbumRecyclerAdapter mRecyclerAdapter;
     private Toolbar mToolbar;
+    private String nameAlbum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,12 +53,13 @@ public class SongBelongAlbumActivity extends BaseActivity
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(mRecyclerAdapter);
+        mRecyclerAdapter.setOnItemClickListener(this);
 
         //updateData
         mRecyclerAdapter.updateData(mExternalData.getArrayListTrackBelongAlbum());
 
         //setUI
-        String nameAlbum = getIntent().getStringExtra(Constant.EXTRA_NAME_ALBUM);
+        nameAlbum = getIntent().getStringExtra(Constant.EXTRA_NAME_ALBUM);
         scanData(nameAlbum);
 
         loadImage(nameAlbum);
@@ -67,6 +74,7 @@ public class SongBelongAlbumActivity extends BaseActivity
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                setResult(Constant.RESULT_CODE);
                 onBackPressed();
             }
         });
@@ -96,5 +104,14 @@ public class SongBelongAlbumActivity extends BaseActivity
     protected void onStop() {
         mPresenter.onStop();
         super.onStop();
+    }
+
+    @Override
+    public void onItemClicked(int position, List<Track> tracks) {
+        Intent intent = getIntent();
+        intent.putParcelableArrayListExtra(Constant.EXTRA_TRACK_LIST_ITEM,
+                (ArrayList<? extends Parcelable>) tracks).putExtra(Constant.EXTRA_ID, position);
+        setResult(Constant.RESULT_CODE, intent);
+        finish();
     }
 }
