@@ -44,6 +44,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="@dimen/dp_75"
             android:background="@color/color_dark_opacity"
+            android:focusable="true"
             android:orientation="horizontal"
             android:visibility="gone">
 
@@ -84,7 +85,7 @@
                 android:layout_width="@dimen/dp_50"
                 android:layout_height="@dimen/dp_50"
                 android:contentDescription="@string/description"
-                android:padding="@dimen/dp_10"
+                android:padding="@dimen/dp_5"
                 android:src="@drawable/ic_skip_previous" />
 
             <ImageView
@@ -92,7 +93,7 @@
                 android:layout_width="@dimen/dp_50"
                 android:layout_height="@dimen/dp_50"
                 android:contentDescription="@string/description"
-                android:padding="@dimen/dp_10"
+                android:padding="@dimen/dp_2"
                 android:src="@drawable/ic_pause" />
 
             <ImageView
@@ -100,7 +101,7 @@
                 android:layout_width="@dimen/dp_50"
                 android:layout_height="@dimen/dp_50"
                 android:contentDescription="@string/description"
-                android:padding="@dimen/dp_10"
+                android:padding="@dimen/dp_5"
                 android:src="@drawable/ic_skip_next" />
 
         </LinearLayout>
@@ -111,6 +112,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/wallpaper_main"
+        android:focusable="true"
         android:orientation="vertical"
         android:padding="@dimen/dp_10"
         android:visibility="gone">
@@ -123,8 +125,8 @@
 
             <ImageView
                 android:id="@+id/image_back"
-                android:layout_width="@dimen/dp_30"
-                android:layout_height="@dimen/dp_30"
+                android:layout_width="@dimen/dp_40"
+                android:layout_height="@dimen/dp_40"
                 android:contentDescription="@string/description"
                 android:src="@drawable/ic_back" />
 
@@ -156,8 +158,8 @@
 
             <ImageView
                 android:id="@+id/image_alarm"
-                android:layout_width="@dimen/dp_30"
-                android:layout_height="@dimen/dp_30"
+                android:layout_width="@dimen/dp_40"
+                android:layout_height="@dimen/dp_40"
                 android:contentDescription="@string/description"
                 android:src="@drawable/ic_alarm" />
         </LinearLayout>
@@ -213,23 +215,25 @@
             <ImageView
                 android:id="@+id/image_shuffle"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/dp_30"
+                android:layout_height="@dimen/dp_50"
                 android:layout_weight="@dimen/weight_1"
                 android:contentDescription="@string/description"
-                android:src="@drawable/ic_not_shuffle"
-                />
+                android:padding="@dimen/dp_5"
+                android:src="@drawable/ic_shuffle" />
+
             <ImageView
                 android:id="@+id/image_previous"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/dp_30"
+                android:layout_height="@dimen/dp_50"
                 android:layout_weight="@dimen/weight_1"
                 android:contentDescription="@string/description"
+                android:padding="@dimen/dp_5"
                 android:src="@drawable/ic_skip_previous" />
 
             <ImageView
                 android:id="@+id/image_pause"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/dp_30"
+                android:layout_height="@dimen/dp_50"
                 android:layout_weight="@dimen/weight_1"
                 android:contentDescription="@string/description"
                 android:src="@drawable/ic_pause" />
@@ -237,17 +241,19 @@
             <ImageView
                 android:id="@+id/image_next"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/dp_30"
+                android:layout_height="@dimen/dp_50"
                 android:layout_weight="@dimen/weight_1"
                 android:contentDescription="@string/description"
+                android:padding="@dimen/dp_5"
                 android:src="@drawable/ic_skip_next" />
 
             <ImageView
                 android:id="@+id/image_repeat"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/dp_30"
+                android:layout_height="@dimen/dp_50"
                 android:layout_weight="@dimen/weight_1"
                 android:contentDescription="@string/description"
+                android:padding="@dimen/dp_5"
                 android:src="@drawable/ic_repeat" />
         </LinearLayout>
     </LinearLayout>

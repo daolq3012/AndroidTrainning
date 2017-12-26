@@ -2,7 +2,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/dp_10"
     tools:context="com.fstyle.androidtrainning.screen.main.mainfragments.mysong.subfragment.album.AlbumFragment">
 
     <android.support.v7.widget.RecyclerView
@@ -10,5 +9,4 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="@dimen/dp_10" />
-
 </RelativeLayout>
