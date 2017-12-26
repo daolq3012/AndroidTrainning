@@ -27,8 +27,8 @@ public class MainApplication extends Application {
             mApi = ServiceGenerators.createApiService(this, Constant.URL);
         }
 
-        Intent intent = new Intent(this, ServicePlayMusic.class);
-        startService(intent);
+//        Intent intent = new Intent(this, ServicePlayMusic.class);
+//        startService(intent);
     }
 
     public static LastFmApi getLastFmApi() {

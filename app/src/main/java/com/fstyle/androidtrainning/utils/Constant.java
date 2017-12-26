@@ -47,4 +47,16 @@ public final class Constant {
             "com.fstyle.androidtrainning.action.notification.next";
     public static final String ACTION_NOTIFICATION_CLOSE =
             "com.fstyle.androidtrainning.action.notification.close";
+    public static final String SHAREDPREF_IS_MUSIC_ENABLE = "SHAREDPREF_IS_MUSIC_ENABLE";
+    public static final String IS_MUSIC_ENABLE = "IS_MUSIC_ENABLE";
+    public static final String SHAREDPREF_DATA_MUSIC = "SHAREDPREF_DATA_MUSIC";
+    public static final String SHAREDPREF_CHECK_MUSIC = "SHAREDPREF_CHECK_MUSIC";
+    public static final String SHAREDPREF_NAME_SONG = "SHAREDPREF_NAME_SONG";
+    public static final String SHAREDPREF_NAME_ARTIST = "SHAREDPREF_NAME_ARTIST";
+    public static final String SHAREDPREF_TIME_START = "SHAREDPREF_TIME_START";
+    public static final String SHAREDPREF_TIME_TOTAL = "SHAREDPREF_TIME_TOTAL";
+    public static final String SHAREDPREF_SEEKBAR_POS = "SHAREDPREF_SEEKBAR_POS";
+    public static final String SHAREDPREF_SETTING = "SHAREDPREF_SETTING";
+    public static final String SHAREDPREF_IS_REPEAT = "SHAREDPREF_IS_REPEAT";
+    public static final String SHAREDPREF_IS_SHUFFLE = "SHAREDPREF_IS_SHUFFLE";
 }

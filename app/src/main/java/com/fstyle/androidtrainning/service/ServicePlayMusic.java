@@ -23,8 +23,9 @@ import android.support.annotation.RequiresApi;
 import android.util.Log;
 import android.widget.RemoteViews;
 import com.fstyle.androidtrainning.R;
+import com.fstyle.androidtrainning.data.local.sharedpreference.SharedPreference;
 import com.fstyle.androidtrainning.model.Track;
-import com.fstyle.androidtrainning.screen.main.MainActivity;
+import com.fstyle.androidtrainning.screen.splash.SplashActivity;
 import com.fstyle.androidtrainning.utils.Constant;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -51,6 +52,7 @@ public class ServicePlayMusic extends Service {
     private NotificationManager notificationManager;
     private static final int MIN_LENGTH = 0;
     private static final int MAX_LENGTH = 15;
+    private SharedPreference mPreference = new SharedPreference();
 
     public class LocalBinder extends Binder {
         public ServicePlayMusic getService() {
@@ -78,7 +80,7 @@ public class ServicePlayMusic extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (intent != null
                 && intent.getParcelableArrayListExtra(Constant.EXTRA_TRACK_LIST_ITEM) != null) {
-            if (mTracks != null) {
+            if (!mTracks.isEmpty()) {
                 mTracks.clear();
             }
             mTracks.addAll(
@@ -94,6 +96,7 @@ public class ServicePlayMusic extends Service {
             }
             setupHandle();
             doRegisterNotificationSign();
+            mPreference.doPutBooleanMusic(this);
         }
         return START_STICKY;
     }
@@ -118,6 +121,7 @@ public class ServicePlayMusic extends Service {
                         nextTrack();
                         break;
                     case Constant.ACTION_NOTIFICATION_CLOSE:
+                        mPreference.doClearAllData(getApplicationContext());
                         stopForeground(true);
                         pauseMusic();
                         break;
@@ -169,11 +173,11 @@ public class ServicePlayMusic extends Service {
         mRemoteViews.setOnClickPendingIntent(R.id.image_close, pen_close_intent);
         mRemoteViews.setImageViewResource(R.id.image_close, R.drawable.ic_cancel);
 
-        Intent notificationIntent = new Intent(context, MainActivity.class);
+        Intent notificationIntent = new Intent(context, SplashActivity.class);
         notificationIntent.setFlags(
                 Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, notificationIntent,
-                PendingIntent.FLAG_ONE_SHOT);
+                PendingIntent.FLAG_UPDATE_CURRENT);
 
         Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.logo_main);
         mRemoteViews.setImageViewBitmap(R.id.image, bitmap);
@@ -400,7 +404,7 @@ public class ServicePlayMusic extends Service {
     }
 
     public void stopMusic() {
-        if (mMediaPlayer.isPlaying()) {
+        if (mMediaPlayer != null) {
             mMediaPlayer.stop();
             mMediaPlayer.release();
         }

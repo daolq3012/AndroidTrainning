@@ -12,11 +12,13 @@ import android.view.ViewGroup;
 import com.fstyle.androidtrainning.R;
 import com.fstyle.androidtrainning.screen.BaseFragment;
 import com.fstyle.androidtrainning.screen.main.MainActivity;
+import com.fstyle.androidtrainning.screen.main.OnListChangeListener;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ListSongFragment extends BaseFragment implements ListSongContract.Viewer {
+public class ListSongFragment extends BaseFragment implements ListSongContract.Viewer,
+        OnListChangeListener {
 
     private ListSongPresenter mPresenter;
     private OnItemSubListSongClickListener mOnItemSubListSongClickListener;
@@ -57,11 +59,19 @@ public class ListSongFragment extends BaseFragment implements ListSongContract.V
         mRecyclerView.setLayoutManager(manager);
         mRecyclerView.setAdapter(mListSongRecyclerAdapter);
         updateAdapter();
+        if (getActivity() instanceof MainActivity) {
+            ((MainActivity) getActivity()).setOnListChangeListener(this);
+        }
     }
 
     private void updateAdapter() {
         if (getActivity() instanceof MainActivity) {
             mListSongRecyclerAdapter.updateData(((MainActivity) getActivity()).getTrackList());
         }
+    }
+
+    @Override
+    public void onListChanged() {
+        updateAdapter();
     }
 }

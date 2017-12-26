@@ -37,7 +37,6 @@ public class AlbumFragment extends BaseFragment
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_album, container, false);
         initViews(v);
-        mPresenter.getDataExternal();
         return v;
     }
 
