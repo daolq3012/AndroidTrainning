@@ -16,6 +16,5 @@ public interface AlbumContract {
     }
 
     interface Presenter extends BasePresenter<Viewer> {
-        void getDataExternal();
     }
 }

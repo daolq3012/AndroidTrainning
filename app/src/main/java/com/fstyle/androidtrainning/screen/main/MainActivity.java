@@ -26,16 +26,19 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
-
 import com.fstyle.androidtrainning.R;
 import com.fstyle.androidtrainning.application.MainApplication;
 import com.fstyle.androidtrainning.data.local.roomdb.entity.TrackEntity;
+import com.fstyle.androidtrainning.data.local.sharedpreference.SharedPreference;
 import com.fstyle.androidtrainning.data.remote.service.config.LastFmApi;
 import com.fstyle.androidtrainning.model.Track;
 import com.fstyle.androidtrainning.screen.BaseActivity;
-import com.fstyle.androidtrainning.screen.main.mainfragments.mysong.subfragment.favoritesong.OnItemFavoriteClickListener;
-import com.fstyle.androidtrainning.screen.main.mainfragments.mysong.subfragment.listsong.OnItemListSongClickListener;
-import com.fstyle.androidtrainning.screen.main.playingfragments.listsong.OnItemSubListSongClickListener;
+import com.fstyle.androidtrainning.screen.main.mainfragments.mysong.subfragment.favoritesong
+        .OnItemFavoriteClickListener;
+import com.fstyle.androidtrainning.screen.main.mainfragments.mysong.subfragment.listsong
+        .OnItemListSongClickListener;
+import com.fstyle.androidtrainning.screen.main.playingfragments.listsong
+        .OnItemSubListSongClickListener;
 import com.fstyle.androidtrainning.screen.search.SearchActivity;
 import com.fstyle.androidtrainning.screen.songbelongalbum.SongBelongAlbumActivity;
 import com.fstyle.androidtrainning.screen.songbelongartist.SongBelongArtistActivity;
@@ -44,10 +47,8 @@ import com.fstyle.androidtrainning.utils.Constant;
 import com.fstyle.androidtrainning.utils.Utilities;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import me.relex.circleindicator.CircleIndicator;
 
 public class MainActivity extends BaseActivity
@@ -82,14 +83,15 @@ public class MainActivity extends BaseActivity
     private Track mTrack;
     private List<Track> mTrackList = new ArrayList<>();
     private OnTrackChangeListener mOnTrackChangeListener;
+    private OnListChangeListener mOnListChangeListener;
     public static final int ALARM_TIME = 120;
     private static final int MIN_LENGTH = 0;
     private static final int MAX_LENGTH = 15;
     private int mTimeToCd = 0, mCdTime = 0;
-    private boolean mIsPause = false;
     private Intent intent;
     private BroadcastReceiver mBroadcastReceiver;
     private Animation slideUpAnimation, slideDownAnimation;
+    private SharedPreference mPreference = new SharedPreference();
 
     private ServiceConnection mConnection = new ServiceConnection() {
         @Override
@@ -124,12 +126,17 @@ public class MainActivity extends BaseActivity
 
     private void connectService() {
         bindService(intent, mConnection, BIND_AUTO_CREATE);
+        startService(intent);
     }
 
     private void startService(int position, List<Track> tracks) {
         intent.putParcelableArrayListExtra(Constant.EXTRA_TRACK_LIST_ITEM,
                 (ArrayList<? extends Parcelable>) tracks).putExtra(Constant.EXTRA_ID, position);
         startService(intent);
+    }
+
+    public void setOnListChangeListener(OnListChangeListener onListChangeListener) {
+        mOnListChangeListener = onListChangeListener;
     }
 
     private void initListeners() {
@@ -191,10 +198,9 @@ public class MainActivity extends BaseActivity
         mIndicator.setViewPager(mPlayingViewPager);
         mPlayingPagerAdapter.registerDataSetObserver(mIndicator.getDataSetObserver());
 
-        slideUpAnimation = AnimationUtils.loadAnimation(getApplicationContext(),
-                R.anim.slideup);
-        slideDownAnimation = AnimationUtils.loadAnimation(getApplicationContext(),
-                R.anim.slidedown);
+        slideUpAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slideup);
+        slideDownAnimation =
+                AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slidedown);
     }
 
     public void setOnTrackChangeListener(OnTrackChangeListener onTrackChangeListener) {
@@ -274,13 +280,61 @@ public class MainActivity extends BaseActivity
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        doGetDataFromSharePref();
+    }
+
+    //error-ing
+    //    private void doGetSettingFromSharePref() {
+    //        mPreference.doGetSetting(this);
+    //        if (mPreference.isRepeat()) {
+    //            isRepeat = false;
+    //            //            mServicePlayMusic.setRepeat(false);
+    //            mImageRepeat.setImageResource(R.drawable.ic_repeat);
+    //        } else {
+    //            isRepeat = true;
+    //            //            mServicePlayMusic.setRepeat(true);
+    //            mImageRepeat.setImageResource(R.drawable.ic_repeat_one);
+    //        }
+    //        if (mPreference.isShuffle()) {
+    //            isShuffle = false;
+    //            mImageShuffle.setImageResource(R.drawable.ic_shuffle);
+    //            //            mServicePlayMusic.setShuffle(false);
+    //        } else {
+    //            // make repeat to true
+    //            isShuffle = true;
+    //            //            mServicePlayMusic.setShuffle(true);
+    //            mImageShuffle.setImageResource(R.drawable.ic_not_shuffle);
+    //        }
+    //    }
+
+    private void doGetDataFromSharePref() {
+        if (mPreference.doGetBooleanMusic(this)) {
+            mPreference.doGetDataMusic(this);
+            mTxtNameSong.setText(mPreference.getNameSong());
+            mTxtNameSongMini.setText(mPreference.getNameSong());
+            mTxtArtist.setText(mPreference.getNameArtist());
+            mTxtArtistMini.setText(mPreference.getNameArtist());
+            mTxtTextStart.setText(mPreference.getTextStart());
+            mTxtTextTotal.setText(mPreference.getTextTotal());
+            mSeekBarTime.setProgress(mPreference.getPosition());
+            mLayoutMiniPlaying.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
     public void onStop() {
         mPresenter.onStop();
+        if (mTrack != null) {
+            mPreference.doPutDataMusic(this, mTrack.getName(), mTrack.getNameArtist(),
+                    mTxtTextStart.getText().toString(), mTxtTextTotal.getText().toString(),
+                    getProgressMedia());
+        }
         if (isConnect) {
             unbindService(mConnection);
             isConnect = false;
         }
-
         super.onStop();
     }
 
@@ -395,14 +449,14 @@ public class MainActivity extends BaseActivity
             case R.id.image_shuffle:
                 if (isShuffle) {
                     isShuffle = false;
-                    mImageShuffle.setImageResource(R.drawable.ic_shuffle);
+                    mImageShuffle.setImageResource(R.drawable.ic_non_shuffle);
                     mServicePlayMusic.setShuffle(false);
                 } else {
                     // make repeat to true
                     isShuffle = true;
                     mServicePlayMusic.setShuffle(true);
                     // make shuffle to false
-                    mImageShuffle.setImageResource(R.drawable.ic_non_shuffle);
+                    mImageShuffle.setImageResource(R.drawable.ic_shuffle);
                 }
                 break;
             case R.id.image_alarm:
@@ -558,10 +612,12 @@ public class MainActivity extends BaseActivity
             mSeekBarTime.setMax(getProgressMedia());
         }
         startService(position, tracks);
-        if (mOnTrackChangeListener == null) {
-            return;
+        if (mOnListChangeListener != null) {
+            mOnListChangeListener.onListChanged();
         }
-        mOnTrackChangeListener.onTrackChanged();
+        if (mOnTrackChangeListener != null) {
+            mOnTrackChangeListener.onTrackChanged();
+        }
     }
 
     private void setNameSongArtist(Track track) {
@@ -664,13 +720,15 @@ public class MainActivity extends BaseActivity
             mSeekBarTime.setMax(getProgressMedia());
         }
         startService(position, trackList);
-        if (mOnTrackChangeListener == null) {
-            return;
+        if (mOnListChangeListener != null) {
+            mOnListChangeListener.onListChanged();
         }
-        mOnTrackChangeListener.onTrackChanged();
+        if (mOnTrackChangeListener != null) {
+            mOnTrackChangeListener.onTrackChanged();
+        }
     }
 
-    @IntDef({Tab.MY_SONG, Tab.ONLINE, Tab.ANOTHER})
+    @IntDef({ Tab.MY_SONG, Tab.ONLINE, Tab.ANOTHER })
     public @interface Tab {
         int MY_SONG = 0;
         int ONLINE = 1;

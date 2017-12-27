@@ -1,24 +1,24 @@
 package com.fstyle.androidtrainning.screen.main.mainfragments.mysong.subfragment.album;
 
 import android.content.Context;
-import com.fstyle.androidtrainning.data.local.storage.ExternalData;
 import com.fstyle.androidtrainning.model.Album;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Administrator on 12/10/17.
  */
 
-public class AlbumPresenter implements AlbumContract.Presenter {
+public class AlbumPresenter implements AlbumContract.Presenter, OnLoadAlbumListener {
 
     private AlbumContract.Viewer mViewer;
-    private ExternalData external = new ExternalData();
+
     private Context mContext;
+    private LoadAlbumAsyncTask mLoadAlbumAsyncTask = new LoadAlbumAsyncTask();
 
     AlbumPresenter(Context context) {
         mContext = context;
-        external.scanAllAlbum(mContext);
+        mLoadAlbumAsyncTask.execute(context);
+        mLoadAlbumAsyncTask.setOnLoadAlbumListener(this);
     }
 
     @Override
@@ -37,9 +37,7 @@ public class AlbumPresenter implements AlbumContract.Presenter {
     }
 
     @Override
-    public void getDataExternal() {
-        List<Album> albums = new ArrayList<>();
-        albums.addAll(external.getArrayListAlbum());
+    public void onLoadAlbumSuccess(List<Album> albums) {
         mViewer.onGetListAlbumSuccess(albums);
     }
 }
