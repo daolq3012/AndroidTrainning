@@ -25,7 +25,7 @@ import android.widget.RemoteViews;
 import com.fstyle.androidtrainning.R;
 import com.fstyle.androidtrainning.data.local.sharedpreference.SharedPreference;
 import com.fstyle.androidtrainning.model.Track;
-import com.fstyle.androidtrainning.screen.splash.SplashActivity;
+import com.fstyle.androidtrainning.screen.main.MainActivity;
 import com.fstyle.androidtrainning.utils.Constant;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -122,8 +122,8 @@ public class ServicePlayMusic extends Service {
                         break;
                     case Constant.ACTION_NOTIFICATION_CLOSE:
                         mPreference.doClearAllData(getApplicationContext());
-                        stopForeground(true);
                         pauseMusic();
+                        stopForeground(true);
                         break;
                     default:
                         break;
@@ -173,7 +173,7 @@ public class ServicePlayMusic extends Service {
         mRemoteViews.setOnClickPendingIntent(R.id.image_close, pen_close_intent);
         mRemoteViews.setImageViewResource(R.id.image_close, R.drawable.ic_cancel);
 
-        Intent notificationIntent = new Intent(context, SplashActivity.class);
+        Intent notificationIntent = new Intent(context, MainActivity.class);
         notificationIntent.setFlags(
                 Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, notificationIntent,

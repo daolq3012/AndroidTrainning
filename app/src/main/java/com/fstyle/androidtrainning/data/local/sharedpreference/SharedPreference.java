@@ -96,6 +96,10 @@ public class SharedPreference {
                 .edit()
                 .clear()
                 .apply();
+        context.getSharedPreferences(Constant.SHAREDPREF_SETTING, Context.MODE_PRIVATE)
+                .edit()
+                .clear()
+                .apply();
     }
 
     public void doPutSetting(Context context, boolean isRepeat, boolean isShuffle) {

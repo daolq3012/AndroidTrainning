@@ -93,25 +93,31 @@ public class MainActivity extends BaseActivity
     private Animation slideUpAnimation, slideDownAnimation;
     private SharedPreference mPreference = new SharedPreference();
 
-    private ServiceConnection mConnection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            isConnect = true;
-            //get music service
-            ServicePlayMusic.LocalBinder binder = (ServicePlayMusic.LocalBinder) service;
-            mServicePlayMusic = binder.getService();
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            isConnect = false;
-        }
-    };
+    private ServiceConnection mConnection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mConnection = new ServiceConnection() {
+            @Override
+            public void onServiceConnected(ComponentName name, IBinder service) {
+                isConnect = true;
+                //get music service
+                ServicePlayMusic.LocalBinder binder = (ServicePlayMusic.LocalBinder) service;
+                mServicePlayMusic = binder.getService();
+            }
+
+            @Override
+            public void onServiceDisconnected(ComponentName name) {
+                isConnect = false;
+            }
+
+            @Override
+            public void onBindingDied(ComponentName name) {
+
+            }
+        };
 
         initViews();
 
@@ -283,31 +289,41 @@ public class MainActivity extends BaseActivity
     protected void onResume() {
         super.onResume();
         doGetDataFromSharePref();
+        doGetSettingFromSharePref();
     }
 
     //error-ing
-    //    private void doGetSettingFromSharePref() {
-    //        mPreference.doGetSetting(this);
-    //        if (mPreference.isRepeat()) {
-    //            isRepeat = false;
-    //            //            mServicePlayMusic.setRepeat(false);
-    //            mImageRepeat.setImageResource(R.drawable.ic_repeat);
-    //        } else {
-    //            isRepeat = true;
-    //            //            mServicePlayMusic.setRepeat(true);
-    //            mImageRepeat.setImageResource(R.drawable.ic_repeat_one);
-    //        }
-    //        if (mPreference.isShuffle()) {
-    //            isShuffle = false;
-    //            mImageShuffle.setImageResource(R.drawable.ic_shuffle);
-    //            //            mServicePlayMusic.setShuffle(false);
-    //        } else {
-    //            // make repeat to true
-    //            isShuffle = true;
-    //            //            mServicePlayMusic.setShuffle(true);
-    //            mImageShuffle.setImageResource(R.drawable.ic_not_shuffle);
-    //        }
-    //    }
+    private void doGetSettingFromSharePref() {
+        mPreference.doGetSetting(this);
+
+        if (!mPreference.isRepeat()) {
+            isRepeat = false;
+            if (mServicePlayMusic != null) {
+                mServicePlayMusic.setRepeat(false);
+            }
+            mImageRepeat.setImageResource(R.drawable.ic_repeat);
+        } else {
+            isRepeat = true;
+            if (mServicePlayMusic != null) {
+                mServicePlayMusic.setRepeat(true);
+            }
+            mImageRepeat.setImageResource(R.drawable.ic_repeat_one);
+        }
+        if (!mPreference.isShuffle()) {
+            isShuffle = false;
+            mImageShuffle.setImageResource(R.drawable.ic_non_shuffle);
+            if (mServicePlayMusic != null) {
+                mServicePlayMusic.setShuffle(false);
+            }
+        } else {
+            // make repeat to true
+            isShuffle = true;
+            if (mServicePlayMusic != null) {
+                mServicePlayMusic.setShuffle(true);
+            }
+            mImageShuffle.setImageResource(R.drawable.ic_shuffle);
+        }
+    }
 
     private void doGetDataFromSharePref() {
         if (mPreference.doGetBooleanMusic(this)) {
@@ -326,10 +342,12 @@ public class MainActivity extends BaseActivity
     @Override
     public void onStop() {
         mPresenter.onStop();
+
         if (mTrack != null) {
             mPreference.doPutDataMusic(this, mTrack.getName(), mTrack.getNameArtist(),
                     mTxtTextStart.getText().toString(), mTxtTextTotal.getText().toString(),
                     getProgressMedia());
+            mPreference.doPutSetting(this, isRepeat, isShuffle);
         }
         if (isConnect) {
             unbindService(mConnection);
@@ -728,11 +746,10 @@ public class MainActivity extends BaseActivity
         }
     }
 
-    @IntDef({ Tab.MY_SONG, Tab.ONLINE, Tab.ANOTHER })
+    @IntDef({ Tab.MY_SONG, Tab.ONLINE})
     public @interface Tab {
         int MY_SONG = 0;
         int ONLINE = 1;
-        int ANOTHER = 2;
     }
 
     @Override

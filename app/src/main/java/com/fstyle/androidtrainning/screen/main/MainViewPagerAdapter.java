@@ -3,7 +3,6 @@ package com.fstyle.androidtrainning.screen.main;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import com.fstyle.androidtrainning.screen.main.mainfragments.another.AnotherFragment;
 import com.fstyle.androidtrainning.screen.main.mainfragments.mysong.MySongFragment;
 import com.fstyle.androidtrainning.screen.main.mainfragments.online.OnlineFragment;
 
@@ -13,7 +12,7 @@ import com.fstyle.androidtrainning.screen.main.mainfragments.online.OnlineFragme
 
 public class MainViewPagerAdapter extends FragmentPagerAdapter {
 
-    private static final int TOTAL_TAB_MAIN = 3;
+    private static final int TOTAL_TAB_MAIN = 2;
 
     public MainViewPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -26,8 +25,6 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter {
                 return new MySongFragment();
             case MainActivity.Tab.ONLINE:
                 return new OnlineFragment();
-            case MainActivity.Tab.ANOTHER:
-                return new AnotherFragment();
             default:
                 return null;
         }
