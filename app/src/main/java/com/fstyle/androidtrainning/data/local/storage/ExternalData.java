@@ -3,8 +3,7 @@ package com.fstyle.androidtrainning.data.local.storage;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.widget.Toast;
@@ -39,80 +38,20 @@ public class ExternalData {
         return arrayListTrack;
     }
 
-    public void setArrayListTrack(ArrayList<Track> arrayListTrack) {
-        this.arrayListTrack = arrayListTrack;
-    }
-
     public ArrayList<Album> getArrayListAlbum() {
         return arrayListAlbum;
-    }
-
-    public void setArrayListAlbum(ArrayList<Album> arrayListAlbum) {
-        this.arrayListAlbum = arrayListAlbum;
     }
 
     public ArrayList<Artist> getArrayListArtist() {
         return arrayListArtist;
     }
 
-    public void setArrayListArtist(ArrayList<Artist> arrayListArtist) {
-        this.arrayListArtist = arrayListArtist;
-    }
-
-    public ArrayList<String> getAudioFilePathList() {
-        return audioFilePathList;
-    }
-
-    public void setAudioFilePathList(ArrayList<String> audioFilePathList) {
-        this.audioFilePathList = audioFilePathList;
-    }
-
-    public Uri[] getUri() {
-        return uri;
-    }
-
-    public void setUri(Uri[] uri) {
-        this.uri = uri;
-    }
-
-    public int getCountTrack() {
-        return countTrack;
-    }
-
-    public void setCountTrack(int countTrack) {
-        this.countTrack = countTrack;
-    }
-
-    public int getCountAlbum() {
-        return countAlbum;
-    }
-
-    public void setCountAlbum(int countAlbum) {
-        this.countAlbum = countAlbum;
-    }
-
-    public int getCountArtist() {
-        return countArtist;
-    }
-
-    public void setCountArtist(int countArtist) {
-        this.countArtist = countArtist;
-    }
-
     public ArrayList<Track> getArrayListTrackBelongAlbum() {
         return arrayListTrackBelongAlbum;
     }
 
-    public void setArrayListTrackBelongAlbum(ArrayList<Track> arrayListTrackBelongAlbum) {
-        this.arrayListTrackBelongAlbum = arrayListTrackBelongAlbum;
-    }
-
     public ArrayList<Track> getArrayListTrackBelongArtist() {
         return arrayListTrackBelongArtist;
-    }
-
-    public void setArrayListTrackBelongArtist(ArrayList<Track> arrayListTrackBelongArtist) {
-        this.arrayListTrackBelongArtist = arrayListTrackBelongArtist;
     }
 
     public void scanAllMusic(Context context) {
@@ -258,19 +197,18 @@ public class ExternalData {
                 Album albums = new Album();
                 String coverPath = cursor.getString(art);
                 if (coverPath != null) {
-                    Bitmap imgFile = BitmapFactory.decodeFile(coverPath);
-                    Bitmap img = Bitmap.createBitmap(imgFile);
+                    Drawable drawable = Drawable.createFromPath(coverPath);
                     String nameArtist = cursor.getString(artist);
                     String nameAlbum = cursor.getString(album);
-                    albums.setBmAlbum(img);
+                    albums.setBmAlbum(drawable);
                     albums.setName(nameAlbum);
                     albums.setNameArtist(nameArtist);
                 } else {
-                    Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),
-                            R.drawable.ic_unknown_album);
+                    Drawable drawable =
+                            Drawable.createFromPath(String.valueOf(R.drawable.ic_unknown_album));
                     String nameArtist = cursor.getString(artist);
                     String nameAlbum = cursor.getString(album);
-                    albums.setBmAlbum(bitmap);
+                    albums.setBmAlbum(drawable);
                     albums.setName(nameAlbum);
                     albums.setNameArtist(nameArtist);
                 }

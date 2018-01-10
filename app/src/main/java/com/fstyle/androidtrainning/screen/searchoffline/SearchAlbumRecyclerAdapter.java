@@ -1,15 +1,17 @@
 package com.fstyle.androidtrainning.screen.searchoffline;
 
 import android.content.Context;
-import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.fstyle.androidtrainning.R;
 import com.fstyle.androidtrainning.model.Album;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,7 +76,7 @@ public class SearchAlbumRecyclerAdapter
         private int position = 0;
 
         public RecyclerViewHolder(View itemView,
-                OnItemAlbumClickListener onItemAlbumClickListener) {
+                                  OnItemAlbumClickListener onItemAlbumClickListener) {
             super(itemView);
             mImageView = itemView.findViewById(R.id.image);
             mTxtName = itemView.findViewById(R.id.text_upper);
@@ -96,9 +98,9 @@ public class SearchAlbumRecyclerAdapter
         }
 
         private void setImage(int position) {
-            Bitmap bitmap = mAlbums.get(position).getBmAlbum();
-            if (bitmap != null) {
-                mImageView.setImageBitmap(bitmap);
+            Drawable drawable = mAlbums.get(position).getBmAlbum();
+            if (drawable != null) {
+                mImageView.setImageDrawable(drawable);
             } else {
                 mImageView.setImageResource(R.drawable.ic_unknown_album);
             }

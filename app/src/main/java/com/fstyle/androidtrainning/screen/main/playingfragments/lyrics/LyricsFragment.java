@@ -65,10 +65,10 @@ public class LyricsFragment extends BaseFragment
 
     private void initFileLocal() {
         if (Build.VERSION.SDK_INT >= SDK_DEFAULT) {
-            mFileSdCard = new File(Constant.STR_PATH_LOWER_4);
+            mFileSdCard = new File(Constant.STR_PATH_UPPER_4);
             mLoadLyricAsyncTask.execute(mFileSdCard);
         } else {
-            mFileSdCard = new File(Constant.STR_PATH_UPPER_4);
+            mFileSdCard = new File(Constant.STR_PATH_LOWER_4);
             mLoadLyricAsyncTask.execute(mFileSdCard);
         }
     }
