@@ -20,12 +20,12 @@ public final class Constant {
     public static final String USER_LAST_FM = "rj";
     public static final String TYPE_LYRIC = ".lrc";
     // path sd card cho android 4.4.x tro xuong
-    public static final String STR_PATH_LOWER_4 =
+    public static final String STR_PATH_UPPER_4 =
             Environment.getExternalStorageDirectory().getPath();
     // public static final String STR_PATH_UPPER_4 = Environment.getExternalStorageDirectory()
     // .getPath();
     // path sd card cho android 4.4.x tro len
-    public static final String STR_PATH_UPPER_4 = System.getenv("SECONDARY_STORAGE");
+    public static final String STR_PATH_LOWER_4 = System.getenv("SECONDARY_STORAGE");
     public static final String EXTRA_NAME_ALBUM = "EXTRA_NAME_ALBUM";
     public static final String EXTRA_NAME_ARTIST = "EXTRA_NAME_ARTIST";
     public static final String ACTION_ITEM_PLAY = "com.fstyle.androidtrainning.action.item.play";

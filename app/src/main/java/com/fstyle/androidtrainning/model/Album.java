@@ -1,11 +1,12 @@
 package com.fstyle.androidtrainning.model;
 
-import android.graphics.Bitmap;
-
+import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +37,7 @@ public class Album implements Parcelable {
     @SerializedName("@attr")
     @Expose
     private Attr attr;
-    private Bitmap bmAlbum;
+    private Drawable drawableAlbum;
     private String nameArtist;
 
     public String getNameArtist() {
@@ -47,12 +48,12 @@ public class Album implements Parcelable {
         this.nameArtist = nameArtist;
     }
 
-    public Bitmap getBmAlbum() {
-        return bmAlbum;
+    public Drawable getBmAlbum() {
+        return drawableAlbum;
     }
 
-    public void setBmAlbum(Bitmap bmAlbum) {
-        this.bmAlbum = bmAlbum;
+    public void setBmAlbum(Drawable drawableAlbum) {
+        this.drawableAlbum = drawableAlbum;
     }
 
     public String getName() {
@@ -111,6 +112,9 @@ public class Album implements Parcelable {
         this.attr = attr;
     }
 
+    public Album() {
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -125,11 +129,8 @@ public class Album implements Parcelable {
         dest.writeParcelable(this.artist, flags);
         dest.writeList(this.image);
         dest.writeParcelable(this.attr, flags);
-        dest.writeParcelable(this.bmAlbum, flags);
+        dest.writeParcelable((Parcelable) this.drawableAlbum, flags);
         dest.writeString(this.nameArtist);
-    }
-
-    public Album() {
     }
 
     protected Album(Parcel in) {
@@ -141,11 +142,11 @@ public class Album implements Parcelable {
         this.image = new ArrayList<Image>();
         in.readList(this.image, Image.class.getClassLoader());
         this.attr = in.readParcelable(Attr.class.getClassLoader());
-        this.bmAlbum = in.readParcelable(Bitmap.class.getClassLoader());
+        this.drawableAlbum = in.readParcelable(Drawable.class.getClassLoader());
         this.nameArtist = in.readString();
     }
 
-    public static final Parcelable.Creator<Album> CREATOR = new Parcelable.Creator<Album>() {
+    public static final Creator<Album> CREATOR = new Creator<Album>() {
         @Override
         public Album createFromParcel(Parcel source) {
             return new Album(source);

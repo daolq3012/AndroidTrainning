@@ -9,12 +9,14 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
+
 import com.fstyle.androidtrainning.R;
 import com.fstyle.androidtrainning.data.local.storage.ExternalData;
 import com.fstyle.androidtrainning.model.Album;
 import com.fstyle.androidtrainning.model.Track;
 import com.fstyle.androidtrainning.screen.BaseActivity;
 import com.fstyle.androidtrainning.utils.Constant;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -83,7 +85,7 @@ public class SongBelongAlbumActivity extends BaseActivity
     private void loadImage(String nameAlbum) {
         for (Album album : mExternalData.getArrayListAlbum()) {
             if (album.getName().equals(nameAlbum)) {
-                mImageViewDetail.setImageBitmap(album.getBmAlbum());
+                mImageViewDetail.setImageDrawable(album.getBmAlbum());
                 break;
             }
         }

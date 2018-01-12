@@ -53,6 +53,7 @@ public class ServicePlayMusic extends Service {
     private static final int MIN_LENGTH = 0;
     private static final int MAX_LENGTH = 15;
     private SharedPreference mPreference = new SharedPreference();
+    private IntentFilter filter;
 
     public class LocalBinder extends Binder {
         public ServicePlayMusic getService() {
@@ -73,6 +74,12 @@ public class ServicePlayMusic extends Service {
         super.onCreate();
         mMediaPlayer = new MediaPlayer();
         notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        filter = new IntentFilter();
+        filter.addAction(Constant.ACTION_NOTIFICATION_PREVIOUS);
+        filter.addAction(Constant.ACTION_NOTIFICATION_PAUSE);
+        filter.addAction(Constant.ACTION_NOTIFICATION_NEXT);
+        filter.addAction(Constant.ACTION_NOTIFICATION_CLOSE);
+        doRegisterNotificationSign();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
@@ -87,6 +94,8 @@ public class ServicePlayMusic extends Service {
                     intent.<Track>getParcelableArrayListExtra(Constant.EXTRA_TRACK_LIST_ITEM));
             id = intent.getIntExtra(Constant.EXTRA_ID, 0);
             initNotification();
+            cancelNotification();
+            startForeground(NOTIFICATION_ID, mNotification);
             stopMusic();
             if (mIsPause) {
                 createMusic(id);
@@ -95,7 +104,6 @@ public class ServicePlayMusic extends Service {
                 playMusic();
             }
             setupHandle();
-            doRegisterNotificationSign();
             mPreference.doPutBooleanMusic(this);
         }
         return START_STICKY;
@@ -130,13 +138,7 @@ public class ServicePlayMusic extends Service {
                 }
             }
         };
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(Constant.ACTION_NOTIFICATION_PREVIOUS);
-        filter.addAction(Constant.ACTION_NOTIFICATION_PAUSE);
-        filter.addAction(Constant.ACTION_NOTIFICATION_NEXT);
-        filter.addAction(Constant.ACTION_NOTIFICATION_CLOSE);
         registerReceiver(mBroadcastReceiver, filter);
-        startForeground(NOTIFICATION_ID, mNotification);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
@@ -411,7 +413,7 @@ public class ServicePlayMusic extends Service {
     }
 
     public void seekMusic() {
-        if (mMediaPlayer != null && !mIsPause) {
+        if (mMediaPlayer != null) {
             mMediaPlayer.seekTo(mediaLength);
         }
     }

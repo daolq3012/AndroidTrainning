@@ -1,15 +1,17 @@
 package com.fstyle.androidtrainning.screen.main.mainfragments.mysong.subfragment.album;
 
 import android.content.Context;
-import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.fstyle.androidtrainning.R;
 import com.fstyle.androidtrainning.model.Album;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,9 +92,9 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.RecyclerView
                 return;
             }
             this.position = position;
-            Bitmap image = mAlbums.get(position).getBmAlbum();
+            Drawable drawable = mAlbums.get(position).getBmAlbum();
             String nameArtist = mAlbums.get(position).getNameArtist();
-            mImageAlbum.setImageBitmap(image);
+            mImageAlbum.setImageDrawable(drawable);
             mTxtArtist.setText(nameArtist);
             setNameAlbum();
         }

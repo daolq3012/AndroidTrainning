@@ -19,6 +19,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -26,6 +27,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
 import com.fstyle.androidtrainning.R;
 import com.fstyle.androidtrainning.application.MainApplication;
 import com.fstyle.androidtrainning.data.local.roomdb.entity.TrackEntity;
@@ -33,12 +35,9 @@ import com.fstyle.androidtrainning.data.local.sharedpreference.SharedPreference;
 import com.fstyle.androidtrainning.data.remote.service.config.LastFmApi;
 import com.fstyle.androidtrainning.model.Track;
 import com.fstyle.androidtrainning.screen.BaseActivity;
-import com.fstyle.androidtrainning.screen.main.mainfragments.mysong.subfragment.favoritesong
-        .OnItemFavoriteClickListener;
-import com.fstyle.androidtrainning.screen.main.mainfragments.mysong.subfragment.listsong
-        .OnItemListSongClickListener;
-import com.fstyle.androidtrainning.screen.main.playingfragments.listsong
-        .OnItemSubListSongClickListener;
+import com.fstyle.androidtrainning.screen.main.mainfragments.mysong.subfragment.favoritesong.OnItemFavoriteClickListener;
+import com.fstyle.androidtrainning.screen.main.mainfragments.mysong.subfragment.listsong.OnItemListSongClickListener;
+import com.fstyle.androidtrainning.screen.main.playingfragments.listsong.OnItemSubListSongClickListener;
 import com.fstyle.androidtrainning.screen.search.SearchActivity;
 import com.fstyle.androidtrainning.screen.songbelongalbum.SongBelongAlbumActivity;
 import com.fstyle.androidtrainning.screen.songbelongartist.SongBelongArtistActivity;
@@ -47,8 +46,10 @@ import com.fstyle.androidtrainning.utils.Constant;
 import com.fstyle.androidtrainning.utils.Utilities;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import me.relex.circleindicator.CircleIndicator;
 
 public class MainActivity extends BaseActivity
@@ -384,7 +385,7 @@ public class MainActivity extends BaseActivity
                     isMusicPlaying = !isMusicPlaying;
                     changePauseImage();
                     mServicePlayMusic.resumeMusic();
-                    //                    mSeekBarTime.setMax(getProgressMedia());
+                                        mSeekBarTime.setMax(getProgressMedia());
                 } else {
                     isMusicPlaying = !isMusicPlaying;
                     changePlayImage();
@@ -396,7 +397,7 @@ public class MainActivity extends BaseActivity
                     isMusicPlaying = !isMusicPlaying;
                     changePauseImage();
                     mServicePlayMusic.resumeMusic();
-                    //                    mSeekBarTime.setMax(getProgressMedia());
+                                        mSeekBarTime.setMax(getProgressMedia());
                 } else {
                     isMusicPlaying = !isMusicPlaying;
                     changePlayImage();
@@ -488,9 +489,9 @@ public class MainActivity extends BaseActivity
     private void initAlarm() {
         Dialog dialog = new Dialog(this);
         // khởi tạo dialog
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.layout_alarm_dialog);
         // xét layout cho dialog
-        dialog.setTitle(getResources().getString(R.string.alarm_text));
         final SeekBar sbAlarm = dialog.findViewById(R.id.seekBar_alarm);
         final TextView tvAlarm = dialog.findViewById(R.id.text_alarm);
         sbAlarm.setMax(ALARM_TIME);
@@ -559,6 +560,7 @@ public class MainActivity extends BaseActivity
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         if (fromUser) {
             mServicePlayMusic.setMediaLength(progress);
+            mSeekBarTime.setProgress(progress);
             mServicePlayMusic.seekMusic();
         } else {
             updateUI();
@@ -629,6 +631,7 @@ public class MainActivity extends BaseActivity
         if (mServicePlayMusic.getMediaPlayer() != null) {
             mSeekBarTime.setMax(getProgressMedia());
         }
+
         startService(position, tracks);
         if (mOnListChangeListener != null) {
             mOnListChangeListener.onListChanged();
@@ -746,7 +749,7 @@ public class MainActivity extends BaseActivity
         }
     }
 
-    @IntDef({ Tab.MY_SONG, Tab.ONLINE})
+    @IntDef({Tab.MY_SONG, Tab.ONLINE})
     public @interface Tab {
         int MY_SONG = 0;
         int ONLINE = 1;
